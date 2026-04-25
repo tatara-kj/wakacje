@@ -1,0 +1,75 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+import RegistrationForm from "../components/RegistrationForm.astro";
+import FAQSection from "../components/FAQSection.astro";
+import ProcessSection from "../components/ProcessSection.astro";
+import { siteConfig } from "../data/site";
+---
+
+<MainLayout title="Zapisy" description="Formularz zapisów MK SPORT" lang="pl">
+  <Header lang="pl" currentPath="/zapisy" />
+
+  <PageHero
+    eyebrow="Zapisy"
+    title="Zgłoś dziecko na wyjazd"
+    lead="Formularz ma być prosty, szybki i czytelny. Rodzic nie ma się zastanawiać, co zrobić dalej — wszystko ma być jasno opisane."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="registration-premium">
+        <div class="registration-premium__form">
+          <RegistrationForm lang="pl" />
+        </div>
+
+        <div class="registration-premium__side">
+          <div class="card card-padding-lg register-info-card">
+            <div class="eyebrow">Jak to działa?</div>
+            <h3>Co dzieje się po wysłaniu zgłoszenia?</h3>
+            <ul class="list-check">
+              <li>zgłoszenie trafia na adres: {siteConfig.email}</li>
+              <li>organizator kontaktuje się w sprawie dalszych szczegółów</li>
+              <li>dane do wpłaty są przekazywane po zgłoszeniu</li>
+              <li>dokumenty można pobrać bezpośrednio ze strony</li>
+            </ul>
+          </div>
+
+          <div class="card card-padding-lg register-info-card">
+            <div class="eyebrow">Kontakt</div>
+            <h3>Masz pytania przed zapisaniem?</h3>
+            <p class="muted">
+              Najszybciej skontaktujesz się telefonicznie lub mailowo.
+            </p>
+
+            <div class="register-contact-list">
+              <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a>
+              <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              <span>{siteConfig.owner}</span>
+            </div>
+
+            <div style="margin-top:18px;">
+              <a href="/kontakt" class="btn btn-secondary">Przejdź do kontaktu</a>
+            </div>
+          </div>
+
+          <div class="card card-padding-lg register-info-card">
+            <div class="eyebrow">Ważne</div>
+            <h3>Informacja dla rodziców</h3>
+            <p class="muted">
+              Część danych na stronie ma jeszcze status tymczasowy i będzie uzupełniana,
+              ale formularz kontaktowy działa już jako baza do pierwszego kontaktu.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ProcessSection lang="pl" />
+  <FAQSection lang="pl" />
+
+  <Footer lang="pl" />
+</MainLayout>

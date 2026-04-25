@@ -1,0 +1,87 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+import { siteConfig } from "../data/site";
+---
+
+<MainLayout title="Kontakt" description="Kontakt MK SPORT" lang="pl">
+  <Header lang="pl" currentPath="/kontakt" />
+
+  <PageHero
+    eyebrow="Kontakt"
+    title="Skontaktuj się z organizatorem"
+    lead="Rodzic ma tu od razu wiedzieć, gdzie zadzwonić, gdzie napisać i jak przejść do zgłoszenia. Bez chaosu i bez szukania informacji po całej stronie."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-premium">
+        <div class="contact-premium__main card">
+          <div class="contact-premium__top">
+            <div class="eyebrow">MK SPORT</div>
+            <h2 class="section-title">Najważniejsze dane kontaktowe</h2>
+            <p class="section-lead">
+              Najszybsza droga to telefon lub wiadomość e-mail. W sprawie zapisów i szczegółów wyjazdu można też przejść od razu do formularza.
+            </p>
+          </div>
+
+          <div class="contact-premium__cards">
+            <div class="contact-box card">
+              <strong>Telefon</strong>
+              <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a>
+              <span>Kontakt bezpośredni z organizatorem</span>
+            </div>
+
+            <div class="contact-box card">
+              <strong>E-mail</strong>
+              <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              <span>Wiadomości i zgłoszenia ze strony</span>
+            </div>
+
+            <div class="contact-box card">
+              <strong>Osoba kontaktowa</strong>
+              <span>{siteConfig.owner}</span>
+              <span>MK SPORT</span>
+            </div>
+          </div>
+
+          <div class="contact-premium__actions">
+            <a href="/zapisy" class="btn btn-primary">Przejdź do zapisów</a>
+            <a href={siteConfig.facebook} target="_blank" rel="noreferrer" class="btn btn-secondary">
+              Facebook
+            </a>
+            <a href={siteConfig.instagram} target="_blank" rel="noreferrer" class="btn btn-secondary">
+              Instagram
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-premium__side">
+          <div class="card card-padding-lg contact-note">
+            <div class="eyebrow">Dla rodziców</div>
+            <h3>Jak wygląda kontakt po zgłoszeniu?</h3>
+            <ul class="list-check">
+              <li>zgłoszenie trafia bezpośrednio na adres e-mail organizatora</li>
+              <li>rodzic otrzymuje dalsze informacje po kontakcie</li>
+              <li>dane do wpłaty przekazywane są po zgłoszeniu</li>
+              <li>dokumenty można pobrać bez szukania ich w wiadomościach</li>
+            </ul>
+          </div>
+
+          <div class="card card-padding-lg contact-note">
+            <div class="eyebrow">Informacje</div>
+            <h3>Dane formalne</h3>
+            <p class="muted">
+              [adres do uzupełnienia]<br />
+              [pełne dane organizatora do uzupełnienia]
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="pl" />
+</MainLayout>

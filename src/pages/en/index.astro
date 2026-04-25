@@ -1,0 +1,128 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import OfferCard from "../../components/OfferCard.astro";
+import DocumentsSection from "../../components/DocumentsSection.astro";
+import SocialSection from "../../components/SocialSection.astro";
+import FAQSection from "../../components/FAQSection.astro";
+import ProcessSection from "../../components/ProcessSection.astro";
+import CountdownSection from "../../components/CountdownSection.astro";
+import CommentsSection from "../../components/CommentsSection.astro";
+import StatsSection from "../../components/StatsSection.astro";
+import SectionDivider from "../../components/SectionDivider.astro";
+import { siteConfig } from "../../data/site";
+import { offers } from "../../data/offers";
+---
+
+<MainLayout
+  title={siteConfig.en.siteName}
+  description={siteConfig.en.shortDescription}
+  lang="en"
+>
+  <Header lang="en" currentPath="/en" />
+
+  <section class="hero hero--immersive">
+    <div class="container">
+      <div class="hero-stage">
+        <div class="hero-stage__image">
+          <img src="/images/ogolne/hero-main.jfif" alt="MK SPORT" class="image-cover" />
+        </div>
+
+        <div class="hero-stage__overlay"></div>
+
+        <div class="hero-stage__content">
+          <div class="hero-stage__panel fade-up">
+            <div class="eyebrow">Camps and holidays • MK SPORT</div>
+
+            <h1 class="display-title">
+              Camps and holidays with <span class="accent shimmer-text">activity, adventure and care</span>
+            </h1>
+
+            <p class="hero__lead">
+              A modern offer of camps and holiday trips for children and teenagers. Sport, excursions,
+              integration, good organization and clear information for parents — all in one place.
+            </p>
+
+            <div class="pill-group hero__tag-row">
+              <span class="badge">Safe holiday</span>
+              <span class="badge">Active program</span>
+              <span class="badge">Easy contact</span>
+            </div>
+
+            <div class="hero__actions">
+              <a href="/en/oferta" class="btn btn-primary">View offers</a>
+              <a href="/en/zapisy" class="btn btn-secondary">Go to registration</a>
+            </div>
+          </div>
+
+          <div class="hero-stage__side fade-up reveal-delay-1">
+            <div class="mini-glass" data-parallax>
+              <strong>Safe and active holidays</strong>
+              <span>Well-planned trips with attractions, sports activities and staff care.</span>
+            </div>
+
+            <div class="mini-glass" data-parallax>
+              <strong>A program that keeps children engaged</strong>
+              <span>Excursions, integration, movement, fun and memories that stay after the trip ends.</span>
+            </div>
+
+            <div class="mini-glass" data-parallax>
+              <strong>Clear information for parents</strong>
+              <span>Offer, contact, documents and registration gathered in one place without chaos.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider variant="accent" />
+  <StatsSection lang="en" />
+  <CountdownSection lang="en" />
+
+  <section class="section offer-section">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Offer</div>
+        <h2 class="section-title">Choose the right trip for your child</h2>
+        <p class="section-lead">
+          Each camp has its own atmosphere, plan and character. Below are the current directions presented by MK SPORT.
+        </p>
+      </div>
+
+      <div class="offer-grid">
+        {offers.map((offer) => <OfferCard offer={offer} lang="en" />)}
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider variant="light" />
+  <ProcessSection lang="en" />
+  <DocumentsSection lang="en" compactMobile={true} />
+  <CommentsSection lang="en" />
+  <SocialSection lang="en" />
+  <FAQSection lang="en" />
+
+  <section class="section section-band">
+    <div class="container">
+      <div class="home-bottom-banner card">
+        <div class="home-bottom-banner__content">
+          <div class="eyebrow">MK SPORT</div>
+          <h2 class="section-title">Everything a parent needs in one place</h2>
+          <p class="section-lead">
+            Offer, contact, documents, registration form and the key trip information.
+            The website should feel modern, but above all clear and easy to use.
+          </p>
+        </div>
+
+        <div class="home-bottom-banner__actions">
+          <a href="/en/oferta" class="btn btn-primary">Check offers</a>
+          <a href="/en/kontakt" class="btn btn-secondary">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="en" />
+</MainLayout>

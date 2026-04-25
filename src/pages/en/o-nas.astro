@@ -1,0 +1,68 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+---
+
+<MainLayout title="About" description="About MK SPORT" lang="en">
+  <Header lang="en" currentPath="/en/o-nas" />
+
+  <PageHero
+    eyebrow="About"
+    title="Get to know MK SPORT"
+    lead="MK SPORT means trips for children and teenagers based on activity, good organization and an atmosphere worth coming back to."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="about-premium">
+        <div class="about-premium__image card">
+          <img src="/images/ogolne/hero-main.png" alt="MK SPORT" class="image-cover" />
+        </div>
+
+        <div class="about-premium__content">
+          <div class="card card-padding-lg">
+            <div class="eyebrow">MK SPORT</div>
+            <h2 class="section-title">Camps, holiday trips and active rest</h2>
+            <p class="section-lead">
+              We organize trips where the goal is more than just “filling the schedule”.
+              For children, these should become real memories. For parents, it should feel clear, organized and safe.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card card-padding about-box">
+              <h3>What makes us different?</h3>
+              <ul class="list-check">
+                <li>active program and good organization</li>
+                <li>clear communication with parents</li>
+                <li>trips based on real places and experience</li>
+                <li>a mix of movement, integration and rest</li>
+              </ul>
+            </div>
+
+            <div class="card card-padding about-box">
+              <h3>What do we want to give participants?</h3>
+              <ul class="list-check">
+                <li>safe and interesting holidays</li>
+                <li>new experiences and memories</li>
+                <li>movement, sport and shared moments</li>
+                <li>a trip children truly want to talk about afterwards</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card card-padding-lg about-note">
+            <p class="muted">
+              Parents care about clarity, contact and a sense of safety.
+              Children care about fun, adventure and atmosphere. A good offer should deliver both.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="en" />
+</MainLayout>

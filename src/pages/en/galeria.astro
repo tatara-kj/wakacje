@@ -1,0 +1,87 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const root = process.cwd();
+
+function readImages(folder: string) {
+  const dir = path.join(root, "public", "images", folder);
+
+  if (!fs.existsSync(dir)) return [];
+
+  const priority = (name: string) => {
+    const lower = name.toLowerCase();
+    if (lower.startsWith("main.")) return 0;
+    if (lower.startsWith("1.")) return 1;
+    return 2;
+  };
+
+  return fs
+    .readdirSync(dir)
+    .filter((name) => /\.(jpg|jpeg|jfif|png|webp)$/i.test(name))
+    .sort((a, b) => priority(a) - priority(b) || a.localeCompare(b, "en"))
+    .map((name) => `/images/${folder}/${name}`);
+}
+
+const sections = [
+  {
+    title: "Jaroslawiec",
+    subtitle: "Seaside atmosphere, activity and summer energy",
+    description:
+      "A seaside trip combines movement, shared fun, integration and relaxation. The gallery should show the real feeling of the camp, not just a few cropped shots.",
+    images: readImages("jaroslawiec"),
+  },
+  {
+    title: "Ostrow Pieckowskie",
+    subtitle: "Masuria, nature and active rest",
+    description:
+      "This destination has a calmer visual atmosphere, closer to nature, but still active and full of energy.",
+    images: readImages("ostrow-pieckowskie"),
+  },
+  {
+    title: "Poronin",
+    subtitle: "Winter trip with a mountain character",
+    description:
+      "Here the gallery should feel more dynamic and seasonal, with real winter moments and shared activities.",
+    images: readImages("poronin-zimowy"),
+  },
+];
+---
+
+<MainLayout title="Gallery" description="MK SPORT gallery" lang="en">
+  <Header lang="en" currentPath="/en/galeria" />
+
+  <PageHero
+    eyebrow="Gallery"
+    title="See the atmosphere of our trips"
+    lead="A strong gallery says more than a long block of text. Here parents should feel the atmosphere of the trip and see real places and real moments."
+  />
+
+  {sections.map((section) => (
+    <section class="section">
+      <div class="container">
+        <div class="gallery-band">
+          <div class="gallery-band__intro card card-padding-lg">
+            <div class="eyebrow">{section.title}</div>
+            <h2 class="section-title">{section.subtitle}</h2>
+            <p class="section-lead">{section.description}</p>
+          </div>
+
+          <div class="gallery-wall">
+            {section.images.map((src) => (
+              <figure class="gallery-wall__item card">
+                <img src={src} alt={section.title} loading="lazy" />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <Footer lang="en" />
+</MainLayout>

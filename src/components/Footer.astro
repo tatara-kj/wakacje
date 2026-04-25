@@ -1,0 +1,104 @@
+---
+import { siteConfig, navItemsPL, navItemsEN } from "../data/site";
+
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const nav = lang === "pl" ? navItemsPL : navItemsEN;
+const docsPageHref = lang === "pl" ? "/dokumenty" : "/en/dokumenty";
+const registerHref = lang === "pl" ? "/zapisy" : "/en/zapisy";
+
+const t =
+  lang === "pl"
+    ? {
+        aboutText:
+          "Obozy i kolonie dla dzieci i młodzieży. Aktywność, dobra organizacja, kontakt z rodzicami i wyjazdy, które zostają w pamięci na długo.",
+        navTitle: "Nawigacja",
+        contactTitle: "Kontakt",
+        docsTitle: "Dokumenty",
+        socialTitle: "Social media",
+        rights: "Wszelkie prawa zastrzeżone.",
+        docsPage: "Wszystkie dokumenty",
+      }
+    : {
+        aboutText:
+          "Camps and holiday trips for children and teenagers. Activity, good organization, parent communication and memorable trips.",
+        navTitle: "Navigation",
+        contactTitle: "Contact",
+        docsTitle: "Documents",
+        socialTitle: "Social media",
+        rights: "All rights reserved.",
+        docsPage: "All documents",
+      };
+---
+
+<footer class="footer footer-premium">
+  <div class="container">
+    <div class="footer-premium__top">
+      <div class="footer-premium__brand">
+        <div class="site-brand">
+          <div class="site-brand__logo site-brand__logo--image">
+            <img src="/images/logo/logo.png" alt="MK SPORT" width="42" height="42" />
+          </div>
+
+          <div class="site-brand__text">
+            <span class="site-brand__title">MK SPORT</span>
+            <span class="site-brand__subtitle">
+              {lang === "pl" ? "Obozy i kolonie dla dzieci" : "Camps for children"}
+            </span>
+          </div>
+        </div>
+
+        <p class="footer-premium__about">{t.aboutText}</p>
+      </div>
+
+      <div class="footer-premium__grid">
+        <div>
+          <h3 class="footer__title">{t.navTitle}</h3>
+          <ul class="footer__list">
+            {nav.map((item) => (
+              <li><a href={item.href}>{item.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer__title">{t.contactTitle}</h3>
+          <ul class="footer__list">
+            <li><a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a></li>
+            <li><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></li>
+            <li><span class="footer__text">{siteConfig.owner}</span></li>
+            <li><span class="footer__text">[adres do uzupełnienia]</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer__title">{t.docsTitle}</h3>
+          <ul class="footer__list">
+            <li><a href={docsPageHref}>{t.docsPage}</a></li>
+            <li><a href="/docs/karta-kwalifikacyjna.pdf" target="_blank" rel="noreferrer">Karta kwalifikacyjna</a></li>
+            <li><a href="/docs/warunki-uczestnictwa.pdf" target="_blank" rel="noreferrer">Warunki uczestnictwa</a></li>
+            <li><a href="/docs/informacje-organizacyjne.pdf" target="_blank" rel="noreferrer">Informacje organizacyjne</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer__title">{t.socialTitle}</h3>
+          <ul class="footer__list">
+            <li><a href={siteConfig.facebook} target="_blank" rel="noreferrer">Facebook</a></li>
+            <li><a href={siteConfig.instagram} target="_blank" rel="noreferrer">Instagram</a></li>
+            <li><a href={registerHref}>{lang === "pl" ? "Formularz zapisów" : "Registration form"}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-premium__bottom">
+      <span>© 2026 MK SPORT. {t.rights}</span>
+      <span>{lang === "pl" ? "Strona internetowa MK SPORT" : "MK SPORT website"}</span>
+    </div>
+  </div>
+</footer>

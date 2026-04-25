@@ -1,0 +1,147 @@
+---
+import { navItemsPL, navItemsEN, siteConfig } from "../data/site";
+import LanguageSwitch from "./LanguageSwitch.astro";
+
+interface Props {
+  lang?: "pl" | "en";
+  currentPath?: string;
+}
+
+const { lang = "pl", currentPath = "/" } = Astro.props;
+
+const navItems = lang === "pl" ? navItemsPL : navItemsEN;
+const homeHref = lang === "pl" ? "/" : "/en";
+const ctaHref = lang === "pl" ? "/zapisy" : "/en/zapisy";
+const ctaLabel = lang === "pl" ? "Zapisz dziecko" : "Register";
+const subtitle =
+  lang === "pl" ? "Obozy i kolonie dla dzieci" : "Camps for children";
+---
+
+<header class="site-header" id="siteHeader">
+  <div class="container site-header__inner">
+    <a href={homeHref} class="site-brand" aria-label="MK SPORT">
+      <div class="site-brand__logo site-brand__logo--image">
+        <img src="/images/logo/logo.png" alt="MK SPORT" width="40" height="40" />
+      </div>
+
+      <div class="site-brand__text">
+        <span class="site-brand__title">MK SPORT</span>
+        <span class="site-brand__subtitle">{subtitle}</span>
+      </div>
+    </a>
+
+    <nav class="site-nav" aria-label={lang === "pl" ? "Główna nawigacja" : "Main navigation"}>
+      {navItems.map((item) => (
+        <a href={item.href} class={currentPath === item.href ? "active" : ""}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="site-actions">
+      <LanguageSwitch lang={lang} currentPath={currentPath} />
+
+      <a class="btn btn-secondary header-phone" href={`tel:${siteConfig.phoneRaw}`}>
+        {siteConfig.phone}
+      </a>
+
+      <a class="btn btn-primary header-cta" href={ctaHref}>
+        {ctaLabel}
+      </a>
+
+      <button
+        class="mobile-toggle"
+        id="mobileMenuToggle"
+        type="button"
+        aria-label={lang === "pl" ? "Otwórz menu" : "Open menu"}
+        aria-controls="mobileMenu"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="site-mobile" id="mobileMenu">
+    <div class="container">
+      <div class="site-mobile__panel">
+        <div class="site-mobile__top">
+          <div class="site-mobile__brand">
+            <img src="/images/logo/logo.png" alt="MK SPORT" />
+            <strong>MK SPORT</strong>
+          </div>
+
+          <button
+            class="site-mobile__close"
+            id="mobileMenuClose"
+            type="button"
+            aria-label={lang === "pl" ? "Zamknij menu" : "Close menu"}
+          >
+            ✕
+          </button>
+        </div>
+
+        <nav class="site-mobile__nav">
+          {navItems.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+
+        <div class="site-mobile__actions">
+          <a class="btn btn-secondary" href={`tel:${siteConfig.phoneRaw}`}>
+            {siteConfig.phone}
+          </a>
+          <a class="btn btn-primary" href={ctaHref}>
+            {ctaLabel}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const header = document.getElementById("siteHeader");
+  const toggle = document.getElementById("mobileMenuToggle");
+  const closeBtn = document.getElementById("mobileMenuClose");
+  const menu = document.getElementById("mobileMenu");
+
+  function onScrollHeader() {
+    if (!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 18);
+  }
+
+  function openMenu() {
+    if (!menu || !toggle) return;
+    menu.classList.add("is-open");
+    toggle.setAttribute("aria-expanded", "true");
+    document.body.classList.add("nav-open");
+  }
+
+  function closeMenu() {
+    if (!menu || !toggle) return;
+    menu.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
+  }
+
+  window.addEventListener("scroll", onScrollHeader, { passive: true });
+  onScrollHeader();
+
+  toggle?.addEventListener("click", () => {
+    if (menu?.classList.contains("is-open")) closeMenu();
+    else openMenu();
+  });
+
+  closeBtn?.addEventListener("click", closeMenu);
+
+  menu?.addEventListener("click", (event) => {
+    if (event.target === menu) closeMenu();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 980) closeMenu();
+  });
+</script>

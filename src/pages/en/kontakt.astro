@@ -1,0 +1,87 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import { siteConfig } from "../../data/site";
+---
+
+<MainLayout title="Contact" description="MK SPORT contact" lang="en">
+  <Header lang="en" currentPath="/en/kontakt" />
+
+  <PageHero
+    eyebrow="Contact"
+    title="Get in touch with the organizer"
+    lead="Parents should immediately know where to call, where to write and how to proceed to registration. No confusion and no searching through the whole website."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-premium">
+        <div class="contact-premium__main card">
+          <div class="contact-premium__top">
+            <div class="eyebrow">MK SPORT</div>
+            <h2 class="section-title">Main contact details</h2>
+            <p class="section-lead">
+              The fastest way is phone or e-mail. For registration and trip details, parents can also go directly to the form.
+            </p>
+          </div>
+
+          <div class="contact-premium__cards">
+            <div class="contact-box card">
+              <strong>Phone</strong>
+              <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a>
+              <span>Direct contact with the organizer</span>
+            </div>
+
+            <div class="contact-box card">
+              <strong>E-mail</strong>
+              <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              <span>Messages and registrations from the website</span>
+            </div>
+
+            <div class="contact-box card">
+              <strong>Contact person</strong>
+              <span>{siteConfig.owner}</span>
+              <span>MK SPORT</span>
+            </div>
+          </div>
+
+          <div class="contact-premium__actions">
+            <a href="/en/zapisy" class="btn btn-primary">Go to registration</a>
+            <a href={siteConfig.facebook} target="_blank" rel="noreferrer" class="btn btn-secondary">
+              Facebook
+            </a>
+            <a href={siteConfig.instagram} target="_blank" rel="noreferrer" class="btn btn-secondary">
+              Instagram
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-premium__side">
+          <div class="card card-padding-lg contact-note">
+            <div class="eyebrow">For parents</div>
+            <h3>What happens after registration?</h3>
+            <ul class="list-check">
+              <li>the registration is sent directly to the organizer's e-mail</li>
+              <li>the parent receives further information after contact</li>
+              <li>payment details are sent after registration</li>
+              <li>documents can be downloaded without searching through messages</li>
+            </ul>
+          </div>
+
+          <div class="card card-padding-lg contact-note">
+            <div class="eyebrow">Information</div>
+            <h3>Formal details</h3>
+            <p class="muted">
+              [address to complete]<br />
+              [full organizer data to complete]
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="en" />
+</MainLayout>

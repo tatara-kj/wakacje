@@ -1,0 +1,42 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import DocumentsSection from "../../components/DocumentsSection.astro";
+import FAQSection from "../../components/FAQSection.astro";
+---
+
+<MainLayout title="Documents" description="MK SPORT downloadable documents" lang="en">
+  <Header lang="en" currentPath="/en/dokumenty" />
+
+  <PageHero
+    eyebrow="Documents"
+    title="Downloadable documents"
+    lead="This is where parents should find all important files in one place. No searching through messages and no confusion."
+  />
+
+  <DocumentsSection lang="en" />
+  <FAQSection lang="en" />
+
+  <section class="section section-band">
+    <div class="container">
+      <div class="cta-banner card">
+        <div>
+          <div class="eyebrow">Next step</div>
+          <h2 class="section-title">You have the documents and want to move on?</h2>
+          <p class="section-lead">
+            Go to the registration form or contact the organizer directly.
+          </p>
+        </div>
+
+        <div class="cta-banner__actions">
+          <a href="/en/zapisy" class="btn btn-primary">Go to registration</a>
+          <a href="/en/kontakt" class="btn btn-secondary">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="en" />
+</MainLayout>

@@ -1,0 +1,111 @@
+---
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const testimonials =
+  lang === "pl"
+    ? [
+        {
+          name: "Marek K.",
+          rating: 5,
+          text: "Duży plus za organizację i jasne informacje przed wyjazdem. Dziecko wróciło bardzo zadowolone i już pyta o kolejny termin.",
+        },
+        {
+          name: "Anna P.",
+          rating: 4,
+          text: "Bardzo fajne połączenie aktywności, integracji i odpoczynku. Na plus także szybki kontakt i dobra atmosfera.",
+        },
+        {
+          name: "Tomasz W.",
+          rating: 5,
+          text: "Widać, że wyjazd jest dobrze przemyślany. Wszystko było jasno wyjaśnione, a program nie wyglądał jak przypadkowo złożony.",
+        },
+        {
+          name: "Karolina M.",
+          rating: 5,
+          text: "Córka wróciła zadowolona, pełna wrażeń i nowych znajomości. To dla mnie najlepsza rekomendacja.",
+        },
+        {
+          name: "Paweł D.",
+          rating: 4,
+          text: "Dobry kontakt z organizatorem, przejrzyste informacje i sensowny program wyjazdu. Całość robi bardzo dobre wrażenie.",
+        },
+        {
+          name: "Ewa S.",
+          rating: 5,
+          text: "Najbardziej podobało mi się to, że wszystko było zebrane w jednym miejscu: oferta, dokumenty, kontakt i szybkie zgłoszenie.",
+        },
+      ]
+    : [
+        {
+          name: "Marek K.",
+          rating: 5,
+          text: "A big plus for organization and clear information before departure. The child came back very happy and is already asking about the next trip.",
+        },
+        {
+          name: "Anna P.",
+          rating: 4,
+          text: "A very good mix of activity, integration and rest. Also a plus for fast contact and a good atmosphere.",
+        },
+        {
+          name: "Tomasz W.",
+          rating: 5,
+          text: "You can see that the trip is well thought out. Everything was clearly explained and the program felt properly planned.",
+        },
+        {
+          name: "Karolina M.",
+          rating: 5,
+          text: "My daughter came back happy, full of impressions and new friendships. For me that says everything.",
+        },
+        {
+          name: "Paweł D.",
+          rating: 4,
+          text: "Good contact with the organizer, clear information and a sensible trip program. The whole thing makes a very good impression.",
+        },
+        {
+          name: "Ewa S.",
+          rating: 5,
+          text: "I liked that everything was gathered in one place: offer, documents, contact and fast registration.",
+        },
+      ];
+
+const t =
+  lang === "pl"
+    ? {
+        eyebrow: "Opinie",
+        title: "Co mówią rodzice?",
+      }
+    : {
+        eyebrow: "Reviews",
+        title: "What do parents say?",
+      };
+---
+
+<section class="section testimonial-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow">{t.eyebrow}</div>
+      <h2 class="section-title">{t.title}</h2>
+    </div>
+
+    <div class="testimonial-marquee">
+      <div class="testimonial-marquee__track">
+        {[...testimonials, ...testimonials].map((item, index) => (
+          <article 
+            class="card testimonial-card hover-lift" 
+            aria-hidden={index >= testimonials.length ? "true" : "false"}
+          >
+            <div class="testimonial-card__top">
+              <strong>{item.name}</strong>
+              <span>{"★".repeat(item.rating)}{"☆".repeat(5 - item.rating)}</span>
+            </div>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

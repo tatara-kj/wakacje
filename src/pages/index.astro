@@ -1,0 +1,128 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import OfferCard from "../components/OfferCard.astro";
+import DocumentsSection from "../components/DocumentsSection.astro";
+import SocialSection from "../components/SocialSection.astro";
+import FAQSection from "../components/FAQSection.astro";
+import ProcessSection from "../components/ProcessSection.astro";
+import CountdownSection from "../components/CountdownSection.astro";
+import CommentsSection from "../components/CommentsSection.astro";
+import StatsSection from "../components/StatsSection.astro";
+import SectionDivider from "../components/SectionDivider.astro";
+import { siteConfig } from "../data/site";
+import { offers } from "../data/offers";
+---
+
+<MainLayout
+  title={siteConfig.pl.siteName}
+  description={siteConfig.pl.shortDescription}
+  lang="pl"
+>
+  <Header lang="pl" currentPath="/" />
+
+  <section class="hero hero--immersive">
+    <div class="container">
+      <div class="hero-stage">
+        <div class="hero-stage__image">
+          <img src="/images/ogolne/hero-main.jfif" alt="MK SPORT" class="image-cover" />
+        </div>
+
+        <div class="hero-stage__overlay"></div>
+
+        <div class="hero-stage__content">
+          <div class="hero-stage__panel fade-up">
+            <div class="eyebrow">Obozy i kolonie • MK SPORT</div>
+
+            <h1 class="display-title">
+              Obozy i kolonie z <span class="accent shimmer-text">programem, ruchem i przygodą</span>
+            </h1>
+
+            <p class="hero__lead">
+              Nowoczesna oferta obozów i kolonii dla dzieci i młodzieży. Sport, wycieczki,
+              integracja, dobra organizacja i jasne informacje dla rodziców — wszystko w jednym miejscu.
+            </p>
+
+            <div class="pill-group hero__tag-row">
+              <span class="badge">Bezpieczny wypoczynek</span>
+              <span class="badge">Aktywny program</span>
+              <span class="badge">Prosty kontakt i zapisy</span>
+            </div>
+
+            <div class="hero__actions">
+              <a href="/oferta" class="btn btn-primary">Zobacz ofertę</a>
+              <a href="/zapisy" class="btn btn-secondary">Przejdź do zapisów</a>
+            </div>
+          </div>
+
+          <div class="hero-stage__side fade-up reveal-delay-1">
+            <div class="mini-glass" data-parallax>
+              <strong>Bezpieczny i aktywny wypoczynek</strong>
+              <span>Dobrze zaplanowane wyjazdy z atrakcjami, sportem i opieką kadry.</span>
+            </div>
+
+            <div class="mini-glass" data-parallax>
+              <strong>Program, który nie nudzi</strong>
+              <span>Wycieczki, integracja, ruch, zabawa i wspomnienia, do których dzieci wracają po wakacjach.</span>
+            </div>
+
+            <div class="mini-glass" data-parallax>
+              <strong>Jasne informacje dla rodziców</strong>
+              <span>Oferta, kontakt, dokumenty i zgłoszenie w jednym miejscu, bez chaosu i szukania po wiadomościach.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider variant="accent" />
+  <StatsSection lang="pl" />
+  <CountdownSection lang="pl" />
+
+  <section class="section offer-section">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Oferta</div>
+        <h2 class="section-title">Wybierz odpowiedni wyjazd dla swojego dziecka</h2>
+        <p class="section-lead">
+          Każdy obóz ma swój klimat, program i charakter. Poniżej znajdują się aktualnie prezentowane kierunki wyjazdów MK SPORT.
+        </p>
+      </div>
+
+      <div class="offer-grid">
+        {offers.map((offer) => <OfferCard offer={offer} lang="pl" />)}
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider variant="light" />
+  <ProcessSection lang="pl" />
+  <DocumentsSection lang="pl" compactMobile={true} />
+  <CommentsSection lang="pl" />
+  <SocialSection lang="pl" />
+  <FAQSection lang="pl" />
+
+  <section class="section section-band">
+    <div class="container">
+      <div class="home-bottom-banner card">
+        <div class="home-bottom-banner__content">
+          <div class="eyebrow">MK SPORT</div>
+          <h2 class="section-title">Wszystko, czego rodzic potrzebuje, w jednym miejscu</h2>
+          <p class="section-lead">
+            Oferta, kontakt, dokumenty, formularz i podstawowe informacje o wyjazdach.
+            Strona ma być nowoczesna, ale przede wszystkim czytelna i wygodna.
+          </p>
+        </div>
+
+        <div class="home-bottom-banner__actions">
+          <a href="/oferta" class="btn btn-primary">Sprawdź ofertę</a>
+          <a href="/kontakt" class="btn btn-secondary">Skontaktuj się</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="pl" />
+</MainLayout>

@@ -1,0 +1,98 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import { offers } from "../../data/offers";
+---
+
+<MainLayout title="Offers" description="MK SPORT camps offer" lang="en">
+  <Header lang="en" currentPath="/en/oferta" />
+
+  <PageHero
+    eyebrow="Offers"
+    title="MK SPORT camp offers"
+    lead="Check the current destinations, compare the most important information and choose the right option for your child."
+  />
+
+  <section class="section">
+    <div class="container offer-detail-stack">
+      {offers.map((offer, index) => {
+        const content = offer.en;
+
+        return (
+          <article class={`offer-detail card ${index % 2 === 1 ? "offer-detail--reverse" : ""}`} id={offer.slug}>
+            <div class="offer-detail__image">
+              <img src={offer.image} alt={content.title} class="image-cover" />
+            </div>
+
+            <div class="offer-detail__content">
+              <div class="offer-detail__meta">
+                <span class="badge">{content.season}</span>
+                <span class="badge">{content.place}</span>
+              </div>
+
+              <h2 class="section-title">{content.title}</h2>
+              <p class="section-lead">{content.short}</p>
+
+              <div class="offer-detail__facts">
+                <div class="offer-detail__fact">
+                  <strong>Date</strong>
+                  <span>{content.date}</span>
+                </div>
+
+                <div class="offer-detail__fact">
+                  <strong>Age</strong>
+                  <span>{content.age}</span>
+                </div>
+
+                <div class="offer-detail__fact">
+                  <strong>Price</strong>
+                  <span>{content.price}</span>
+                </div>
+
+                <div class="offer-detail__fact">
+                  <strong>Accommodation</strong>
+                  <span>{content.accommodation}</span>
+                </div>
+
+                <div class="offer-detail__fact">
+                  <strong>Meals</strong>
+                  <span>{content.food}</span>
+                </div>
+
+                <div class="offer-detail__fact">
+                  <strong>Transport</strong>
+                  <span>{content.transport}</span>
+                </div>
+              </div>
+
+              <div class="grid-2 offer-detail__lists">
+                <div class="card card-padding">
+                  <h3>Main highlights</h3>
+                  <ul class="list-check">
+                    {content.highlights.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+
+                <div class="card card-padding">
+                  <h3>What is included</h3>
+                  <ul class="list-check">
+                    {content.included.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="offer-detail__actions">
+                <a href="/en/zapisy" class="btn btn-primary">Go to registration</a>
+                <a href="/en/kontakt" class="btn btn-secondary">Ask a question</a>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <Footer lang="en" />
+</MainLayout>

@@ -1,0 +1,42 @@
+---
+import type { OfferItem } from "../data/offers";
+
+interface Props {
+  offer: OfferItem;
+  lang?: "pl" | "en";
+}
+
+const { offer, lang = "pl" } = Astro.props;
+const content = lang === "en" ? offer.en : offer.pl;
+
+const buttonLabel = lang === "pl" ? "Zobacz szczegóły" : "See details";
+const detailsHref = lang === "pl" ? `/oferta#${offer.slug}` : `/en/oferta#${offer.slug}`;
+---
+
+<article class="card offer-card hover-lift" id={offer.slug}>
+  <div class="offer-card__media">
+    <img src={offer.image} alt={content.title} class="image-cover" loading="lazy" />
+  </div>
+
+  <div class="offer-card__body">
+    <div class="offer-card__meta">
+      <span class="badge">{content.season}</span>
+      <span class="badge">{content.place}</span>
+    </div>
+
+    <h3 class="offer-card__title">{content.title}</h3>
+    <p class="offer-card__desc">{content.short}</p>
+
+    <ul class="offer-card__list">
+      <li><strong>{lang === "pl" ? "Termin:" : "Date:"}</strong> {content.date}</li>
+      <li><strong>{lang === "pl" ? "Wiek:" : "Age:"}</strong> {content.age}</li>
+      <li><strong>{lang === "pl" ? "Zakwaterowanie:" : "Accommodation:"}</strong> {content.accommodation}</li>
+      <li><strong>{lang === "pl" ? "Wyżywienie:" : "Meals:"}</strong> {content.food}</li>
+    </ul>
+
+    <div class="offer-card__bottom">
+      <div class="offer-card__price">{content.price}</div>
+      <a href={detailsHref} class="btn btn-secondary">{buttonLabel}</a>
+    </div>
+  </div>
+</article>

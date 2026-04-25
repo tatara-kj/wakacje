@@ -1,0 +1,125 @@
+---
+import { siteConfig } from "../data/site";
+
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const t =
+  lang === "pl"
+    ? {
+        title: "Formularz zgłoszeniowy",
+        lead:
+          "Wypełnij podstawowe informacje, a organizator wróci z dalszymi szczegółami. Dane do wpłaty przekazywane są po zgłoszeniu.",
+        parentName: "Imię i nazwisko rodzica",
+        childName: "Imię i nazwisko dziecka",
+        age: "Wiek dziecka",
+        email: "Adres e-mail",
+        phone: "Telefon kontaktowy",
+        camp: "Wybierz obóz",
+        departure: "Miejsce wyjazdu / miasto",
+        notes: "Dodatkowe informacje",
+        agreement:
+          "Potwierdzam, że podane dane są prawidłowe i zgadzam się na kontakt w sprawie wyjazdu.",
+        submit: "Wyślij zgłoszenie",
+        choose: "Wybierz...",
+        option1: "Jarosławiec",
+        option2: "Ostrów Pieckowskie",
+        option3: "Poronin",
+      }
+    : {
+        title: "Registration form",
+        lead:
+          "Fill in the basic information and the organizer will return with further details. Payment information is sent after registration.",
+        parentName: "Parent full name",
+        childName: "Child full name",
+        age: "Child age",
+        email: "E-mail address",
+        phone: "Phone number",
+        camp: "Choose camp",
+        departure: "Departure city / location",
+        notes: "Additional information",
+        agreement:
+          "I confirm that the provided data is correct and I agree to be contacted regarding the trip.",
+        submit: "Send registration",
+        choose: "Choose...",
+        option1: "Jaroslawiec",
+        option2: "Ostrow Pieckowskie",
+        option3: "Poronin",
+      };
+
+const action = `https://formsubmit.co/${siteConfig.email}`;
+---
+
+<div class="card card-padding-lg register-form-card">
+  <div class="register-form-card__top">
+    <div class="eyebrow">{lang === "pl" ? "Zapisy online" : "Online registration"}</div>
+    <h2 class="section-title" style="margin-top:12px;">{t.title}</h2>
+    <p class="section-lead">{t.lead}</p>
+  </div>
+
+  <form action={action} method="POST" class="form-grid register-form">
+    <input type="hidden" name="_subject" value="MK SPORT - nowe zgłoszenie ze strony" />
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+    <div>
+      <label class="label" for="parentName">{t.parentName}</label>
+      <input class="input" id="parentName" name="parentName" required />
+    </div>
+
+    <div>
+      <label class="label" for="childName">{t.childName}</label>
+      <input class="input" id="childName" name="childName" required />
+    </div>
+
+    <div>
+      <label class="label" for="childAge">{t.age}</label>
+      <input class="input" id="childAge" name="childAge" required />
+    </div>
+
+    <div>
+      <label class="label" for="email">{t.email}</label>
+      <input class="input" type="email" id="email" name="email" required />
+    </div>
+
+    <div>
+      <label class="label" for="phone">{t.phone}</label>
+      <input class="input" id="phone" name="phone" required />
+    </div>
+
+    <div>
+      <label class="label" for="camp">{t.camp}</label>
+      <select class="select" id="camp" name="camp" required>
+        <option value="">{t.choose}</option>
+        <option value="Jarosławiec">{t.option1}</option>
+        <option value="Ostrów Pieckowskie">{t.option2}</option>
+        <option value="Poronin">{t.option3}</option>
+      </select>
+    </div>
+
+    <div class="full">
+      <label class="label" for="departure">{t.departure}</label>
+      <input class="input" id="departure" name="departure" />
+    </div>
+
+    <div class="full">
+      <label class="label" for="notes">{t.notes}</label>
+      <textarea class="textarea" id="notes" name="notes"></textarea>
+    </div>
+
+    <div class="full register-form__agreement">
+      <label class="checkbox-line">
+        <input type="checkbox" required />
+        <span>{t.agreement}</span>
+      </label>
+    </div>
+
+    <div class="full">
+      <button type="submit" class="btn btn-primary register-form__submit">{t.submit}</button>
+    </div>
+  </form>
+</div>

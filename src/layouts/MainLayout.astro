@@ -1,0 +1,174 @@
+---
+import "../styles/global.css";
+import "../styles/animations.css";
+import "../styles/components.css";
+import "../styles/responsive.css";
+import { siteConfig } from "../data/site";
+import MobileStickyBar from "../components/MobileStickyBar.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: "pl" | "en";
+  showStickyBar?: boolean;
+}
+
+const {
+  title = siteConfig.pl.siteName,
+  description = siteConfig.pl.shortDescription,
+  lang = "pl",
+  showStickyBar = true,
+} = Astro.props;
+
+const pageTitle = title.includes("MK SPORT") ? title : `${title} | MK SPORT`;
+const pageUrl = Astro.url?.href ?? "https://example.com/[dane-do-uzupelnienia]";
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:site_name" content="MK SPORT" />
+    <meta property="og:image" content="/images/ogolne/hero-main.jfif" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/ogolne/hero-main.jfif" />
+
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+  </head>
+
+  <body>
+    <div class="site-loader" id="siteLoader">
+      <div class="site-loader__orb"></div>
+      <div class="site-loader__logo">
+        <img src="/images/logo/logo.png" alt="MK SPORT" />
+      </div>
+      <div class="site-loader__text">MK SPORT</div>
+    </div>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="page-noise"></div>
+    <div class="page-glow page-glow--1"></div>
+    <div class="page-glow page-glow--2"></div>
+    <div class="page-glow page-glow--3"></div>
+
+    <div class="page-blob page-blob--1"></div>
+    <div class="page-blob page-blob--2"></div>
+    <div class="page-blob page-blob--3"></div>
+
+    <main class="site-shell">
+      <slot />
+    </main>
+
+    {showStickyBar && <MobileStickyBar lang={lang} />}
+
+    <script is:inline>
+      const loader = document.getElementById("siteLoader");
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          loader?.classList.add("is-hidden");
+        }, 700);
+      });
+
+      const revealTargets = document.querySelectorAll(
+        ".section-head, .hero-stage, .offer-card, .offer-detail, .doc-card--clean, .social-real__card, .gallery-band, .contact-premium, .faq-item, .process-card, .home-bottom-banner, .about-premium > *, .cta-banner, .register-form-card, .register-info-card, .countdown-card, .testimonial-card, .stat-counter-card"
+      );
+
+      revealTargets.forEach((el) => el.setAttribute("data-reveal", ""));
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+
+      const progress = document.getElementById("scrollProgress");
+      const heroParallax = document.querySelector(".hero-stage__image img");
+      const parallaxTargets = document.querySelectorAll("[data-parallax]");
+
+      function handleEffects() {
+        const y = window.scrollY;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = scrollable > 0 ? (y / scrollable) * 100 : 0;
+
+        if (progress) progress.style.width = ratio + "%";
+        if (heroParallax) heroParallax.style.transform = `scale(1.06) translateY(${y * 0.06}px)`;
+
+        parallaxTargets.forEach((el, index) => {
+          el.style.transform = `translateY(${y * (0.008 + index * 0.002)}px)`;
+        });
+      }
+
+      window.addEventListener("scroll", handleEffects, { passive: true });
+      handleEffects();
+
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            const el = entry.target;
+            if (el.dataset.animated === "true") return;
+
+            el.dataset.animated = "true";
+
+            const target = Number(el.dataset.counterTarget || 0);
+            const suffix = el.dataset.counterSuffix || "";
+            const duration = 1400;
+            const start = performance.now();
+
+            function animate(now) {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              const current = Math.round(target * eased);
+              el.textContent = `${current}${suffix}`;
+
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              }
+            }
+
+            requestAnimationFrame(animate);
+            counterObserver.unobserve(el);
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      document
+        .querySelectorAll(".stat-counter__value")
+        .forEach((el) => counterObserver.observe(el));
+    </script>
+  </body>
+</html>

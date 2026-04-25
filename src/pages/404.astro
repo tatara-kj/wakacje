@@ -1,0 +1,23 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="404" description="Nie znaleziono strony" lang="pl">
+  <section class="section">
+    <div class="container">
+      <div class="not-found card">
+        <div class="eyebrow">404</div>
+        <h1 class="section-title">Nie znaleziono takiej strony</h1>
+        <p class="section-lead">
+          Wygląda na to, że link jest nieaktualny albo strona została przeniesiona.
+          Wróć na stronę główną lub przejdź do oferty.
+        </p>
+
+        <div class="not-found__actions">
+          <a href="/" class="btn btn-primary">Wróć na start</a>
+          <a href="/oferta" class="btn btn-secondary">Zobacz ofertę</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

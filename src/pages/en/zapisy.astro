@@ -1,0 +1,75 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import RegistrationForm from "../../components/RegistrationForm.astro";
+import FAQSection from "../../components/FAQSection.astro";
+import ProcessSection from "../../components/ProcessSection.astro";
+import { siteConfig } from "../../data/site";
+---
+
+<MainLayout title="Registration" description="MK SPORT registration form" lang="en">
+  <Header lang="en" currentPath="/en/zapisy" />
+
+  <PageHero
+    eyebrow="Registration"
+    title="Register your child for the trip"
+    lead="The form should be simple, fast and clear. A parent should instantly know what to do next."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="registration-premium">
+        <div class="registration-premium__form">
+          <RegistrationForm lang="en" />
+        </div>
+
+        <div class="registration-premium__side">
+          <div class="card card-padding-lg register-info-card">
+            <div class="eyebrow">How it works</div>
+            <h3>What happens after the form is sent?</h3>
+            <ul class="list-check">
+              <li>the registration is sent to: {siteConfig.email}</li>
+              <li>the organizer contacts the parent with further details</li>
+              <li>payment information is sent after registration</li>
+              <li>documents can be downloaded directly from the website</li>
+            </ul>
+          </div>
+
+          <div class="card card-padding-lg register-info-card">
+            <div class="eyebrow">Contact</div>
+            <h3>Questions before registration?</h3>
+            <p class="muted">
+              The fastest way is phone or e-mail contact.
+            </p>
+
+            <div class="register-contact-list">
+              <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a>
+              <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              <span>{siteConfig.owner}</span>
+            </div>
+
+            <div style="margin-top:18px;">
+              <a href="/en/kontakt" class="btn btn-secondary">Go to contact</a>
+            </div>
+          </div>
+
+          <div class="card card-padding-lg register-info-card">
+            <div class="eyebrow">Important</div>
+            <h3>Information for parents</h3>
+            <p class="muted">
+              Some data on the website is still temporary and will be updated,
+              but the contact form already works as the basis for the first contact.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ProcessSection lang="en" />
+  <FAQSection lang="en" />
+
+  <Footer lang="en" />
+</MainLayout>

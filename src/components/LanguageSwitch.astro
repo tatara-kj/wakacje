@@ -1,0 +1,19 @@
+---
+interface Props {
+  lang?: "pl" | "en";
+  currentPath?: string;
+}
+
+const { lang = "pl", currentPath = "/" } = Astro.props;
+
+const basePath =
+  lang === "en" ? currentPath.replace(/^\/en/, "") || "/" : currentPath;
+
+const plHref = basePath === "" ? "/" : basePath;
+const enHref = basePath === "/" ? "/en" : `/en${basePath}`;
+---
+
+<div class="lang-switch">
+  <a href={plHref} class={lang === "pl" ? "is-active" : ""}>PL</a>
+  <a href={enHref} class={lang === "en" ? "is-active" : ""}>EN</a>
+</div>

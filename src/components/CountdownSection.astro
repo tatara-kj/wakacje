@@ -1,0 +1,102 @@
+---
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const camps =
+  lang === "pl"
+    ? [
+        { title: "Jarosławiec", date: "2026-07-15T08:00:00" },
+        { title: "Ostrów Pieckowskie", date: "2026-08-06T08:00:00" },
+        { title: "Poronin", date: "2027-01-22T08:00:00" },
+      ]
+    : [
+        { title: "Jaroslawiec", date: "2026-07-15T08:00:00" },
+        { title: "Ostrow Pieckowskie", date: "2026-08-06T08:00:00" },
+        { title: "Poronin", date: "2027-01-22T08:00:00" },
+      ];
+
+const t =
+  lang === "pl"
+    ? {
+        eyebrow: "Start obozów",
+        title: "Odliczanie do najbliższych wyjazdów",
+        lead:
+          "Ten blok od razu pokazuje, że terminy są konkretne, a wyjazdy realnie się zbliżają.",
+        days: "dni",
+        hours: "godz",
+        minutes: "min",
+      }
+    : {
+        eyebrow: "Camp countdown",
+        title: "Countdown to the upcoming trips",
+        lead:
+          "This block immediately shows that the dates are real and getting closer.",
+        days: "days",
+        hours: "hrs",
+        minutes: "min",
+      };
+---
+
+<section class="section countdown-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow">{t.eyebrow}</div>
+      <h2 class="section-title">{t.title}</h2>
+      <p class="section-lead countdown-section__lead">{t.lead}</p>
+    </div>
+
+    <div class="countdown-grid">
+      {camps.map((camp, index) => (
+        <article class={`card countdown-card countdown-card--${index + 1}`}>
+          <div class="countdown-card__top">
+            <strong>{camp.title}</strong>
+            <span>{new Date(camp.date).toLocaleDateString(lang === "pl" ? "pl-PL" : "en-GB")}</span>
+          </div>
+
+          <div class="countdown-timer" data-date={camp.date}>
+            <div class="countdown-box">
+              <span class="countdown-value">--</span>
+              <small>{t.days}</small>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-value">--</span>
+              <small>{t.hours}</small>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-value">--</span>
+              <small>{t.minutes}</small>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  function updateCountdowns() {
+    document.querySelectorAll(".countdown-timer").forEach((timer) => {
+      const date = timer.getAttribute("data-date");
+      if (!date) return;
+
+      const target = new Date(date).getTime();
+      const now = Date.now();
+      const diff = Math.max(target - now, 0);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+      const values = timer.querySelectorAll(".countdown-value");
+      if (values[0]) values[0].textContent = String(days);
+      if (values[1]) values[1].textContent = String(hours);
+      if (values[2]) values[2].textContent = String(minutes);
+    });
+  }
+
+  updateCountdowns();
+  setInterval(updateCountdowns, 60000);
+</script>

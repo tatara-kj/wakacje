@@ -1,0 +1,38 @@
+---
+import { siteConfig } from "../data/site";
+
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const t =
+  lang === "pl"
+    ? {
+        callLabel: "Telefon",
+        callValue: siteConfig.phone,
+        registerLabel: "Zapisy",
+        registerValue: "Zapisz dziecko",
+      }
+    : {
+        callLabel: "Call",
+        callValue: siteConfig.phone,
+        registerLabel: "Registration",
+        registerValue: "Register",
+      };
+
+const registerHref = lang === "pl" ? "/zapisy" : "/en/zapisy";
+---
+
+<div class="mobile-sticky-bar">
+  <a href={`tel:${siteConfig.phoneRaw}`} class="mobile-sticky-bar__btn mobile-sticky-bar__btn--secondary">
+    <span class="mobile-sticky-bar__kicker">{t.callLabel}</span>
+    <strong>{t.callValue}</strong>
+  </a>
+
+  <a href={registerHref} class="mobile-sticky-bar__btn mobile-sticky-bar__btn--primary">
+    <span class="mobile-sticky-bar__kicker">{t.registerLabel}</span>
+    <strong>{t.registerValue}</strong>
+  </a>
+</div>

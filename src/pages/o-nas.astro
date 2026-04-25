@@ -1,0 +1,68 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<MainLayout title="O nas" description="O MK SPORT" lang="pl">
+  <Header lang="pl" currentPath="/o-nas" />
+
+  <PageHero
+    eyebrow="O nas"
+    title="Poznaj MK SPORT"
+    lead="MK SPORT to wyjazdy dla dzieci i młodzieży oparte na aktywności, dobrej organizacji i atmosferze, do której chce się wracać."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="about-premium">
+        <div class="about-premium__image card">
+          <img src="/images/ogolne/hero-main.png" alt="MK SPORT" class="image-cover" />
+        </div>
+
+        <div class="about-premium__content">
+          <div class="card card-padding-lg">
+            <div class="eyebrow">MK SPORT</div>
+            <h2 class="section-title">Obozy, kolonie i aktywny wypoczynek</h2>
+            <p class="section-lead">
+              Organizujemy wyjazdy, w których liczy się coś więcej niż samo „zapełnienie czasu”.
+              Dla dzieci to mają być prawdziwe wspomnienia, a dla rodziców poczucie, że wszystko jest poukładane i czytelne.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card card-padding about-box">
+              <h3>Co nas wyróżnia?</h3>
+              <ul class="list-check">
+                <li>aktywny program i dobra organizacja</li>
+                <li>czytelny kontakt z rodzicami</li>
+                <li>wyjazdy oparte na realnych miejscach i doświadczeniu</li>
+                <li>połączenie ruchu, integracji i wypoczynku</li>
+              </ul>
+            </div>
+
+            <div class="card card-padding about-box">
+              <h3>Co chcemy dać uczestnikom?</h3>
+              <ul class="list-check">
+                <li>bezpieczny i ciekawy wypoczynek</li>
+                <li>nowe doświadczenia i wspomnienia</li>
+                <li>ruch, sport i wspólne przeżycia</li>
+                <li>wyjazd, po którym dzieci naprawdę mają o czym opowiadać</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card card-padding-lg about-note">
+            <p class="muted">
+              Dla rodzica ważne są jasne informacje, prosty kontakt i poczucie bezpieczeństwa.
+              Dla dziecka liczy się przygoda, grupa i atmosfera. Dobra oferta powinna łączyć jedno i drugie.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer lang="pl" />
+</MainLayout>

@@ -1,0 +1,63 @@
+---
+import { siteConfig } from "../data/site";
+
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const t =
+  lang === "pl"
+    ? {
+        eyebrow: "Instagram",
+        title: "Zobacz MK SPORT także na Instagramie",
+        lead:
+          "Relacje, zdjęcia i klimat wyjazdów najlepiej pokazuje właśnie feed. Tu ma być żywo, aktualnie i bardziej dynamicznie niż na samej stronie.",
+        instagramTitle: "Instagram MK SPORT",
+        instagramText:
+          "Zdjęcia, relacje i codzienny klimat wyjazdów. To miejsce ma pokazywać energię, a nie wyglądać jak martwa zakładka.",
+        button: "Otwórz profil",
+      }
+    : {
+        eyebrow: "Instagram",
+        title: "See MK SPORT on Instagram too",
+        lead:
+          "Stories, photos and camp atmosphere are shown best through the feed. This should feel active, fresh and more dynamic than the website itself.",
+        instagramTitle: "MK SPORT Instagram",
+        instagramText:
+          "Photos, stories and the everyday atmosphere of the trips. This section should feel alive, not static.",
+        button: "Open profile",
+      };
+---
+
+<section class="section social-real-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow">{t.eyebrow}</div>
+      <h2 class="section-title">{t.title}</h2>
+      <p class="section-lead social-real-section__lead">{t.lead}</p>
+    </div>
+
+    <div class="social-real social-real--single">
+      <article class="card social-real__card hover-lift">
+        <div class="social-real__header">
+          <div class="social-real__icon social-real__icon--ig">◎</div>
+          <div>
+            <h3>{t.instagramTitle}</h3>
+            <p>{t.instagramText}</p>
+          </div>
+        </div>
+
+        <div class="instagram-widget-slot instagram-widget-slot--live">
+      
+<div class="elfsight-app-76883f26-1d9d-4d0e-b17c-9b7c77603ca4" data-elfsight-app-lazy></div>
+        </div>
+
+        <a href={siteConfig.instagram} target="_blank" rel="noreferrer" class="btn btn-secondary">
+          {t.button}
+        </a>
+      </article>
+    </div>
+  </div>
+</section>

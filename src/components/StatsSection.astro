@@ -1,0 +1,81 @@
+---
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const content =
+  lang === "pl"
+    ? {
+        eyebrow: "W skrócie",
+        title: "Kilka najważniejszych rzeczy na pierwszy rzut oka",
+        lead:
+          "Ta sekcja ma od razu dać szybki obraz oferty i całego procesu bez czytania długich bloków tekstu.",
+        items: [
+          {
+            value: 3,
+            suffix: "",
+            label: "kierunki wyjazdów",
+          },
+          {
+            value: 100,
+            suffix: "%",
+            label: "energii i aktywności",
+          },
+          {
+            value: 1,
+            suffix: "",
+            label: "prosty proces zapisów",
+          },
+        ],
+      }
+    : {
+        eyebrow: "In short",
+        title: "The key things at a first glance",
+        lead:
+          "This section should immediately give a quick overview of the offer and the whole process without reading long blocks of text.",
+        items: [
+          {
+            value: 3,
+            suffix: "",
+            label: "trip directions",
+          },
+          {
+            value: 100,
+            suffix: "%",
+            label: "energy and activity",
+          },
+          {
+            value: 1,
+            suffix: "",
+            label: "simple registration flow",
+          },
+        ],
+      };
+---
+
+<section class="section stats-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow">{content.eyebrow}</div>
+      <h2 class="section-title">{content.title}</h2>
+      <p class="section-lead stats-section__lead">{content.lead}</p>
+    </div>
+
+    <div class="stats-grid">
+      {content.items.map((item, index) => (
+        <article class={`card stat-counter-card stat-counter-card--${index + 1}`} data-parallax>
+          <div
+            class="stat-counter__value"
+            data-counter-target={item.value}
+            data-counter-suffix={item.suffix}
+          >
+            0{item.suffix}
+          </div>
+          <p>{item.label}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

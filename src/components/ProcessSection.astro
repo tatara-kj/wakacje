@@ -1,0 +1,76 @@
+---
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const t =
+  lang === "pl"
+    ? {
+        eyebrow: "Jak to działa",
+        title: "Prosty proces zapisów krok po kroku",
+        lead:
+          "Rodzic ma od razu rozumieć, co robić dalej. Bez domyślania się i bez szukania informacji po całej stronie.",
+        steps: [
+          {
+            no: "01",
+            title: "Wybierz obóz",
+            text: "Sprawdź kierunek, podstawowe informacje i wybierz wyjazd odpowiedni dla dziecka.",
+          },
+          {
+            no: "02",
+            title: "Wyślij zgłoszenie",
+            text: "Wypełnij formularz na stronie albo skontaktuj się bezpośrednio z organizatorem.",
+          },
+          {
+            no: "03",
+            title: "Otrzymaj dalsze informacje",
+            text: "Po zgłoszeniu rodzic dostaje kontakt zwrotny, dokumenty i szczegóły organizacyjne.",
+          },
+        ],
+      }
+    : {
+        eyebrow: "How it works",
+        title: "Simple registration process step by step",
+        lead:
+          "A parent should immediately understand what to do next. No guessing and no searching around the whole website.",
+        steps: [
+          {
+            no: "01",
+            title: "Choose the camp",
+            text: "Check the destination, key details and choose the right trip for your child.",
+          },
+          {
+            no: "02",
+            title: "Send the registration",
+            text: "Fill in the form on the website or contact the organizer directly.",
+          },
+          {
+            no: "03",
+            title: "Receive further details",
+            text: "After registration, the parent receives follow-up contact, documents and organizational details.",
+          },
+        ],
+      };
+---
+
+<section class="section process-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow">{t.eyebrow}</div>
+      <h2 class="section-title">{t.title}</h2>
+      <p class="section-lead" style="margin-inline:auto;">{t.lead}</p>
+    </div>
+
+    <div class="process-grid">
+      {t.steps.map((step) => (
+        <article class="card process-card hover-lift">
+          <div class="process-card__number">{step.no}</div>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

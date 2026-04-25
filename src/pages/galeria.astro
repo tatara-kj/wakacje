@@ -1,0 +1,153 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import MainLayout from "../layouts/MainLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+
+const root = process.cwd();
+
+function readImages(folder: string) {
+  const dir = path.join(root, "public", "images", folder);
+
+  if (!fs.existsSync(dir)) return [];
+
+  const priority = (name: string) => {
+    const lower = name.toLowerCase();
+    if (lower.startsWith("main.")) return 0;
+    if (lower.startsWith("1.")) return 1;
+    return 2;
+  };
+
+  return fs
+    .readdirSync(dir)
+    .filter((name) => /\.(jpg|jpeg|jfif|png|webp)$/i.test(name))
+    .sort((a, b) => priority(a) - priority(b) || a.localeCompare(b, "pl"))
+    .map((name) => `/images/${folder}/${name}`);
+}
+
+const sections = [
+  {
+    title: "Jarosławiec",
+    subtitle: "Nadmorski klimat, aktywność i wakacyjna energia",
+    description:
+      "Tu ma być czuć słońce, ruch i klimat nadmorskiego wyjazdu. Zdjęcia pokazują zarówno miejsce, jak i atmosferę całego obozu.",
+    images: readImages("jaroslawiec"),
+  },
+  {
+    title: "Ostrów Pieckowskie",
+    subtitle: "Mazury, natura i aktywny wypoczynek",
+    description:
+      "Mazury pokazują przestrzeń, naturę i spokojniejszy rytm wyjazdu, ale nadal pełen aktywności i wspólnych atrakcji.",
+    images: readImages("ostrow-pieckowskie"),
+  },
+  {
+    title: "Poronin",
+    subtitle: "Górski wyjazd i zimowy klimat",
+    description:
+      "Tutaj wchodzą bardziej dynamiczne, zimowe kadry i klimat wspólnych aktywności w górach.",
+    images: readImages("poronin-zimowy"),
+  },
+];
+---
+
+<MainLayout title="Galeria" description="Galeria MK SPORT" lang="pl">
+  <Header lang="pl" currentPath="/galeria" />
+
+  <PageHero
+    eyebrow="Galeria"
+    title="Zobacz klimat naszych wyjazdów"
+    lead="Zdjęcia pokazują więcej niż długi opis. Tutaj widać miejsca, atmosferę grupy i charakter każdego wyjazdu."
+  />
+
+  {sections.map((section) => {
+    const preview = section.images.slice(0, 5);
+
+    return (
+      <section class="section">
+        <div class="container">
+          <div class="gallery-band gallery-band--lux">
+            <div class="gallery-band__intro card card-padding-lg">
+              <div class="eyebrow">{section.title}</div>
+              <h2 class="section-title">{section.subtitle}</h2>
+              <p class="section-lead">{section.description}</p>
+            </div>
+
+            <div class="gallery-preview-grid">
+              {preview.map((src, index) => (
+                <button
+                  class={`gallery-preview-grid__item card ${index === 0 ? "is-featured" : ""}`}
+                  data-lightbox-image={src}
+                  data-lightbox-title={section.title}
+                  type="button"
+                >
+                  <img src={src} alt={section.title} loading="lazy" />
+                </button>
+              ))}
+            </div>
+
+            <details class="gallery-expand card">
+              <summary>
+                <span>Pokaż pełną galerię — {section.images.length} zdjęć</span>
+              </summary>
+
+              <div class="gallery-wall gallery-wall--expanded">
+                {section.images.map((src) => (
+                  <button
+                    class="gallery-wall__item card"
+                    data-lightbox-image={src}
+                    data-lightbox-title={section.title}
+                    type="button"
+                  >
+                    <img src={src} alt={section.title} loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <dialog class="lightbox-dialog" id="lightboxDialog">
+    <button class="lightbox-close" id="lightboxClose" type="button">✕</button>
+    <img id="lightboxImage" alt="" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </dialog>
+
+  <script is:inline>
+    const dialog = document.getElementById("lightboxDialog");
+    const dialogImage = document.getElementById("lightboxImage");
+    const dialogCaption = document.getElementById("lightboxCaption");
+    const dialogClose = document.getElementById("lightboxClose");
+
+    document.querySelectorAll("[data-lightbox-image]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const src = btn.getAttribute("data-lightbox-image");
+        const title = btn.getAttribute("data-lightbox-title") || "";
+        if (!src || !dialog || !dialogImage || !dialogCaption) return;
+        dialogImage.src = src;
+        dialogImage.alt = title;
+        dialogCaption.textContent = title;
+        dialog.showModal();
+      });
+    });
+
+    dialogClose?.addEventListener("click", () => dialog?.close());
+
+    dialog?.addEventListener("click", (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInside =
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width;
+
+      if (!isInside) dialog.close();
+    });
+  </script>
+
+  <Footer lang="pl" />
+</MainLayout>

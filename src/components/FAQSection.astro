@@ -1,0 +1,90 @@
+---
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const content =
+  lang === "pl"
+    ? {
+        eyebrow: "FAQ",
+        title: "Najczęstsze pytania rodziców",
+        lead:
+          "Ta sekcja ma od razu rozładować podstawowe wątpliwości. Krócej, czytelniej i bez zbędnego chaosu.",
+        items: [
+          {
+            q: "Jak wygląda zgłoszenie dziecka na obóz?",
+            a: "Rodzic wypełnia formularz na stronie, a organizator wraca z dalszymi informacjami, dokumentami i szczegółami organizacyjnymi.",
+          },
+          {
+            q: "Kiedy przekazywane są dane do wpłaty?",
+            a: "Dane do wpłaty są przekazywane po zgłoszeniu dziecka i kontakcie z organizatorem.",
+          },
+          {
+            q: "Czy dokumenty można pobrać ze strony?",
+            a: "Tak. Najważniejsze dokumenty są zebrane w jednym miejscu, żeby rodzic nie musiał ich szukać w wiadomościach.",
+          },
+          {
+            q: "Skąd odbywa się wyjazd?",
+            a: "Miejsca wyjazdu i szczegóły transportu są uzupełniane przy poszczególnych ofertach i przekazywane także po zgłoszeniu.",
+          },
+          {
+            q: "Co zrobić, jeśli mam dodatkowe pytania?",
+            a: "Najlepiej przejść do zakładki Kontakt albo od razu zadzwonić lub napisać do organizatora.",
+          },
+        ],
+      }
+    : {
+        eyebrow: "FAQ",
+        title: "Most common questions from parents",
+        lead:
+          "This section should quickly answer the most basic concerns. Clear, shorter and without chaos.",
+        items: [
+          {
+            q: "How does the registration process work?",
+            a: "The parent fills in the form on the website and the organizer comes back with further details, documents and organizational information.",
+          },
+          {
+            q: "When are payment details sent?",
+            a: "Payment details are sent after the child is registered and after contact with the organizer.",
+          },
+          {
+            q: "Can documents be downloaded from the website?",
+            a: "Yes. The most important documents are collected in one place so parents do not need to search for them in messages.",
+          },
+          {
+            q: "Where does the departure take place from?",
+            a: "Departure cities and transport details are completed in each offer and also provided after registration.",
+          },
+          {
+            q: "What if I have additional questions?",
+            a: "The best way is to go to the Contact page or call / write directly to the organizer.",
+          },
+        ],
+      };
+---
+
+<section class="section faq-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow">{content.eyebrow}</div>
+      <h2 class="section-title">{content.title}</h2>
+      <p class="section-lead" style="margin-inline:auto;">{content.lead}</p>
+    </div>
+
+    <div class="faq-list">
+      {content.items.map((item) => (
+        <details class="faq-item card">
+          <summary class="faq-item__summary">
+            <span>{item.q}</span>
+            <span class="faq-item__icon">+</span>
+          </summary>
+          <div class="faq-item__content">
+            <p>{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
