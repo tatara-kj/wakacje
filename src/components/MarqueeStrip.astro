@@ -1,0 +1,49 @@
+---
+interface Props {
+  lang?: "pl" | "en";
+}
+
+const { lang = "pl" } = Astro.props;
+
+const items =
+  lang === "pl"
+    ? [
+        "kolonie",
+        "obozy",
+        "wycieczki",
+        "sport",
+        "integracja",
+        "zabawa",
+        "wspomnienia",
+        "bezpieczeństwo",
+        "nowe znajomości",
+        "przygoda",
+      ]
+    : [
+        "camps",
+        "trips",
+        "excursions",
+        "sport",
+        "integration",
+        "fun",
+        "memories",
+        "safety",
+        "new friends",
+        "adventure",
+      ];
+
+const repeated = [...items, ...items, ...items];
+---
+
+<section class="marquee-strip">
+  <div class="marquee-strip__inner">
+    <div class="marquee-strip__track">
+      {repeated.map((item, index) => (
+        <span class="marquee-strip__item">
+          <span class="marquee-strip__dot">{index % 4 === 0 ? "☀" : index % 4 === 1 ? "✦" : index % 4 === 2 ? "〰" : "✺"}</span>
+          <span>{item}</span>
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

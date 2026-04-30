@@ -33,7 +33,7 @@ const t =
 
 <section class="section social-real-section">
   <div class="container">
-    <div class="section-head center">
+    <div class="section-head center social-real-section__head">
       <div class="eyebrow">{t.eyebrow}</div>
       <h2 class="section-title">{t.title}</h2>
       <p class="section-lead social-real-section__lead">{t.lead}</p>
@@ -41,23 +41,115 @@ const t =
 
     <div class="social-real social-real--single">
       <article class="card social-real__card hover-lift">
-        <div class="social-real__header">
+        <div class="social-real__header social-real__header--centered">
           <div class="social-real__icon social-real__icon--ig">◎</div>
-          <div>
+          <div class="social-real__header-copy">
             <h3>{t.instagramTitle}</h3>
             <p>{t.instagramText}</p>
           </div>
         </div>
 
-        <div class="instagram-widget-slot instagram-widget-slot--live">
-      
-<div class="elfsight-app-76883f26-1d9d-4d0e-b17c-9b7c77603ca4" data-elfsight-app-lazy></div>
+        <div class="instagram-widget-slot instagram-widget-slot--live instagram-widget-slot--centered">
+          <div
+            class="elfsight-app-76883f26-1d9d-4d0e-b17c-9b7c77603ca4"
+            data-elfsight-app-lazy
+          ></div>
         </div>
 
-        <a href={siteConfig.instagram} target="_blank" rel="noreferrer" class="btn btn-secondary">
-          {t.button}
-        </a>
+        <div class="social-real__actions">
+          <a href={siteConfig.instagram} target="_blank" rel="noreferrer" class="btn btn-secondary">
+            {t.button}
+          </a>
+        </div>
       </article>
     </div>
   </div>
 </section>
+
+<style>
+  .social-real-section__head,
+  .social-real-section__head * {
+    text-align: center;
+  }
+
+  .social-real-section__lead {
+    max-width: 860px;
+    margin-inline: auto;
+  }
+
+  .social-real--single {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .social-real__card {
+    width: min(100%, 820px);
+    margin-inline: auto;
+    padding: 30px;
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 22px 60px rgba(16, 39, 68, 0.10);
+    backdrop-filter: blur(14px);
+  }
+
+  .social-real__header--centered {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+
+  .social-real__header-copy {
+    max-width: 520px;
+  }
+
+  .social-real__header-copy h3 {
+    margin: 0 0 10px;
+    font-size: 1.9rem;
+    line-height: 1.1;
+  }
+
+  .social-real__header-copy p {
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  .instagram-widget-slot--centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .instagram-widget-slot--centered > * {
+    width: 100%;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  .social-real__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .social-real__card {
+      padding: 22px;
+      border-radius: 24px;
+    }
+
+    .social-real__header--centered {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .social-real__header-copy {
+      text-align: center;
+    }
+  }
+</style>

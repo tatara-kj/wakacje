@@ -11,43 +11,70 @@ import CountdownSection from "../components/CountdownSection.astro";
 import CommentsSection from "../components/CommentsSection.astro";
 import StatsSection from "../components/StatsSection.astro";
 import SectionDivider from "../components/SectionDivider.astro";
+import VideoShowcase from "../components/VideoShowcase.astro";
 import { siteConfig } from "../data/site";
 import { offers } from "../data/offers";
 ---
 
-<MainLayout
-  title={siteConfig.pl.siteName}
-  description={siteConfig.pl.shortDescription}
-  lang="pl"
->
+<MainLayout title={siteConfig.pl.siteName} description={siteConfig.pl.shortDescription} lang="pl">
   <Header lang="pl" currentPath="/" />
 
-  <section class="hero hero--immersive">
+  <section class="hero hero--immersive hero--sunny hero-home-clean">
     <div class="container">
-      <div class="hero-stage">
-        <div class="hero-stage__image">
-          <img src="/images/ogolne/hero-main.jfif" alt="MK SPORT" class="image-cover" />
-        </div>
+      <div class="hero-stage hero-stage--clean">
+     <div class="hero-stage__ambient" aria-hidden="true">
+  <div class="hero-ambient hero-ambient--gradient"></div>
+  <div class="hero-ambient hero-ambient--blob hero-ambient--blob-1" data-parallax></div>
+  <div class="hero-ambient hero-ambient--blob hero-ambient--blob-2" data-parallax></div>
+  <div class="hero-ambient hero-ambient--blob hero-ambient--blob-3" data-parallax></div>
+  <div class="hero-ambient hero-ambient--ring hero-ambient--ring-1"></div>
+  <div class="hero-ambient hero-ambient--ring hero-ambient--ring-2"></div>
+  <div class="hero-ambient hero-ambient--wave hero-ambient--wave-1"></div>
+  <div class="hero-ambient hero-ambient--wave hero-ambient--wave-2"></div>
+  <div class="hero-ambient hero-ambient--spark hero-ambient--spark-1">✦</div>
+  <div class="hero-ambient hero-ambient--spark hero-ambient--spark-2">✦</div>
+</div>
 
-        <div class="hero-stage__overlay"></div>
+        <div class="hero-decor hero-decor--sun" data-parallax></div>
+        <div class="hero-decor hero-decor--mint" data-parallax></div>
+        <div class="hero-decor hero-decor--blue" data-parallax></div>
 
-        <div class="hero-stage__content">
-          <div class="hero-stage__panel fade-up">
+        <div class="hero-spark hero-spark--1" data-float="8">✦</div>
+        <div class="hero-spark hero-spark--2" data-float="12">☀</div>
+        <div class="hero-spark hero-spark--3" data-float="9">〰</div>
+        <div class="hero-spark hero-spark--4" data-float="11">✺</div>
+
+        <div class="hero-stage__content hero-stage__content--rich">
+          <div class="hero-stage__panel fade-up reveal">
             <div class="eyebrow">Obozy i kolonie • MK SPORT</div>
 
             <h1 class="display-title">
-              Obozy i kolonie z <span class="accent shimmer-text">programem, ruchem i przygodą</span>
+              Obozy i kolonie z
+              <span class="accent shimmer-text">programem, ruchem i przygodą</span>
             </h1>
 
             <p class="hero__lead">
-              Nowoczesna oferta obozów i kolonii dla dzieci i młodzieży. Sport, wycieczki,
-              integracja, dobra organizacja i jasne informacje dla rodziców — wszystko w jednym miejscu.
+              W MK SPORT dzieci spędzają czas aktywnie, radośnie i w dobrej atmosferze.
+              To wyjazdy pełne zabawy, ruchu, integracji oraz pięknych wspomnień, do których chce się wracać.
             </p>
 
-            <div class="pill-group hero__tag-row">
-              <span class="badge">Bezpieczny wypoczynek</span>
-              <span class="badge">Aktywny program</span>
-              <span class="badge">Prosty kontakt i zapisy</span>
+            <div class="hero-mini-points">
+              <span>☀ aktywny wypoczynek</span>
+              <span>✦ dobra atmosfera</span>
+              <span>〰 bezpieczna opieka</span>
+            </div>
+
+            <div class="hero-ribbon">
+              <span>sport</span>
+              <span>zabawa</span>
+              <span>integracja</span>
+              <span>przygoda</span>
+            </div>
+
+            <div class="hero-info-row">
+              <span class="hero-info-chip">bezpieczna opieka i doświadczona kadra</span>
+              <span class="hero-info-chip">dużo ruchu, zabawy i atrakcji</span>
+              <span class="hero-info-chip">prosty kontakt i wygodne zapisy</span>
             </div>
 
             <div class="hero__actions">
@@ -56,20 +83,40 @@ import { offers } from "../data/offers";
             </div>
           </div>
 
-          <div class="hero-stage__side fade-up reveal-delay-1">
-            <div class="mini-glass" data-parallax>
-              <strong>Bezpieczny i aktywny wypoczynek</strong>
-              <span>Dobrze zaplanowane wyjazdy z atrakcjami, sportem i opieką kadry.</span>
+          <div class="hero-stage__aside reveal">
+            <div class="hero-visual card tilt-card" data-parallax>
+              <img
+                src="/images/ogolne/ess.jpeg"
+                alt="MK SPORT – aktywny wypoczynek dzieci"
+                class="hero-main-image"
+              />
+
+              <div class="hero-floating-card hero-floating-card--top">
+                <strong>Radość i aktywność</strong>
+                <span>Kolonie, zimowiska i wspomnienia na całe życie</span>
+              </div>
+
+              <div class="hero-floating-card hero-floating-card--bottom">
+                <strong>Bezpieczna organizacja</strong>
+                <span>Sprawdzona kadra i program dopasowany do dzieci</span>
+              </div>
             </div>
 
-            <div class="mini-glass" data-parallax>
-              <strong>Program, który nie nudzi</strong>
-              <span>Wycieczki, integracja, ruch, zabawa i wspomnienia, do których dzieci wracają po wakacjach.</span>
-            </div>
+            <div class="hero-stage__info-grid">
+              <div class="mini-glass mini-glass--warm" data-parallax>
+                <strong>Bezpieczny i aktywny wypoczynek</strong>
+                <span>Dobrze zaplanowane wyjazdy z atrakcjami, sportem i opieką kadry.</span>
+              </div>
 
-            <div class="mini-glass" data-parallax>
-              <strong>Jasne informacje dla rodziców</strong>
-              <span>Oferta, kontakt, dokumenty i zgłoszenie w jednym miejscu, bez chaosu i szukania po wiadomościach.</span>
+              <div class="mini-glass mini-glass--warm" data-parallax>
+                <strong>Program, który nie nudzi</strong>
+                <span>Wycieczki, integracja, ruch, zabawa i wspomnienia po wakacjach.</span>
+              </div>
+
+              <div class="mini-glass mini-glass--warm" data-parallax>
+                <strong>Wszystko w jednym miejscu</strong>
+                <span>Oferta, dokumenty, kontakt i zgłoszenie bez zbędnego szukania.</span>
+              </div>
             </div>
           </div>
         </div>
@@ -81,17 +128,29 @@ import { offers } from "../data/offers";
   <StatsSection lang="pl" />
   <CountdownSection lang="pl" />
 
-  <section class="section offer-section">
+  <section class="section offer-section offer-section--playful">
     <div class="container">
-      <div class="section-head">
+     
+     <div class="offer-parallax-bg">
+  <div class="offer-orb offer-orb--1" data-parallax></div>
+  <div class="offer-orb offer-orb--2" data-parallax></div>
+  <div class="offer-orb offer-orb--3" data-parallax></div>
+
+  <div class="offer-spark offer-spark--1" data-float="8">✦</div>
+  <div class="offer-spark offer-spark--2" data-float="10">☀</div>
+  <div class="offer-spark offer-spark--3" data-float="7">〰</div>
+</div>
+
+      <div class="section-head reveal">
         <div class="eyebrow">Oferta</div>
         <h2 class="section-title">Wybierz odpowiedni wyjazd dla swojego dziecka</h2>
         <p class="section-lead">
-          Każdy obóz ma swój klimat, program i charakter. Poniżej znajdują się aktualnie prezentowane kierunki wyjazdów MK SPORT.
+          Każdy wyjazd ma swój klimat i program. Sprawdź aktualne kierunki, porównaj najważniejsze informacje
+          i wybierz najlepszą opcję dla swojego dziecka.
         </p>
       </div>
 
-      <div class="offer-grid">
+      <div class="offer-grid offer-grid--lift">
         {offers.map((offer) => <OfferCard offer={offer} lang="pl" />)}
       </div>
     </div>
@@ -100,19 +159,20 @@ import { offers } from "../data/offers";
   <SectionDivider variant="light" />
   <ProcessSection lang="pl" />
   <DocumentsSection lang="pl" compactMobile={true} />
+  <VideoShowcase lang="pl" />
   <CommentsSection lang="pl" />
   <SocialSection lang="pl" />
   <FAQSection lang="pl" />
 
   <section class="section section-band">
     <div class="container">
-      <div class="home-bottom-banner card">
+      <div class="home-bottom-banner card reveal">
         <div class="home-bottom-banner__content">
           <div class="eyebrow">MK SPORT</div>
-          <h2 class="section-title">Wszystko, czego rodzic potrzebuje, w jednym miejscu</h2>
+          <h2 class="section-title">W jednym miejscu znajdziesz wszystko, co potrzebne przed wyjazdem</h2>
           <p class="section-lead">
-            Oferta, kontakt, dokumenty, formularz i podstawowe informacje o wyjazdach.
-            Strona ma być nowoczesna, ale przede wszystkim czytelna i wygodna.
+            Sprawdź aktualne terminy, poznaj ofertę, pobierz dokumenty i wygodnie zgłoś dziecko online.
+            Wszystkie najważniejsze informacje są zebrane jasno, przejrzyście i wygodnie.
           </p>
         </div>
 
@@ -125,4 +185,265 @@ import { offers } from "../data/offers";
   </section>
 
   <Footer lang="pl" />
+
+  <style>
+    .hero-home-clean {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-stage--clean {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-stage--clean::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      top: 26px;
+      left: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 203, 67, 0.18) 0%, rgba(255, 203, 67, 0) 72%);
+      filter: blur(10px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-stage--clean::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -90px;
+      top: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(126, 223, 203, 0.16) 0%, rgba(126, 223, 203, 0) 72%);
+      filter: blur(12px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-decor {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(12px);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .hero-decor--sun {
+      width: 220px;
+      height: 220px;
+      top: 20px;
+      right: -40px;
+      background: radial-gradient(circle, rgba(255, 206, 72, 0.34) 0%, rgba(255, 206, 72, 0.02) 74%);
+    }
+
+    .hero-decor--mint {
+      width: 170px;
+      height: 170px;
+      bottom: 60px;
+      left: -20px;
+      background: radial-gradient(circle, rgba(134, 236, 206, 0.26) 0%, rgba(134, 236, 206, 0.02) 74%);
+    }
+
+    .hero-decor--blue {
+      width: 180px;
+      height: 180px;
+      top: 46%;
+      left: 48%;
+      background: radial-gradient(circle, rgba(154, 205, 255, 0.18) 0%, rgba(154, 205, 255, 0.02) 74%);
+    }
+
+    .hero-spark {
+      position: absolute;
+      z-index: 2;
+      color: rgba(255, 165, 0, 0.6);
+      font-size: 1.2rem;
+      pointer-events: none;
+    }
+
+    .hero-spark--1 { top: 76px; left: 48px; }
+    .hero-spark--2 { top: 120px; right: 120px; font-size: 1.55rem; }
+    .hero-spark--3 { bottom: 84px; left: 52%; color: rgba(92, 190, 255, 0.48); }
+    .hero-spark--4 { bottom: 54px; right: 58px; color: rgba(110, 220, 184, 0.58); }
+
+    .hero-mini-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin: 1rem 0 1rem;
+      color: #56708b;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .hero-ribbon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 1rem;
+    }
+
+    .hero-ribbon span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(247,250,255,0.9));
+      border: 1px solid rgba(24, 61, 98, 0.08);
+      color: #5a748d;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      box-shadow: 0 10px 22px rgba(20, 40, 70, 0.05);
+    }
+
+    .hero-info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 0 0 1.4rem;
+    }
+
+    .hero-info-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0.72rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(24, 61, 98, 0.08);
+      color: #49637c;
+      font-size: 0.93rem;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(20, 40, 70, 0.05);
+    }
+
+    .mini-glass--warm {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(16, 45, 77, 0.08);
+      box-shadow: 0 18px 32px rgba(18, 44, 74, 0.08);
+    }
+
+    .offer-section--playful {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-floating-notes {
+      position: relative;
+      height: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .offer-note {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0.58rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #17324d;
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: 0 14px 28px rgba(18, 44, 74, 0.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .offer-note--1 {
+      top: -14px;
+      right: 20px;
+      background: linear-gradient(135deg, #fff0b6, #ffd86b);
+    }
+
+    .offer-note--2 {
+      top: 92px;
+      left: -10px;
+      background: linear-gradient(135deg, #dffff1, #b8f0db);
+    }
+
+    .offer-note--3 {
+      top: 260px;
+      right: -16px;
+      background: linear-gradient(135deg, #e0efff, #bfdcff);
+    }
+
+    .offer-grid--lift :global(.offer-card) {
+      transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+      transform-style: preserve-3d;
+    }
+
+    .offer-grid--lift :global(.offer-card:hover) {
+      transform: translateY(-8px) rotateX(1deg) rotateY(-1deg);
+      box-shadow: 0 24px 60px rgba(18, 44, 74, 0.18);
+    }
+
+    .offer-grid--lift :global(.offer-card:hover img) {
+      transform: scale(1.04);
+    }
+
+    .tilt-card {
+      transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+    }
+
+    .tilt-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 26px 64px rgba(18, 44, 74, 0.18);
+    }
+
+    @media (max-width: 1100px) {
+      .offer-note--3 {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-decor--mint,
+      .hero-decor--blue,
+      .offer-floating-notes,
+      .hero-spark--2,
+      .hero-spark--4 {
+        display: none;
+      }
+
+      .hero-mini-points {
+        gap: 0.5rem;
+        font-size: 0.85rem;
+      }
+
+      .hero-ribbon {
+        gap: 8px;
+      }
+
+      .hero-ribbon span {
+        font-size: 0.76rem;
+        padding: 0.38rem 0.68rem;
+      }
+
+      .hero-info-row {
+        gap: 0.55rem;
+      }
+
+      .hero-info-chip {
+        font-size: 0.84rem;
+        padding: 0.6rem 0.85rem;
+      }
+
+      .offer-grid--lift :global(.offer-card:hover) {
+        transform: translateY(-4px);
+      }
+    }
+  </style>
 </MainLayout>

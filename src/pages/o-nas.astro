@@ -10,53 +10,52 @@ import PageHero from "../components/PageHero.astro";
 
   <PageHero
     eyebrow="O nas"
-    title="Poznaj MK SPORT"
-    lead="MK SPORT to wyjazdy dla dzieci i młodzieży oparte na aktywności, dobrej organizacji i atmosferze, do której chce się wracać."
+    title="Poznaj MKSPORT"
+    lead="Zespół ludzi, których łączy pasja do pracy z dziećmi, aktywności i tworzenia wyjazdów pełnych radości."
   />
 
-  <section class="section">
+  <section class="section about-page-section">
     <div class="container">
-      <div class="about-premium">
-        <div class="about-premium__image card">
-          <img src="/images/ogolne/hero-main.png" alt="MK SPORT" class="image-cover" />
+      <div class="about-premium about-premium--clean">
+        <div class="about-premium__media reveal">
+          <div class="about-premium__media-frame">
+            <img
+              src="/images/ogolne/onas.jpeg"
+              alt="MKSPORT – organizator kolonii i wyjazdów zimowych"
+              class="about-premium__image about-premium__image--contain"
+            />
+          </div>
         </div>
 
-        <div class="about-premium__content">
-          <div class="card card-padding-lg">
-            <div class="eyebrow">MK SPORT</div>
-            <h2 class="section-title">Obozy, kolonie i aktywny wypoczynek</h2>
-            <p class="section-lead">
-              Organizujemy wyjazdy, w których liczy się coś więcej niż samo „zapełnienie czasu”.
-              Dla dzieci to mają być prawdziwe wspomnienia, a dla rodziców poczucie, że wszystko jest poukładane i czytelne.
+        <div class="about-premium__content reveal">
+          <div class="about-copy-card">
+            <div class="eyebrow">MKSPORT</div>
+            <h2 class="section-title">MKSPORT – organizator kolonii i wyjazdów zimowych</h2>
+
+            <p>
+              MKSPORT to zespół zaangażowanych pedagogów, którzy na co dzień pracują w szkołach,
+              przedszkolach oraz klubach sportowych. Łączy nas wspólna pasja – praca z dziećmi
+              oraz tworzenie dla nich przestrzeni do rozwoju, zabawy i budowania pięknych wspomnień.
             </p>
-          </div>
 
-          <div class="grid-2">
-            <div class="card card-padding about-box">
-              <h3>Co nas wyróżnia?</h3>
-              <ul class="list-check">
-                <li>aktywny program i dobra organizacja</li>
-                <li>czytelny kontakt z rodzicami</li>
-                <li>wyjazdy oparte na realnych miejscach i doświadczeniu</li>
-                <li>połączenie ruchu, integracji i wypoczynku</li>
-              </ul>
-            </div>
+            <p>
+              Od wielu lat organizujemy kolonie, obozy oraz wyjazdy zimowe, podczas których stawiamy
+              nie tylko na aktywność fizyczną, ale także na kreatywność, integrację i dobrą atmosferę.
+              Nasze doświadczenie zdobywane przez lata przekłada się na profesjonalną organizację
+              oraz bezpieczeństwo uczestników.
+            </p>
 
-            <div class="card card-padding about-box">
-              <h3>Co chcemy dać uczestnikom?</h3>
-              <ul class="list-check">
-                <li>bezpieczny i ciekawy wypoczynek</li>
-                <li>nowe doświadczenia i wspomnienia</li>
-                <li>ruch, sport i wspólne przeżycia</li>
-                <li>wyjazd, po którym dzieci naprawdę mają o czym opowiadać</li>
-              </ul>
-            </div>
-          </div>
+            <p>
+              Tworzymy programy pełne różnorodnych zajęć – sportowych, rekreacyjnych i animacyjnych –
+              zarówno podczas wyjazdów, jak i w naszej codziennej pracy z dziećmi. Organizujemy również
+              wydarzenia i spotkania, które mają jeden główny cel: wywoływać uśmiech na twarzach dzieci.
+            </p>
 
-          <div class="card card-padding-lg about-note">
-            <p class="muted">
-              Dla rodzica ważne są jasne informacje, prosty kontakt i poczucie bezpieczeństwa.
-              Dla dziecka liczy się przygoda, grupa i atmosfera. Dobra oferta powinna łączyć jedno i drugie.
+            <p>
+              To właśnie radość i wdzięczność uczestników daje nam największą satysfakcję i motywuje
+              do dalszego działania. Z roku na rok rozwijamy się, podnosimy jakość naszych wyjazdów
+              i wprowadzamy nowe pomysły, aby każdy wyjazd z MKSPORT był dla dzieci czymś więcej niż
+              tylko chwilą poza domem – był prawdziwą przygodą.
             </p>
           </div>
         </div>
@@ -65,4 +64,59 @@ import PageHero from "../components/PageHero.astro";
   </section>
 
   <Footer lang="pl" />
+
+  <style>
+    .about-premium--clean {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .about-premium__media-frame {
+      height: 100%;
+      min-height: 760px;
+      display: grid;
+      place-items: center;
+      padding: 26px;
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 22px 60px rgba(16, 39, 68, 0.08);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+    }
+
+    .about-premium__image--contain {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: center center;
+      border-radius: 24px;
+    }
+
+    @media (max-width: 980px) {
+      .about-premium--clean {
+        grid-template-columns: 1fr;
+      }
+
+      .about-premium__media-frame {
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .about-premium__media-frame {
+        min-height: 380px;
+        padding: 16px;
+        border-radius: 24px;
+      }
+
+      .about-premium__image--contain {
+        border-radius: 18px;
+      }
+    }
+  </style>
 </MainLayout>

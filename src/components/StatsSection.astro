@@ -5,77 +5,97 @@ interface Props {
 
 const { lang = "pl" } = Astro.props;
 
-const content =
+const items =
+  lang === "pl"
+    ? [
+        { value: 3, suffix: "", label: "kierunki wyjazdów" },
+        { value: 100, suffix: "%", label: "energii i aktywności" },
+        { value: 1, suffix: "", label: "prosty proces zapisów" },
+      ]
+    : [
+        { value: 3, suffix: "", label: "trip directions" },
+        { value: 100, suffix: "%", label: "energy and activity" },
+        { value: 1, suffix: "", label: "simple registration process" },
+      ];
+
+const t =
   lang === "pl"
     ? {
         eyebrow: "W skrócie",
         title: "Kilka najważniejszych rzeczy na pierwszy rzut oka",
         lead:
-          "Ta sekcja ma od razu dać szybki obraz oferty i całego procesu bez czytania długich bloków tekstu.",
-        items: [
-          {
-            value: 3,
-            suffix: "",
-            label: "kierunki wyjazdów",
-          },
-          {
-            value: 100,
-            suffix: "%",
-            label: "energii i aktywności",
-          },
-          {
-            value: 1,
-            suffix: "",
-            label: "prosty proces zapisów",
-          },
-        ],
+          "Sprawdź najważniejsze informacje o ofercie MK SPORT w prosty i czytelny sposób.",
       }
     : {
-        eyebrow: "In short",
-        title: "The key things at a first glance",
+        eyebrow: "At a glance",
+        title: "The most important things at first glance",
         lead:
-          "This section should immediately give a quick overview of the offer and the whole process without reading long blocks of text.",
-        items: [
-          {
-            value: 3,
-            suffix: "",
-            label: "trip directions",
-          },
-          {
-            value: 100,
-            suffix: "%",
-            label: "energy and activity",
-          },
-          {
-            value: 1,
-            suffix: "",
-            label: "simple registration flow",
-          },
-        ],
+          "See the key information about MK SPORT in a simple and clear way.",
       };
 ---
 
-<section class="section stats-section">
+<section class="section stats-strip">
   <div class="container">
-    <div class="section-head center">
-      <div class="eyebrow">{content.eyebrow}</div>
-      <h2 class="section-title">{content.title}</h2>
-      <p class="section-lead stats-section__lead">{content.lead}</p>
+    <div class="section-head center reveal">
+      <div class="eyebrow">{t.eyebrow}</div>
+      <h2 class="section-title">{t.title}</h2>
+      <p class="section-lead">{t.lead}</p>
     </div>
 
-    <div class="stats-grid">
-      {content.items.map((item, index) => (
-        <article class={`card stat-counter-card stat-counter-card--${index + 1}`} data-parallax>
-          <div
-            class="stat-counter__value"
-            data-counter-target={item.value}
-            data-counter-suffix={item.suffix}
+    <div class="stats-strip__grid">
+      {items.map((item) => (
+        <article class="stats-strip__card reveal">
+          <strong
+            class="stats-strip__value"
+            data-counter={item.value}
+            data-suffix={item.suffix}
           >
             0{item.suffix}
-          </div>
-          <p>{item.label}</p>
+          </strong>
+          <span class="stats-strip__label">{item.label}</span>
         </article>
       ))}
     </div>
   </div>
 </section>
+
+<script is:inline>
+  const counters = document.querySelectorAll("[data-counter]");
+
+  const animateCounter = (el) => {
+    const target = Number(el.getAttribute("data-counter") || 0);
+    const suffix = el.getAttribute("data-suffix") || "";
+    const duration = 2600;
+    const startTime = performance.now();
+
+    const step = (time) => {
+      const progress = Math.min((time - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.floor(eased * target);
+      el.textContent = `${value}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = `${target}${suffix}`;
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  const statsObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !entry.target.dataset.started) {
+          entry.target.dataset.started = "true";
+          animateCounter(entry.target);
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.45 }
+  );
+
+  counters.forEach((counter) => statsObserver.observe(counter));
+</script>

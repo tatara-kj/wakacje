@@ -1,7 +1,15 @@
+export type OfferTerm = {
+  label: string;
+  start: string; // YYYY-MM-DD
+  end: string; // YYYY-MM-DD
+};
+
 export type OfferItem = {
   slug: string;
   image: string;
   featured: boolean;
+  departureCity: string;
+  terms: OfferTerm[];
   pl: {
     title: string;
     place: string;
@@ -35,75 +43,91 @@ export type OfferItem = {
 export const offers: OfferItem[] = [
   {
     slug: "jaroslawiec",
-    image: "/images/jaroslawiec/main.jfif",
+    image: "/images/ogolne/jaroslawiec_oferta.jpeg",
     featured: true,
+    departureCity: "Częstochowa",
+    terms: [
+      {
+        label: "Turnus letni",
+        start: "2026-07-15",
+        end: "2026-07-24",
+      },
+    ],
     pl: {
       title: "Jarosławiec",
       place: "Jarosławiec • morze",
       season: "Wakacje 2026",
-      age: "10–16 lat",
+      age: "8–16 lat",
       date: "15.07 – 24.07.2026",
-      price: "2499 zł",
+      price: "2490 zł",
       short:
-        "Letni wyjazd nad morze dla dzieci i młodzieży. W programie aktywność, integracja, wypoczynek oraz atrakcje, które dają dzieciom prawdziwą frajdę.",
-      accommodation: "OW Barka",
+        "Letni wyjazd nad morze dla dzieci i młodzieży. W programie aktywność, integracja, plażowanie, wycieczki i dużo wakacyjnej radości.",
+      accommodation: "Ośrodek wypoczynkowy w Jarosławcu, pokoje 3–5 osobowe",
       food: "3 posiłki dziennie + podwieczorek",
-      transport: "Autokar z Opola i okolic",
+      transport: "Autokar z Częstochowy i okolic",
       included: [
-        "opieka kadry i organizacja pobytu",
-        "zakwaterowanie i pełne wyżywienie",
+        "opieka doświadczonej kadry",
+        "pełen program zajęć i atrakcji",
         "ubezpieczenie NNW",
-        "program zajęć i atrakcji",
+        "zakwaterowanie i pełne wyżywienie",
       ],
       highlights: [
-        "aquapark i basen",
-        "wycieczka całodniowa do Darłowa",
-        "rejs statkiem i gry terenowe",
-        "kajaki, dmuchańce i wycieczki rowerowe",
+        "aktywny wypoczynek nad morzem",
+        "gry, zabawy i integracja",
+        "plażowanie i wycieczki",
+        "sport i zajęcia ruchowe",
       ],
     },
     en: {
       title: "Jaroslawiec",
       place: "Jaroslawiec • seaside",
       season: "Summer 2026",
-      age: "10–16 years",
+      age: "8–16 years",
       date: "15.07 – 24.07.2026",
-      price: "2499 PLN",
+      price: "2490 PLN",
       short:
-        "A summer seaside trip for children and teenagers. The program combines activity, integration, relaxation and attractions that children genuinely enjoy.",
-      accommodation: "OW Barka",
-      food: "3 meals per day + afternoon snack",
-      transport: "Coach transport from Opole area",
+        "A seaside summer trip for children and teenagers full of activity, integration, relaxation and holiday fun.",
+      accommodation: "Holiday resort in Jaroslawiec, 3–5 person rooms",
+      food: "3 meals a day + afternoon snack",
+      transport: "Coach from Czestochowa and nearby areas",
       included: [
-        "staff care and full trip organization",
-        "accommodation and full board",
+        "experienced staff care",
+        "full activity and attraction program",
         "accident insurance",
-        "activity and attraction program",
+        "accommodation and full board",
       ],
       highlights: [
-        "aquapark and swimming pool",
-        "full-day trip to Darlowo",
-        "boat cruise and field games",
-        "kayaks, inflatables and bike trips",
+        "active holiday by the sea",
+        "games, fun and integration",
+        "beach time and trips",
+        "sports and movement activities",
       ],
     },
   },
   {
     slug: "ostrow-pieckowskie",
-    image: "/images/ostrow-pieckowskie/main.jfif",
+    image: "/images/ogolne/ostrow_oferta.jpeg",
     featured: true,
+    departureCity: "Częstochowa",
+    terms: [
+      {
+        label: "Turnus letni",
+        start: "2026-08-06",
+        end: "2026-08-15",
+      },
+    ],
     pl: {
       title: "Ostrów Pieckowskie",
       place: "Mazury • Ostrów Pieckowskie",
       season: "Wakacje 2026",
-      age: "10–16 lat",
+      age: "8–16 lat",
       date: "06.08 – 15.08.2026",
-      price: "2599 zł",
+      price: "2590 zł",
       short:
-        "Mazurski wyjazd dla dzieci i młodzieży nastawiony na aktywność, dobrą atmosferę, wycieczki i wypoczynek w naturalnym otoczeniu.",
-      accommodation: "MazuryCamp",
+        "Mazurski wyjazd dla dzieci i młodzieży nastawiony na aktywność, dobrą atmosferę, kontakt z naturą i wspólne przeżycia.",
+      accommodation: "Ośrodek nad jeziorem MazuryCamp",
       food: "pełne wyżywienie",
-      transport: "Autokar z Opola i okolic",
+      transport: "Autokar z Częstochowy i okolic",
       included: [
         "zakwaterowanie w ośrodku nad jeziorem",
         "pełne wyżywienie",
@@ -111,24 +135,24 @@ export const offers: OfferItem[] = [
         "opieka kadry i organizacja wyjazdu",
       ],
       highlights: [
-        "wycieczka całodniowa do Mikołajek",
-        "rejs statkiem i gry terenowe",
-        "aquapark i kajaki",
-        "wycieczka rowerowa i zajęcia sportowe",
+        "zajęcia sportowe i rekreacyjne",
+        "czas nad jeziorem",
+        "wycieczki i integracja",
+        "aktywny wypoczynek blisko natury",
       ],
     },
     en: {
       title: "Ostrow Pieckowskie",
       place: "Masuria • Ostrow Pieckowskie",
       season: "Summer 2026",
-      age: "10–16 years",
+      age: "8–16 years",
       date: "06.08 – 15.08.2026",
-      price: "2599 PLN",
+      price: "2590 PLN",
       short:
-        "A Masurian trip for children and teenagers focused on activity, good atmosphere, excursions and rest surrounded by nature.",
-      accommodation: "MazuryCamp",
+        "A Masurian trip for children and teenagers focused on activity, a great atmosphere, nature and shared experiences.",
+      accommodation: "MazuryCamp lakeside resort",
       food: "full board",
-      transport: "Coach transport from Opole area",
+      transport: "Coach from Czestochowa and nearby areas",
       included: [
         "accommodation in a lakeside resort",
         "full board",
@@ -136,29 +160,42 @@ export const offers: OfferItem[] = [
         "staff care and trip organization",
       ],
       highlights: [
-        "full-day trip to Mikolajki",
-        "boat cruise and field games",
-        "aquapark and kayaks",
-        "bike trip and sports activities",
+        "sports and recreation activities",
+        "time by the lake",
+        "trips and integration",
+        "active rest close to nature",
       ],
     },
   },
   {
     slug: "poronin-zimowy",
-    image: "/images/poronin-zimowy/main.jfif",
+    image: "/images/ogolne/poronin_oferta.jpeg",
     featured: true,
+    departureCity: "Częstochowa",
+    terms: [
+      {
+        label: "Turnus 1",
+        start: "2027-01-16",
+        end: "2027-01-22",
+      },
+      {
+        label: "Turnus 2",
+        start: "2027-01-23",
+        end: "2027-01-29",
+      },
+    ],
     pl: {
       title: "Poronin",
       place: "Poronin • obóz zimowy",
       season: "Zima 2027",
-      age: "10–16 lat",
-      date: "18.01 – 24.01.2027",
-      price: "1899 zł",
+      age: "8–16 lat",
+      date: "16.01 – 22.01.2027 oraz 23.01 – 29.01.2027",
+      price: "1990 zł",
       short:
-        "Zimowy wyjazd w górskim klimacie dla dzieci i młodzieży. Sport, aktywności, integracja i program dopasowany do sezonu zimowego.",
-      accommodation: "Weronika Inn",
-      food: "pełne wyżywienie",
-      transport: "Autokar z Opola i okolic",
+        "Zimowy wyjazd w górskim klimacie dla dzieci i młodzieży. Sport, zimowe atrakcje, integracja i mnóstwo dobrej zabawy.",
+      accommodation: "Pensjonat w Poroninie, pokoje 3–5 osobowe",
+      food: "śniadanie, obiad, kolacja",
+      transport: "Autokar z Częstochowy i okolic",
       included: [
         "opieka kadry i organizacja wyjazdu",
         "zakwaterowanie i pełne wyżywienie",
@@ -176,25 +213,25 @@ export const offers: OfferItem[] = [
       title: "Poronin",
       place: "Poronin • winter camp",
       season: "Winter 2027",
-      age: "10–16 years",
-      date: "18.01 – 24.01.2027",
-      price: "1899 PLN",
+      age: "8–16 years",
+      date: "16.01 – 22.01.2027 and 23.01 – 29.01.2027",
+      price: "1990 PLN",
       short:
-        "A winter mountain trip for children and teenagers. Sport, activities, integration and a program adjusted to the winter season.",
-      accommodation: "Weronika Inn",
-      food: "full board",
-      transport: "Coach transport from Opole area",
+        "A winter mountain trip for children and teenagers with sport, winter attractions, integration and lots of fun.",
+      accommodation: "Guesthouse in Poronin, 3–5 person rooms",
+      food: "breakfast, lunch, dinner",
+      transport: "Coach from Czestochowa and nearby areas",
       included: [
         "staff care and trip organization",
         "accommodation and full board",
         "accident insurance",
-        "winter attraction program",
+        "winter attractions program",
       ],
       highlights: [
         "Chocholowskie thermal baths",
-        "horse sleigh ride with bonfire",
+        "sleigh ride with bonfire",
         "sports hall activities",
-        "Gubalowka and Zakopane trip",
+        "Gubalowka trip and Zakopane visit",
       ],
     },
   },

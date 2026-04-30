@@ -929,3 +929,203 @@
     word-break: break-word;
   }
 }
+@media (max-width: 1100px) {
+  .hero-stage__content--rich,
+  .about-page-section .about-premium,
+  .video-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    min-height: 320px;
+  }
+
+  .hero-main-image {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 980px) {
+  .registration-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-visual {
+    min-height: 260px;
+  }
+
+  .hero-main-image {
+    min-height: 260px;
+  }
+
+  .hero-floating-card {
+    position: static;
+    max-width: none;
+    margin: 10px 10px 0;
+  }
+
+  .video-card {
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  .about-premium__image img {
+    min-height: 320px;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    min-height: 50px;
+    border-radius: 16px;
+  }
+}
+/* =========================
+   MOBILE FIXES
+========================= */
+@media (max-width: 768px) {
+  /* brak pustki pod headerem */
+  .site-header + section,
+  .site-header + .section,
+  .site-header + .page-hero,
+  header + section,
+  header + .section,
+  header + .page-hero {
+    margin-top: 14px;
+  }
+
+  /* na telefonie NIE chowamy sekcji na start */
+  [data-reveal],
+  .reveal,
+  .section-head,
+  .hero-stage,
+  .offer-card,
+  .offer-detail,
+  .doc-card--clean,
+  .social-real__card,
+  .gallery-band,
+  .contact-premium,
+  .faq-item,
+  .process-card,
+  .home-bottom-banner,
+  .about-premium > *,
+  .cta-banner,
+  .register-form-card,
+  .register-info-card,
+  .countdown-card,
+  .testimonial-card,
+  .stat-counter-card,
+  .video-card {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  /* zdjęcie w O NAS na telefonie */
+  .about-premium__media,
+  .about-premium__media--tall {
+    min-height: 320px;
+  }
+
+  .about-premium__media img {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  /* dolny pasek jeszcze czytelniejszy */
+  .mobile-sticky-bar {
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 22px;
+    padding: 10px;
+  }
+
+  .mobile-sticky-bar__phone,
+  .mobile-sticky-bar .phone-btn,
+  .mobile-sticky-bar a[href^="tel:"] {
+    color: #17304c !important;
+    background: #edf3fb !important;
+  }
+
+  .mobile-sticky-bar__cta,
+  .mobile-sticky-bar .cta-btn,
+  .mobile-sticky-bar a[href*="zapisy"] {
+    color: #17304c !important;
+    background: #ffc928 !important;
+  }
+}
+@media (max-width: 768px) {
+  /* jeszcze większy oddech pod headerem */
+  .site-header {
+    padding-bottom: 12px !important;
+  }
+
+  .site-header .container,
+  .site-header__inner,
+  .site-header__wrap {
+    padding-bottom: 10px !important;
+  }
+
+  .site-header__actions,
+  .site-header__right,
+  .site-header__cta,
+  .site-header__buttons {
+    margin-bottom: 10px !important;
+  }
+
+  /* zero pustki na mobile */
+  [data-reveal],
+  .reveal,
+  .section-head,
+  .hero-stage,
+  .offer-card,
+  .offer-detail,
+  .doc-card--clean,
+  .social-real__card,
+  .gallery-band,
+  .contact-premium,
+  .faq-item,
+  .process-card,
+  .home-bottom-banner,
+  .about-premium > *,
+  .cta-banner,
+  .register-form-card,
+  .register-info-card,
+  .countdown-card,
+  .testimonial-card,
+  .stat-counter-card,
+  .video-card {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  /* o nas */
+  .about-premium__media,
+  .about-premium__image {
+    min-height: 320px !important;
+  }
+
+  .about-premium__media img,
+  .about-premium__image img {
+    object-position: center 16% !important;
+  }
+
+  /* social zawsze pośrodku */
+  .social-real__grid,
+  .social-section__grid,
+  .social-grid {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+  }
+
+  .social-real__card,
+  .social-card,
+  .instagram-card {
+    width: min(100%, 560px) !important;
+    margin-inline: auto !important;
+  }
+}
