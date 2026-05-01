@@ -77,9 +77,10 @@ const t =
     </div>
 
     <div class="register-form-shell reveal">
-    <div id="formSuccessBox" class="form-success-box" style="display:none;">
-  Dziękujemy. Zgłoszenie zostało wysłane. Organizator skontaktuje się w sprawie dalszych szczegółów, terminu i płatności.
+<div id="formSuccessBox" class="form-success-box" style="display:none;">
+  Dziękujemy. Zgłoszenie zostało wysłane. Organizator skontaktuje się w sprawie szczegółów wyjazdu, terminu oraz płatności.
 </div>
+
       <form class="register-form-card card" id="mkRegistrationForm">
         <div class="form-grid-better">
           <div class="form-field">
@@ -199,6 +200,18 @@ const t =
     renderTerms(event.target.value);
   });
   const form = document.getElementById("mkRegistrationForm");
+const successBox = document.getElementById("formSuccessBox");
+
+form?.addEventListener("submit", () => {
+  setTimeout(() => {
+    if (successBox) {
+      successBox.style.display = "block";
+      successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, 300);
+});
+
+const form = document.getElementById("mkRegistrationForm");
 const successBox = document.getElementById("formSuccessBox");
 
 form?.addEventListener("submit", () => {

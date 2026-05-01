@@ -1,0 +1,475 @@
+/* =========================================================
+   MK SPORT — FINAL VISUAL OVERRIDE
+   ten plik ma być importowany jako OSTATNI
+========================================================= */
+
+:root {
+  --mk-glass-bg: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(255, 255, 255, 0.72) 100%
+  );
+  --mk-glass-border: rgba(19, 48, 82, 0.08);
+  --mk-glass-shadow:
+    0 16px 38px rgba(16, 39, 68, 0.08), 0 28px 80px rgba(16, 39, 68, 0.05);
+  --mk-glass-shadow-hover:
+    0 22px 52px rgba(16, 39, 68, 0.12), 0 34px 92px rgba(16, 39, 68, 0.08);
+  --mk-title: #173252;
+  --mk-text: #63788f;
+}
+
+/* ===== NIE RUSZAJ GLOBALNEGO HEADERA ===== */
+header .container,
+.site-header .container,
+.header .container,
+nav .container {
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* ===== SEKCYJNE BOXy / NAGŁÓWKI ===== */
+.section-head {
+  position: relative !important;
+  max-width: 1120px !important;
+  margin: 0 auto 34px !important;
+  padding: 28px 30px 30px !important;
+  border-radius: 30px !important;
+  overflow: hidden !important;
+
+  background: var(--mk-glass-bg) !important;
+  border: 1px solid var(--mk-glass-border) !important;
+  box-shadow: var(--mk-glass-shadow) !important;
+
+  backdrop-filter: blur(16px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.08) !important;
+}
+
+.section-head::before,
+.section-head::after {
+  content: none !important;
+  display: none !important;
+}
+
+.section-head.center {
+  text-align: center !important;
+}
+
+.section-head.center .section-title,
+.section-head.center .section-lead {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.section-head .eyebrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 12px !important;
+  font-size: 0.94rem !important;
+  font-weight: 800 !important;
+  color: #6b7f94 !important;
+}
+
+.section-head .eyebrow::before {
+  content: "" !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #ffb54a, #ff9c31) !important;
+  box-shadow: none !important;
+}
+
+.section-head .section-title {
+  margin: 0 0 14px !important;
+  max-width: 16ch !important;
+  color: var(--mk-title) !important;
+  font-size: clamp(2rem, 5vw, 4rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.045em !important;
+}
+
+.section-head .section-lead {
+  margin: 0 !important;
+  max-width: 860px !important;
+  color: var(--mk-text) !important;
+  font-size: clamp(1rem, 1.4vw, 1.18rem) !important;
+  line-height: 1.72 !important;
+}
+
+/* ===== WSZYSTKIE TE "KAFELKI" — JEDEN SYSTEM ===== */
+.hero-stage__panel,
+.hero-floating-card,
+.mini-glass,
+.about-copy-card,
+.social-real__card,
+.social-card-clean,
+.doc-card--clean,
+.register-form-card,
+.register-info-card,
+.home-bottom-banner,
+.faq-item,
+.process-card,
+.video-card,
+.countdown-card,
+.stat-counter-card,
+.contact-premium__card,
+.comment-card,
+.offer-card {
+  background: var(--mk-glass-bg) !important;
+  border: 1px solid var(--mk-glass-border) !important;
+  border-radius: 28px !important;
+  box-shadow: var(--mk-glass-shadow) !important;
+  backdrop-filter: blur(16px) saturate(1.05) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.05) !important;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease !important;
+}
+
+/* większy padding */
+.hero-stage__panel,
+.about-copy-card,
+.social-real__card,
+.social-card-clean,
+.register-form-card,
+.register-info-card,
+.home-bottom-banner,
+.video-card,
+.doc-card--clean,
+.contact-premium__card,
+.comment-card,
+.offer-card {
+  padding: 28px !important;
+}
+
+.mini-glass,
+.faq-item,
+.process-card,
+.countdown-card,
+.stat-counter-card {
+  padding: 22px !important;
+  border-radius: 22px !important;
+}
+
+.hero-floating-card {
+  padding: 20px 22px !important;
+  border-radius: 22px !important;
+}
+
+/* hover tylko na sensownych kartach */
+.mini-glass:hover,
+.hero-floating-card:hover,
+.social-real__card:hover,
+.social-card-clean:hover,
+.doc-card--clean:hover,
+.process-card:hover,
+.video-card:hover,
+.countdown-card:hover,
+.stat-counter-card:hover,
+.comment-card:hover,
+.offer-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--mk-glass-shadow-hover) !important;
+  border-color: rgba(255, 194, 66, 0.16) !important;
+}
+
+/* ===== TYPOGRAFIA W KARTACH ===== */
+.hero-stage__panel h2,
+.hero-stage__panel h3,
+.hero-floating-card strong,
+.mini-glass strong,
+.about-copy-card h2,
+.social-real__card h3,
+.social-card-clean h3,
+.doc-card--clean h3,
+.register-form-card h2,
+.register-info-card h3,
+.home-bottom-banner h2,
+.faq-item h3,
+.process-card h3,
+.video-card h3,
+.countdown-card h3,
+.stat-counter-card h3,
+.contact-premium__card h3,
+.comment-card h3,
+.offer-card h3 {
+  color: var(--mk-title) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.hero-stage__panel p,
+.hero-stage__panel span,
+.hero-floating-card span,
+.mini-glass span,
+.about-copy-card p,
+.social-real__card p,
+.social-card-clean p,
+.doc-card--clean p,
+.register-form-card p,
+.register-info-card p,
+.home-bottom-banner p,
+.faq-item p,
+.process-card p,
+.video-card p,
+.countdown-card p,
+.stat-counter-card p,
+.contact-premium__card p,
+.comment-card p,
+.offer-card p,
+.offer-card li {
+  color: var(--mk-text) !important;
+}
+
+/* ===== HERO pills — mniej przyciskowe ===== */
+.hero-info-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin: 0 0 1.3rem !important;
+}
+
+.hero-info-chip,
+.hero-ribbon span {
+  min-height: 0 !important;
+  padding: 9px 13px !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.56) !important;
+  border: 1px solid rgba(20, 48, 80, 0.06) !important;
+  box-shadow: none !important;
+  color: #60758c !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+}
+
+/* ===== Usuń wszystkie stare naklejki/bąble ===== */
+.about-bubble,
+.parallax-sticker,
+.offer-note,
+.offer-floating-notes {
+  display: none !important;
+}
+
+/* ===== OFERTA — te karty mają wyglądać porządnie ===== */
+.offer-grid {
+  position: relative;
+  z-index: 1;
+  gap: 24px !important;
+}
+
+.offer-card {
+  overflow: hidden !important;
+}
+
+.offer-card h3,
+.offer-card .offer-card__title {
+  margin-bottom: 12px !important;
+}
+
+.offer-card img {
+  border-radius: 20px !important;
+}
+
+/* ===== INSTAGRAM — środek ===== */
+.social-real--single {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.social-real__card,
+.social-card-clean {
+  width: min(100%, 820px) !important;
+  margin-inline: auto !important;
+}
+
+.social-real__header,
+.social-real__header--centered {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  gap: 18px !important;
+}
+
+.instagram-widget-slot,
+.instagram-widget-slot--centered {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+.instagram-widget-slot > *,
+.instagram-widget-slot--centered > * {
+  width: 100% !important;
+  max-width: 620px !important;
+  margin-inline: auto !important;
+}
+
+.social-real__actions {
+  display: flex !important;
+  justify-content: center !important;
+  margin-top: 22px !important;
+}
+
+/* ===== O NAS — zdjęcie bez zjebanego kadrowania ===== */
+.about-premium__media-frame {
+  display: grid !important;
+  place-items: center !important;
+  padding: 22px !important;
+  border-radius: 28px !important;
+  background: var(--mk-glass-bg) !important;
+  border: 1px solid var(--mk-glass-border) !important;
+  box-shadow: var(--mk-glass-shadow) !important;
+}
+
+.about-premium__image--contain {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  border-radius: 20px !important;
+}
+
+/* ===== Formularz ===== */
+.form-field label {
+  color: var(--mk-title) !important;
+  font-weight: 700 !important;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  min-height: 58px !important;
+  padding: 14px 18px !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(20, 48, 80, 0.12) !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 8px 20px rgba(16, 39, 68, 0.04) !important;
+  color: #173252 !important;
+  font-size: 1rem !important;
+}
+
+.form-field textarea {
+  min-height: 150px !important;
+  resize: vertical !important;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none !important;
+  border-color: rgba(255, 187, 50, 0.78) !important;
+  box-shadow: 0 0 0 4px rgba(255, 205, 82, 0.18) !important;
+}
+
+.form-field select,
+.form-field option {
+  color: #173252 !important;
+  background: #ffffff !important;
+}
+
+.form-field select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #60758d 50%),
+    linear-gradient(135deg, #60758d 50%, transparent 50%) !important;
+  background-position:
+    calc(100% - 22px) calc(50% - 2px),
+    calc(100% - 16px) calc(50% - 2px) !important;
+  background-size:
+    6px 6px,
+    6px 6px !important;
+  background-repeat: no-repeat !important;
+}
+
+.checkbox-line {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: flex-start !important;
+}
+
+.checkbox-line input {
+  margin-top: 4px !important;
+}
+
+/* ===== success po wysłaniu formularza ===== */
+.form-success-box {
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(223, 255, 235, 0.82);
+  border: 1px solid rgba(70, 168, 108, 0.18);
+  color: #1d6134;
+  font-weight: 700;
+  line-height: 1.65;
+  box-shadow: 0 12px 26px rgba(45, 126, 72, 0.08);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  .section-head {
+    padding: 22px 20px 24px !important;
+    border-radius: 22px !important;
+  }
+
+  .section-head .section-title {
+    max-width: none !important;
+    font-size: clamp(1.8rem, 8vw, 2.7rem) !important;
+    line-height: 1.02 !important;
+  }
+
+  .hero-stage__panel,
+  .about-copy-card,
+  .social-real__card,
+  .social-card-clean,
+  .register-form-card,
+  .home-bottom-banner,
+  .video-card,
+  .doc-card--clean,
+  .contact-premium__card,
+  .comment-card,
+  .offer-card {
+    padding: 22px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-head {
+    padding: 18px 16px 20px !important;
+    border-radius: 20px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .section-head .eyebrow {
+    font-size: 0.86rem !important;
+  }
+
+  .section-head .section-title {
+    font-size: clamp(1.65rem, 8.2vw, 2.2rem) !important;
+  }
+
+  .section-head .section-lead {
+    font-size: 0.96rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .mini-glass,
+  .faq-item,
+  .process-card,
+  .countdown-card,
+  .stat-counter-card {
+    padding: 18px !important;
+    border-radius: 18px !important;
+  }
+
+  .hero-info-chip,
+  .hero-ribbon span {
+    font-size: 0.82rem !important;
+    padding: 8px 10px !important;
+  }
+}
