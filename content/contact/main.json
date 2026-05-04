@@ -1,0 +1,53 @@
+{
+  "pl": {
+    "pageEyebrow": "Kontakt",
+    "pageTitle": "Skontaktuj się z organizatorem",
+    "pageLead": "Jeśli chcesz dopytać o termin, program, transport albo zapisy, skontaktuj się z nami. Chętnie odpowiemy i pomożemy wybrać odpowiedni wyjazd.",
+    "mainEyebrow": "MK SPORT",
+    "mainTitle": "Najważniejsze dane kontaktowe",
+    "mainLead": "Najszybsza droga to telefon lub wiadomość e-mail. W sprawie zapisów i szczegółów wyjazdu można też przejść od razu do formularza.",
+    "phoneLabel": "Telefon",
+    "phoneText": "Kontakt bezpośredni z organizatorem",
+    "emailLabel": "E-mail",
+    "emailText": "Wiadomości i zgłoszenia ze strony",
+    "ownerLabel": "Osoba kontaktowa",
+    "ownerText": "MK SPORT",
+    "registrationButton": "Przejdź do zapisów",
+    "parentEyebrow": "Dla rodziców",
+    "parentTitle": "Jak wygląda kontakt po zgłoszeniu?",
+    "parentItems": [
+      "zgłoszenie trafia bezpośrednio na adres e-mail organizatora",
+      "rodzic otrzymuje dalsze informacje po kontakcie",
+      "dane do wpłaty przekazywane są po zgłoszeniu",
+      "w razie pytań można skontaktować się telefonicznie lub mailowo"
+    ],
+    "infoEyebrow": "Informacje",
+    "infoTitle": "Dane formalne",
+    "infoText": "Podstawowe dane kontaktowe MK SPORT znajdują się poniżej. W razie pytań najlepiej skontaktować się bezpośrednio z organizatorem."
+  },
+  "en": {
+    "pageEyebrow": "Contact",
+    "pageTitle": "Contact the organizer",
+    "pageLead": "If you would like to ask about dates, program, transport or registration, contact us.",
+    "mainEyebrow": "MK SPORT",
+    "mainTitle": "Main contact details",
+    "mainLead": "The fastest way is by phone or e-mail.",
+    "phoneLabel": "Phone",
+    "phoneText": "Direct contact with the organizer",
+    "emailLabel": "E-mail",
+    "emailText": "Messages and registrations",
+    "ownerLabel": "Contact person",
+    "ownerText": "MK SPORT",
+    "registrationButton": "Go to registration",
+    "parentEyebrow": "For parents",
+    "parentTitle": "What happens after registration?",
+    "parentItems": [
+      "the registration goes directly to the organizer",
+      "the parent receives further information after contact",
+      "payment details are provided after registration"
+    ],
+    "infoEyebrow": "Information",
+    "infoTitle": "Formal details",
+    "infoText": "Basic MK SPORT contact details are listed below."
+  }
+}

@@ -1,34 +1,14 @@
 ---
-import { siteConfig } from "../data/site";
+import socialData from "../../content/social/main.json";
 
 interface Props {
   lang?: "pl" | "en";
 }
 
 const { lang = "pl" } = Astro.props;
-
-const t =
-  lang === "pl"
-    ? {
-        eyebrow: "Instagram",
-        title: "Zobacz MK SPORT także na Instagramie",
-        lead:
-          "Relacje, zdjęcia i klimat wyjazdów najlepiej pokazuje właśnie feed. Tu ma być żywo, aktualnie i bardziej dynamicznie niż na samej stronie.",
-        instagramTitle: "Instagram MK SPORT",
-        instagramText:
-          "Zdjęcia, relacje i codzienny klimat wyjazdów. To miejsce ma pokazywać energię, a nie wyglądać jak martwa zakładka.",
-        button: "Otwórz profil",
-      }
-    : {
-        eyebrow: "Instagram",
-        title: "See MK SPORT on Instagram too",
-        lead:
-          "Stories, photos and camp atmosphere are shown best through the feed. This should feel active, fresh and more dynamic than the website itself.",
-        instagramTitle: "MK SPORT Instagram",
-        instagramText:
-          "Photos, stories and the everyday atmosphere of the trips. This section should feel alive, not static.",
-        button: "Open profile",
-      };
+const t = lang === "pl" ? socialData.pl : socialData.en;
+const instagramUrl = socialData.instagramUrl || "https://www.instagram.com/";
+const elfsightClass = socialData.elfsightClass || "";
 ---
 
 <section class="section social-real-section">
@@ -43,6 +23,7 @@ const t =
       <article class="card social-real__card hover-lift">
         <div class="social-real__header social-real__header--centered">
           <div class="social-real__icon social-real__icon--ig">◎</div>
+
           <div class="social-real__header-copy">
             <h3>{t.instagramTitle}</h3>
             <p>{t.instagramText}</p>
@@ -50,14 +31,13 @@ const t =
         </div>
 
         <div class="instagram-widget-slot instagram-widget-slot--live instagram-widget-slot--centered">
-          <div
-            class="elfsight-app-76883f26-1d9d-4d0e-b17c-9b7c77603ca4"
-            data-elfsight-app-lazy
-          ></div>
+          {elfsightClass && (
+            <div class={elfsightClass} data-elfsight-app-lazy></div>
+          )}
         </div>
 
         <div class="social-real__actions">
-          <a href={siteConfig.instagram} target="_blank" rel="noreferrer" class="btn btn-secondary">
+          <a href={instagramUrl} target="_blank" rel="noreferrer" class="btn btn-secondary">
             {t.button}
           </a>
         </div>

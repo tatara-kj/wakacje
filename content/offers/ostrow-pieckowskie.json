@@ -1,0 +1,61 @@
+{
+  "slug": "ostrow-pieckowskie",
+  "image": "/images/ogolne/ostrow_oferta.jpeg",
+  "featured": true,
+  "departureCity": "Częstochowa",
+  "terms": [
+    {
+      "label": "Turnus letni",
+      "start": "2026-08-06",
+      "end": "2026-08-15"
+    }
+  ],
+  "pl": {
+    "title": "Ostrów Pieckowskie",
+    "place": "Mazury • Ostrów Pieckowskie",
+    "season": "Wakacje 2026",
+    "age": "8–16 lat",
+    "date": "06.08 – 15.08.2026",
+    "price": "2590 zł",
+    "short": "Mazurski wyjazd dla dzieci i młodzieży nastawiony na aktywność, dobrą atmosferę, kontakt z naturą i wspólne przeżycia.",
+    "accommodation": "Ośrodek nad jeziorem MazuryCamp",
+    "food": "pełne wyżywienie",
+    "transport": "Autokar z Częstochowy i okolic",
+    "included": [
+      "zakwaterowanie w ośrodku nad jeziorem",
+      "pełne wyżywienie",
+      "zajęcia sportowe i rekreacyjne",
+      "opieka kadry i organizacja wyjazdu"
+    ],
+    "highlights": [
+      "zajęcia sportowe i rekreacyjne",
+      "czas nad jeziorem",
+      "wycieczki i integracja",
+      "aktywny wypoczynek blisko natury"
+    ]
+  },
+  "en": {
+    "title": "Ostrow Pieckowskie",
+    "place": "Masuria • Ostrow Pieckowskie",
+    "season": "Summer 2026",
+    "age": "8–16 years",
+    "date": "06.08 – 15.08.2026",
+    "price": "2590 PLN",
+    "short": "A Masurian trip for children and teenagers focused on activity, a great atmosphere, nature and shared experiences.",
+    "accommodation": "MazuryCamp lakeside resort",
+    "food": "full board",
+    "transport": "Coach from Czestochowa and nearby areas",
+    "included": [
+      "accommodation in a lakeside resort",
+      "full board",
+      "sports and recreation activities",
+      "staff care and trip organization"
+    ],
+    "highlights": [
+      "sports and recreation activities",
+      "time by the lake",
+      "trips and integration",
+      "active rest close to nature"
+    ]
+  }
+}

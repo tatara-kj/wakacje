@@ -1,0 +1,66 @@
+{
+  "slug": "poronin-zimowy",
+  "image": "/images/ogolne/poronin_oferta.jpeg",
+  "featured": true,
+  "departureCity": "Częstochowa",
+  "terms": [
+    {
+      "label": "Turnus 1",
+      "start": "2027-01-16",
+      "end": "2027-01-22"
+    },
+    {
+      "label": "Turnus 2",
+      "start": "2027-01-23",
+      "end": "2027-01-29"
+    }
+  ],
+  "pl": {
+    "title": "Poronin",
+    "place": "Poronin • obóz zimowy",
+    "season": "Zima 2027",
+    "age": "8–16 lat",
+    "date": "16.01 – 22.01.2027 oraz 23.01 – 29.01.2027",
+    "price": "1990 zł",
+    "short": "Zimowy wyjazd w górskim klimacie dla dzieci i młodzieży. Sport, zimowe atrakcje, integracja i mnóstwo dobrej zabawy.",
+    "accommodation": "Pensjonat w Poroninie, pokoje 3–5 osobowe",
+    "food": "śniadanie, obiad, kolacja",
+    "transport": "Autokar z Częstochowy i okolic",
+    "included": [
+      "opieka kadry i organizacja wyjazdu",
+      "zakwaterowanie i pełne wyżywienie",
+      "ubezpieczenie NNW",
+      "program zimowych atrakcji"
+    ],
+    "highlights": [
+      "termy Chochołowskie",
+      "kulig z ogniskiem",
+      "zajęcia na hali sportowej",
+      "wjazd na Gubałówkę i wycieczka do Zakopanego"
+    ]
+  },
+  "en": {
+    "title": "Poronin",
+    "place": "Poronin • winter camp",
+    "season": "Winter 2027",
+    "age": "8–16 years",
+    "date": "16.01 – 22.01.2027 and 23.01 – 29.01.2027",
+    "price": "1990 PLN",
+    "short": "A winter mountain trip for children and teenagers with sport, winter attractions, integration and lots of fun.",
+    "accommodation": "Guesthouse in Poronin, 3–5 person rooms",
+    "food": "breakfast, lunch, dinner",
+    "transport": "Coach from Czestochowa and nearby areas",
+    "included": [
+      "staff care and trip organization",
+      "accommodation and full board",
+      "accident insurance",
+      "winter attractions program"
+    ],
+    "highlights": [
+      "Chocholowskie thermal baths",
+      "sleigh ride with bonfire",
+      "sports hall activities",
+      "Gubalowka trip and Zakopane visit"
+    ]
+  }
+}

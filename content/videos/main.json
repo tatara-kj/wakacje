@@ -1,0 +1,38 @@
+{
+  "pl": {
+    "eyebrow": "Zobacz więcej",
+    "title": "Film i relacja z wyjazdów",
+    "lead": "Krótkie nagrania pokazują klimat wyjazdów, aktywności i atmosferę, którą dzieci zapamiętują na długo.",
+    "play": "Odtwórz",
+    "items": [
+      {
+        "badge": "Obóz zimowy",
+        "poster": "/images/ogolne/poronin_oferta.jpeg",
+        "src": "/images/ogolne/zimowy_film.mp4"
+      },
+      {
+        "badge": "Relacja wideo",
+        "poster": "/images/ogolne/ess.jpeg",
+        "src": "/images/ogolne/tiktok1.mp4"
+      }
+    ]
+  },
+  "en": {
+    "eyebrow": "See more",
+    "title": "Video and trip highlights",
+    "lead": "Short videos show the atmosphere, activities and energy of the trips.",
+    "play": "Play",
+    "items": [
+      {
+        "badge": "Winter camp",
+        "poster": "/images/ogolne/poronin_oferta.jpeg",
+        "src": "/images/ogolne/zimowy_film.mp4"
+      },
+      {
+        "badge": "Video story",
+        "poster": "/images/ogolne/ess.jpeg",
+        "src": "/images/ogolne/tiktok1.mp4"
+      }
+    ]
+  }
+}

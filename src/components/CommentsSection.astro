@@ -1,111 +1,144 @@
 ---
+import reviewsData from "../../content/reviews/main.json";
+
 interface Props {
   lang?: "pl" | "en";
 }
 
 const { lang = "pl" } = Astro.props;
+const content = lang === "pl" ? reviewsData.pl : reviewsData.en;
 
-const testimonials =
-  lang === "pl"
-    ? [
-        {
-          name: "Marek K.",
-          rating: 5,
-          text: "Duży plus za organizację i jasne informacje przed wyjazdem. Dziecko wróciło bardzo zadowolone i już pyta o kolejny termin.",
-        },
-        {
-          name: "Anna P.",
-          rating: 4,
-          text: "Bardzo fajne połączenie aktywności, integracji i odpoczynku. Na plus także szybki kontakt i dobra atmosfera.",
-        },
-        {
-          name: "Tomasz W.",
-          rating: 5,
-          text: "Widać, że wyjazd jest dobrze przemyślany. Wszystko było jasno wyjaśnione, a program nie wyglądał jak przypadkowo złożony.",
-        },
-        {
-          name: "Karolina M.",
-          rating: 5,
-          text: "Córka wróciła zadowolona, pełna wrażeń i nowych znajomości. To dla mnie najlepsza rekomendacja.",
-        },
-        {
-          name: "Paweł D.",
-          rating: 4,
-          text: "Dobry kontakt z organizatorem, przejrzyste informacje i sensowny program wyjazdu. Całość robi bardzo dobre wrażenie.",
-        },
-        {
-          name: "Ewa S.",
-          rating: 5,
-          text: "Najbardziej podobało mi się to, że wszystko było zebrane w jednym miejscu: oferta, dokumenty, kontakt i szybkie zgłoszenie.",
-        },
-      ]
-    : [
-        {
-          name: "Marek K.",
-          rating: 5,
-          text: "A big plus for organization and clear information before departure. The child came back very happy and is already asking about the next trip.",
-        },
-        {
-          name: "Anna P.",
-          rating: 4,
-          text: "A very good mix of activity, integration and rest. Also a plus for fast contact and a good atmosphere.",
-        },
-        {
-          name: "Tomasz W.",
-          rating: 5,
-          text: "You can see that the trip is well thought out. Everything was clearly explained and the program felt properly planned.",
-        },
-        {
-          name: "Karolina M.",
-          rating: 5,
-          text: "My daughter came back happy, full of impressions and new friendships. For me that says everything.",
-        },
-        {
-          name: "Paweł D.",
-          rating: 4,
-          text: "Good contact with the organizer, clear information and a sensible trip program. The whole thing makes a very good impression.",
-        },
-        {
-          name: "Ewa S.",
-          rating: 5,
-          text: "I liked that everything was gathered in one place: offer, documents, contact and fast registration.",
-        },
-      ];
-
-const t =
-  lang === "pl"
-    ? {
-        eyebrow: "Opinie",
-        title: "Co mówią rodzice?",
-      }
-    : {
-        eyebrow: "Reviews",
-        title: "What do parents say?",
-      };
+const getStars = (rating: number) => {
+  const safeRating = Math.max(1, Math.min(5, Number(rating) || 5));
+  return "★".repeat(safeRating);
+};
 ---
 
-<section class="section testimonial-section">
+<section class="section reviews-section">
   <div class="container">
-    <div class="section-head center">
-      <div class="eyebrow">{t.eyebrow}</div>
-      <h2 class="section-title">{t.title}</h2>
+    <div class="section-head center reveal">
+      <div class="eyebrow">{content.eyebrow}</div>
+      <h2 class="section-title">{content.title}</h2>
+      <p class="section-lead">{content.lead}</p>
     </div>
 
-    <div class="testimonial-marquee">
-      <div class="testimonial-marquee__track">
-        {[...testimonials, ...testimonials].map((item, index) => (
-          <article 
-            class="card testimonial-card hover-lift" 
-            aria-hidden={index >= testimonials.length ? "true" : "false"}
-          >
-            <div class="testimonial-card__top">
-              <strong>{item.name}</strong>
-              <span>{"★".repeat(item.rating)}{"☆".repeat(5 - item.rating)}</span>
-            </div>
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </div>
+    <div class="reviews-grid">
+      {content.items.map((item) => (
+        <article class="review-card reveal">
+          <div class="review-card__top">
+            <strong>{item.name}</strong>
+            <span class="review-card__stars" aria-label={`Ocena ${item.rating} na 5`}>
+              {getStars(item.rating)}
+            </span>
+          </div>
+
+          <p>{item.text}</p>
+        </article>
+      ))}
     </div>
   </div>
 </section>
+
+<style>
+  .reviews-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reviews-section::before {
+    content: "";
+    position: absolute;
+    inset: 8% auto auto 5%;
+    width: 260px;
+    height: 260px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(255, 196, 42, 0.16), rgba(255, 196, 42, 0));
+    filter: blur(18px);
+    pointer-events: none;
+  }
+
+  .reviews-section::after {
+    content: "";
+    position: absolute;
+    right: 5%;
+    bottom: 10%;
+    width: 280px;
+    height: 280px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(107, 221, 190, 0.16), rgba(107, 221, 190, 0));
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  .reviews-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .review-card {
+    padding: 24px;
+    border-radius: 28px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72));
+    border: 1px solid rgba(16, 44, 76, 0.08);
+    box-shadow: 0 18px 48px rgba(16, 39, 68, 0.08);
+    backdrop-filter: blur(16px);
+    transition:
+      transform 0.28s ease,
+      box-shadow 0.28s ease,
+      border-color 0.28s ease;
+  }
+
+  .review-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 70px rgba(16, 39, 68, 0.14);
+    border-color: rgba(255, 186, 51, 0.32);
+  }
+
+  .review-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .review-card__top strong {
+    color: #14324f;
+    font-size: 1rem;
+  }
+
+  .review-card__stars {
+    color: #ffb000;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .review-card p {
+    margin: 0;
+    color: #58708a;
+    line-height: 1.75;
+    font-weight: 600;
+  }
+
+  @media (max-width: 1100px) {
+    .reviews-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .review-card {
+      padding: 20px;
+      border-radius: 24px;
+    }
+  }
+</style>

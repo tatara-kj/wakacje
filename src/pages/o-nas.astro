@@ -3,15 +3,18 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PageHero from "../components/PageHero.astro";
+import aboutData from "../../content/about/main.json";
+
+const about = aboutData.pl;
 ---
 
 <MainLayout title="O nas" description="O MK SPORT" lang="pl">
   <Header lang="pl" currentPath="/o-nas" />
 
   <PageHero
-    eyebrow="O nas"
-    title="Poznaj MKSPORT"
-    lead="Zespół ludzi, których łączy pasja do pracy z dziećmi, aktywności i tworzenia wyjazdów pełnych radości."
+    eyebrow={about.pageEyebrow}
+    title={about.pageTitle}
+    lead={about.pageLead}
   />
 
   <section class="section about-page-section">
@@ -20,8 +23,8 @@ import PageHero from "../components/PageHero.astro";
         <div class="about-premium__media reveal">
           <div class="about-premium__media-frame">
             <img
-              src="/images/ogolne/onas.jpeg"
-              alt="MKSPORT – organizator kolonii i wyjazdów zimowych"
+              src={about.image}
+              alt={about.imageAlt}
               class="about-premium__image about-premium__image--contain"
             />
           </div>
@@ -29,34 +32,12 @@ import PageHero from "../components/PageHero.astro";
 
         <div class="about-premium__content reveal">
           <div class="about-copy-card">
-            <div class="eyebrow">MKSPORT</div>
-            <h2 class="section-title">MKSPORT – organizator kolonii i wyjazdów zimowych</h2>
+            <div class="eyebrow">{about.eyebrow}</div>
+            <h2 class="section-title">{about.title}</h2>
 
-            <p>
-              MKSPORT to zespół zaangażowanych pedagogów, którzy na co dzień pracują w szkołach,
-              przedszkolach oraz klubach sportowych. Łączy nas wspólna pasja – praca z dziećmi
-              oraz tworzenie dla nich przestrzeni do rozwoju, zabawy i budowania pięknych wspomnień.
-            </p>
-
-            <p>
-              Od wielu lat organizujemy kolonie, obozy oraz wyjazdy zimowe, podczas których stawiamy
-              nie tylko na aktywność fizyczną, ale także na kreatywność, integrację i dobrą atmosferę.
-              Nasze doświadczenie zdobywane przez lata przekłada się na profesjonalną organizację
-              oraz bezpieczeństwo uczestników.
-            </p>
-
-            <p>
-              Tworzymy programy pełne różnorodnych zajęć – sportowych, rekreacyjnych i animacyjnych –
-              zarówno podczas wyjazdów, jak i w naszej codziennej pracy z dziećmi. Organizujemy również
-              wydarzenia i spotkania, które mają jeden główny cel: wywoływać uśmiech na twarzach dzieci.
-            </p>
-
-            <p>
-              To właśnie radość i wdzięczność uczestników daje nam największą satysfakcję i motywuje
-              do dalszego działania. Z roku na rok rozwijamy się, podnosimy jakość naszych wyjazdów
-              i wprowadzamy nowe pomysły, aby każdy wyjazd z MKSPORT był dla dzieci czymś więcej niż
-              tylko chwilą poza domem – był prawdziwą przygodą.
-            </p>
+            {about.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
           </div>
         </div>
       </div>

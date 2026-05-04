@@ -1,0 +1,32 @@
+{
+  "pl": {
+    "pageEyebrow": "O nas",
+    "pageTitle": "Poznaj MKSPORT",
+    "pageLead": "Zespół ludzi, których łączy pasja do pracy z dziećmi, aktywności i tworzenia wyjazdów pełnych radości.",
+    "image": "/images/ogolne/onas.jpeg",
+    "imageAlt": "MKSPORT – organizator kolonii i wyjazdów zimowych",
+    "eyebrow": "MKSPORT",
+    "title": "MKSPORT – organizator kolonii i wyjazdów zimowych",
+    "paragraphs": [
+      "MKSPORT to zespół zaangażowanych pedagogów, którzy na co dzień pracują w szkołach, przedszkolach oraz klubach sportowych. Łączy nas wspólna pasja – praca z dziećmi oraz tworzenie dla nich przestrzeni do rozwoju, zabawy i budowania pięknych wspomnień.",
+      "Od wielu lat organizujemy kolonie, obozy oraz wyjazdy zimowe, podczas których stawiamy nie tylko na aktywność fizyczną, ale także na kreatywność, integrację i dobrą atmosferę. Nasze doświadczenie zdobywane przez lata przekłada się na profesjonalną organizację oraz bezpieczeństwo uczestników.",
+      "Tworzymy programy pełne różnorodnych zajęć – sportowych, rekreacyjnych i animacyjnych – zarówno podczas wyjazdów, jak i w naszej codziennej pracy z dziećmi. Organizujemy również wydarzenia i spotkania, które mają jeden główny cel: wywoływać uśmiech na twarzach dzieci.",
+      "To właśnie radość i wdzięczność uczestników daje nam największą satysfakcję i motywuje do dalszego działania. Z roku na rok rozwijamy się, podnosimy jakość naszych wyjazdów i wprowadzamy nowe pomysły, aby każdy wyjazd z MKSPORT był dla dzieci czymś więcej niż tylko chwilą poza domem – był prawdziwą przygodą."
+    ]
+  },
+  "en": {
+    "pageEyebrow": "About",
+    "pageTitle": "Meet MKSPORT",
+    "pageLead": "A team united by passion for working with children, activity and joyful trips.",
+    "image": "/images/ogolne/onas.jpeg",
+    "imageAlt": "MKSPORT – camps and winter trips organizer",
+    "eyebrow": "MKSPORT",
+    "title": "MKSPORT – camps and winter trips organizer",
+    "paragraphs": [
+      "MKSPORT is a team of dedicated educators working in schools, preschools and sports clubs.",
+      "For many years we have organized camps, summer trips and winter trips for children and teenagers.",
+      "Our programs combine sport, recreation, animation, integration and a friendly atmosphere.",
+      "Every trip is meant to give children much more than time away from home — it should become a real adventure."
+    ]
+  }
+}

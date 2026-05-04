@@ -1,30 +1,12 @@
 ---
+import videoData from "../../content/videos/main.json";
+
 interface Props {
   lang?: "pl" | "en";
 }
 
 const { lang = "pl" } = Astro.props;
-
-const t =
-  lang === "pl"
-    ? {
-        eyebrow: "Zobacz więcej",
-        title: "Film i relacja z wyjazdów",
-        lead:
-          "Krótkie nagrania pokazują klimat wyjazdów, aktywności i atmosferę, którą dzieci zapamiętują na długo.",
-        leftBadge: "Obóz zimowy",
-        rightBadge: "Relacja wideo",
-        play: "Odtwórz",
-      }
-    : {
-        eyebrow: "See more",
-        title: "Video and trip highlights",
-        lead:
-          "Short videos show the atmosphere, activities and energy of the trips.",
-        leftBadge: "Winter camp",
-        rightBadge: "Video story",
-        play: "Play",
-      };
+const t = lang === "pl" ? videoData.pl : videoData.en;
 ---
 
 <section class="section video-showcase">
@@ -36,79 +18,62 @@ const t =
     </div>
 
     <div class="video-showcase__grid">
-      <article class="video-card reveal" data-parallax>
-        <div class="video-card__badge">{t.leftBadge}</div>
+      {t.items.map((item) => (
+        <article class="video-card reveal" data-parallax>
+          <div class="video-card__badge">{item.badge}</div>
 
-        <div class="video-shell video-shell--portrait" data-video-shell>
-          <video
-            class="video-shell__media"
-            preload="metadata"
-            controls
-            playsinline
-            poster="/images/ogolne/poronin_oferta.jpeg"
-          >
-            <source src="/images/ogolne/zimowy_film.mp4" type="video/mp4" />
-          </video>
+          <div class="video-shell video-shell--portrait" data-video-shell>
+            <video
+              class="video-shell__media"
+              preload="metadata"
+              controls
+              playsinline
+              poster={item.poster}
+            >
+              <source src={item.src} type="video/mp4" />
+            </video>
 
-          <button class="video-shell__play" type="button" data-video-play>
-            <span class="video-shell__play-icon">▶</span>
-            <span>{t.play}</span>
-          </button>
-        </div>
-      </article>
-
-      <article class="video-card reveal" data-parallax>
-        <div class="video-card__badge">{t.rightBadge}</div>
-
-        <div class="video-shell video-shell--portrait" data-video-shell>
-          <video
-            class="video-shell__media"
-            preload="metadata"
-            controls
-            playsinline
-            poster="/images/ogolne/ess.jpeg"
-          >
-            <source src="/images/ogolne/tiktok1.mp4" type="video/mp4" />
-          </video>
-
-          <button class="video-shell__play" type="button" data-video-play>
-            <span class="video-shell__play-icon">▶</span>
-            <span>{t.play}</span>
-          </button>
-        </div>
-      </article>
+            <button class="video-shell__play" type="button" data-video-play>
+              <span class="video-shell__play-icon">▶</span>
+              <span>{t.play}</span>
+            </button>
+          </div>
+        </article>
+      ))}
     </div>
   </div>
 </section>
 
 <script is:inline>
-  const videoShells = document.querySelectorAll("[data-video-shell]");
+  (() => {
+    const videoShells = document.querySelectorAll("[data-video-shell]");
 
-  videoShells.forEach((shell) => {
-    const video = shell.querySelector("video");
-    const playBtn = shell.querySelector("[data-video-play]");
+    videoShells.forEach((shell) => {
+      const video = shell.querySelector("video");
+      const playBtn = shell.querySelector("[data-video-play]");
 
-    if (!video || !playBtn) return;
+      if (!video || !playBtn) return;
 
-    const hideButton = () => {
-      shell.classList.add("is-playing");
-    };
+      const hideButton = () => {
+        shell.classList.add("is-playing");
+      };
 
-    const showButton = () => {
-      if (video.paused || video.ended) {
-        shell.classList.remove("is-playing");
-      }
-    };
+      const showButton = () => {
+        if (video.paused || video.ended) {
+          shell.classList.remove("is-playing");
+        }
+      };
 
-    playBtn.addEventListener("click", () => {
-      video.play();
-      hideButton();
+      playBtn.addEventListener("click", () => {
+        video.play();
+        hideButton();
+      });
+
+      video.addEventListener("play", hideButton);
+      video.addEventListener("pause", showButton);
+      video.addEventListener("ended", showButton);
     });
-
-    video.addEventListener("play", hideButton);
-    video.addEventListener("pause", showButton);
-    video.addEventListener("ended", showButton);
-  });
+  })();
 </script>
 
 <style>

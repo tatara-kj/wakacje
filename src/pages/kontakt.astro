@@ -4,16 +4,18 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PageHero from "../components/PageHero.astro";
 import { siteConfig } from "../data/site";
+import contactData from "../../content/contact/main.json";
+
+const contact = contactData.pl;
 ---
 
 <MainLayout title="Kontakt" description="Kontakt MK SPORT" lang="pl">
   <Header lang="pl" currentPath="/kontakt" />
 
   <PageHero
-    eyebrow="Kontakt"
-    title="Skontaktuj się z organizatorem"
-    lead="Jeśli chcesz dopytać o termin, program, transport albo zapisy, skontaktuj się z nami.
-  Chętnie odpowiemy i pomożemy wybrać odpowiedni wyjazd."
+    eyebrow={contact.pageEyebrow}
+    title={contact.pageTitle}
+    lead={contact.pageLead}
   />
 
   <section class="section">
@@ -21,64 +23,70 @@ import { siteConfig } from "../data/site";
       <div class="contact-premium">
         <div class="contact-premium__main card">
           <div class="contact-premium__top">
-            <div class="eyebrow">MK SPORT</div>
-            <h2 class="section-title">Najważniejsze dane kontaktowe</h2>
-            <p class="section-lead">
-              Najszybsza droga to telefon lub wiadomość e-mail. W sprawie zapisów i szczegółów wyjazdu można też przejść od razu do formularza.
-            </p>
+            <div class="eyebrow">{contact.mainEyebrow}</div>
+            <h2 class="section-title">{contact.mainTitle}</h2>
+            <p class="section-lead">{contact.mainLead}</p>
           </div>
 
           <div class="contact-premium__cards">
             <div class="contact-box card">
-              <strong>Telefon</strong>
+              <strong>{contact.phoneLabel}</strong>
               <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a>
-              <span>Kontakt bezpośredni z organizatorem</span>
+              <span>{contact.phoneText}</span>
             </div>
 
             <div class="contact-box card">
-              <strong>E-mail</strong>
+              <strong>{contact.emailLabel}</strong>
               <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-              <span>Wiadomości i zgłoszenia ze strony</span>
+              <span>{contact.emailText}</span>
             </div>
 
             <div class="contact-box card">
-              <strong>Osoba kontaktowa</strong>
+              <strong>{contact.ownerLabel}</strong>
               <span>{siteConfig.owner}</span>
-              <span>MK SPORT</span>
+              <span>{contact.ownerText}</span>
             </div>
           </div>
 
           <div class="contact-premium__actions">
-            <a href="/zapisy" class="btn btn-primary">Przejdź do zapisów</a>
-            <a href={siteConfig.facebook} target="_blank" rel="noreferrer" class="btn btn-secondary">
-              Facebook
-            </a>
-            <a href={siteConfig.instagram} target="_blank" rel="noreferrer" class="btn btn-secondary">
-              Instagram
-            </a>
+            <a href="/zapisy" class="btn btn-primary">{contact.registrationButton}</a>
+
+            {siteConfig.facebook && (
+              <a href={siteConfig.facebook} target="_blank" rel="noreferrer" class="btn btn-secondary">
+                Facebook
+              </a>
+            )}
+
+            {siteConfig.instagram && (
+              <a href={siteConfig.instagram} target="_blank" rel="noreferrer" class="btn btn-secondary">
+                Instagram
+              </a>
+            )}
           </div>
         </div>
 
         <div class="contact-premium__side">
           <div class="card card-padding-lg contact-note">
-            <div class="eyebrow">Dla rodziców</div>
-            <h3>Jak wygląda kontakt po zgłoszeniu?</h3>
+            <div class="eyebrow">{contact.parentEyebrow}</div>
+            <h3>{contact.parentTitle}</h3>
+
             <ul class="list-check">
-              <li>zgłoszenie trafia bezpośrednio na adres e-mail organizatora</li>
-              <li>rodzic otrzymuje dalsze informacje po kontakcie</li>
-              <li>dane do wpłaty przekazywane są po zgłoszeniu</li>
-              <li>dokumenty można pobrać bez szukania ich w wiadomościach</li>
+              {contact.parentItems.map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
           </div>
 
           <div class="card card-padding-lg contact-note">
-            <div class="eyebrow">Informacje</div>
-            <h3>Dane formalne</h3>
-            <p class="muted">
-             
-             693 298 634<br>
-mksport.zgrupowania@gmail.com<br>
-Mateusz Kulig
+            <div class="eyebrow">{contact.infoEyebrow}</div>
+            <h3>{contact.infoTitle}</h3>
+
+            <p class="muted">{contact.infoText}</p>
+
+            <p class="muted contact-formal-data">
+              {siteConfig.phone}<br />
+              {siteConfig.email}<br />
+              {siteConfig.owner}
             </p>
           </div>
         </div>
@@ -87,4 +95,14 @@ Mateusz Kulig
   </section>
 
   <Footer lang="pl" />
+
+  <style>
+    .contact-formal-data {
+      margin-top: 18px;
+      font-weight: 800;
+      color: #173252;
+      line-height: 1.75;
+      word-break: break-word;
+    }
+  </style>
 </MainLayout>

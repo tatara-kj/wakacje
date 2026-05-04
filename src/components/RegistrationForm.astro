@@ -1,78 +1,44 @@
 ---
 import { offers } from "../data/offers";
 import { siteConfig } from "../data/site";
-
+import registrationData from "../../content/registration/main.json";
 interface Props {
   lang?: "pl" | "en";
 }
 
 const { lang = "pl" } = Astro.props;
 
-const formatDate = (dateStr: string) => {
+const formatDate = (dateStr?: string) => {
+  if (!dateStr || typeof dateStr !== "string") return "";
+
   const [year, month, day] = dateStr.split("-");
+
+  if (!year || !month || !day) {
+    return dateStr;
+  }
+
   return `${day}.${month}.${year}`;
 };
 
-const formOffers = offers.map((offer) => ({
-  slug: offer.slug,
-  title: lang === "pl" ? offer.pl.title : offer.en.title,
-  departureCity: "Częstochowa",
-  terms: offer.terms.map((term) => ({
-    value: `${term.start}_${term.end}`,
-    label: `${term.label} • ${formatDate(term.start)} – ${formatDate(term.end)}`,
-  })),
-}));
+const formOffers = offers
+  .filter((offer) => offer && offer.featured !== false)
+  .map((offer) => ({
+    slug: offer.slug,
+    title: lang === "pl" ? offer.pl.title : offer.en.title,
+    departureCity: offer.departureCity || "Częstochowa",
+    terms: Array.isArray(offer.terms)
+      ? offer.terms
+          .filter((term) => term && term.start && term.end)
+          .map((term) => ({
+            value: `${term.start}_${term.end}`,
+            label: `${term.label || "Termin"} • ${formatDate(term.start)} – ${formatDate(term.end)}`,
+          }))
+      : [],
+  }));
 
 const formAction = `https://formsubmit.co/${siteConfig.email}`;
 
-const t =
-  lang === "pl"
-    ? {
-        eyebrow: "Zapisy online",
-        title: "Formularz zgłoszeniowy",
-        lead:
-          "Wypełnij podstawowe informacje, a organizator wróci z dalszymi szczegółami. Dane do wpłaty przekazywane są po zgłoszeniu.",
-        parentName: "Imię i nazwisko rodzica",
-        childName: "Imię i nazwisko dziecka",
-        childAge: "Wiek dziecka",
-        email: "Adres e-mail",
-        phone: "Telefon kontaktowy",
-        camp: "Wybierz obóz",
-        term: "Wybierz termin",
-        city: "Miejsce wyjazdu / miasto",
-        notes: "Dodatkowe informacje",
-        consent:
-          "Potwierdzam, że podane dane są prawidłowe i zgadzam się na kontakt w sprawie wyjazdu.",
-        submit: "Wyślij zgłoszenie",
-        chooseCamp: "Wybierz obóz",
-        chooseTerm: "Wybierz termin",
-        firstChooseCamp: "Najpierw wybierz obóz",
-        success:
-          "Dziękujemy. Zgłoszenie zostało wysłane. Organizator skontaktuje się w sprawie szczegółów wyjazdu, terminu oraz płatności.",
-      }
-    : {
-        eyebrow: "Online registration",
-        title: "Registration form",
-        lead:
-          "Fill in the basic information and the organizer will contact you with further details.",
-        parentName: "Parent full name",
-        childName: "Child full name",
-        childAge: "Child age",
-        email: "E-mail",
-        phone: "Phone number",
-        camp: "Choose a camp",
-        term: "Choose a date",
-        city: "Departure city / location",
-        notes: "Additional information",
-        consent:
-          "I confirm that the data is correct and I agree to be contacted regarding the trip.",
-        submit: "Send registration",
-        chooseCamp: "Choose a camp",
-        chooseTerm: "Choose a date",
-        firstChooseCamp: "Choose a camp first",
-        success:
-          "Thank you. The registration has been sent. The organizer will contact you with trip details, date and payment information.",
-      };
+const t = lang === "pl" ? registrationData.pl : registrationData.en;
 ---
 
 <section class="section register-section" id="zapisy">

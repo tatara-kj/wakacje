@@ -1,0 +1,96 @@
+{
+  "pl": {
+    "heroEyebrow": "Obozy i kolonie • MK SPORT",
+    "heroTitleLine1": "Obozy i kolonie z",
+    "heroTitleAccent": "programem, ruchem i przygodą",
+    "heroLead": "W MK SPORT dzieci spędzają czas aktywnie, radośnie i w dobrej atmosferze. To wyjazdy pełne zabawy, ruchu, integracji oraz pięknych wspomnień, do których chce się wracać.",
+    "heroImage": "/images/ogolne/ess.jpeg",
+    "heroImageAlt": "MK SPORT – aktywny wypoczynek dzieci",
+    "heroSmallPoints": [
+      "☀ aktywny wypoczynek",
+      "✦ dobra atmosfera",
+      "〰 bezpieczna opieka"
+    ],
+    "heroTags": ["sport", "zabawa", "integracja", "przygoda"],
+    "heroChips": [
+      "bezpieczna opieka i doświadczona kadra",
+      "dużo ruchu, zabawy i atrakcji",
+      "prosty kontakt i wygodne zapisy"
+    ],
+    "heroButtonPrimary": "Zobacz ofertę",
+    "heroButtonSecondary": "Przejdź do zapisów",
+    "floatingCardTopTitle": "Radość i aktywność",
+    "floatingCardTopText": "Kolonie, zimowiska i wspomnienia na całe życie",
+    "floatingCardBottomTitle": "Bezpieczna organizacja",
+    "floatingCardBottomText": "Sprawdzona kadra i program dopasowany do dzieci",
+    "infoCards": [
+      {
+        "title": "Bezpieczny i aktywny wypoczynek",
+        "text": "Dobrze zaplanowane wyjazdy z atrakcjami, sportem i opieką kadry."
+      },
+      {
+        "title": "Program, który nie nudzi",
+        "text": "Wycieczki, integracja, ruch, zabawa i wspomnienia po wakacjach."
+      },
+      {
+        "title": "Wszystko w jednym miejscu",
+        "text": "Oferta, dokumenty, kontakt i zgłoszenie bez zbędnego szukania."
+      }
+    ],
+    "offerEyebrow": "Oferta",
+    "offerTitle": "Wybierz odpowiedni wyjazd dla swojego dziecka",
+    "offerLead": "Każdy wyjazd ma swój klimat i program. Sprawdź aktualne kierunki, porównaj najważniejsze informacje i wybierz najlepszą opcję dla swojego dziecka.",
+    "bottomEyebrow": "MK SPORT",
+    "bottomTitle": "W jednym miejscu znajdziesz wszystko, co potrzebne przed wyjazdem",
+    "bottomLead": "Sprawdź aktualne terminy, poznaj ofertę i wygodnie zgłoś dziecko online. Wszystkie najważniejsze informacje są zebrane jasno, przejrzyście i wygodnie.",
+    "bottomButtonPrimary": "Sprawdź ofertę",
+    "bottomButtonSecondary": "Skontaktuj się"
+  },
+  "en": {
+    "heroEyebrow": "Camps • MK SPORT",
+    "heroTitleLine1": "Camps with",
+    "heroTitleAccent": "program, movement and adventure",
+    "heroLead": "At MK SPORT children spend time actively, joyfully and in a good atmosphere.",
+    "heroImage": "/images/ogolne/ess.jpeg",
+    "heroImageAlt": "MK SPORT camps",
+    "heroSmallPoints": [
+      "☀ active holiday",
+      "✦ good atmosphere",
+      "〰 safe care"
+    ],
+    "heroTags": ["sport", "fun", "integration", "adventure"],
+    "heroChips": [
+      "safe care and experienced staff",
+      "lots of movement and fun",
+      "simple contact and registration"
+    ],
+    "heroButtonPrimary": "See offers",
+    "heroButtonSecondary": "Register",
+    "floatingCardTopTitle": "Joy and activity",
+    "floatingCardTopText": "Camps and memories for life",
+    "floatingCardBottomTitle": "Safe organization",
+    "floatingCardBottomText": "Experienced staff and child-friendly program",
+    "infoCards": [
+      {
+        "title": "Safe and active rest",
+        "text": "Well-planned trips with attractions, sport and staff care."
+      },
+      {
+        "title": "A program that is not boring",
+        "text": "Trips, integration, movement, fun and memories."
+      },
+      {
+        "title": "Everything in one place",
+        "text": "Offers, contact and registration without unnecessary searching."
+      }
+    ],
+    "offerEyebrow": "Offers",
+    "offerTitle": "Choose the right trip for your child",
+    "offerLead": "Each trip has its own atmosphere and program.",
+    "bottomEyebrow": "MK SPORT",
+    "bottomTitle": "Everything you need before the trip in one place",
+    "bottomLead": "Check dates, see offers and register online.",
+    "bottomButtonPrimary": "See offers",
+    "bottomButtonSecondary": "Contact us"
+  }
+}

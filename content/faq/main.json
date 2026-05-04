@@ -1,0 +1,44 @@
+{
+  "pl": {
+    "eyebrow": "FAQ",
+    "title": "Najczęstsze pytania rodziców",
+    "lead": "Najważniejsze odpowiedzi w jednym miejscu — prosto, krótko i bez szukania po wiadomościach.",
+    "items": [
+      {
+        "q": "Jak wygląda zgłoszenie dziecka na obóz?",
+        "a": "Rodzic wypełnia formularz na stronie, a organizator kontaktuje się w sprawie dalszych szczegółów, dokumentów i płatności."
+      },
+      {
+        "q": "Kiedy przekazywane są dane do wpłaty?",
+        "a": "Dane do wpłaty są przekazywane po zgłoszeniu dziecka i kontakcie z organizatorem."
+      },
+      {
+        "q": "Skąd odbywa się wyjazd?",
+        "a": "Wyjazd odbywa się z Częstochowy i okolic. Szczegóły transportu są przekazywane przy zapisach."
+      },
+      {
+        "q": "Jaki jest wiek uczestników?",
+        "a": "Oferta jest przygotowana dla dzieci i młodzieży w wieku od 8 do 16 lat."
+      },
+      {
+        "q": "Co zrobić, jeśli mam dodatkowe pytania?",
+        "a": "Najlepiej przejść do zakładki Kontakt albo od razu zadzwonić lub napisać do organizatora."
+      }
+    ]
+  },
+  "en": {
+    "eyebrow": "FAQ",
+    "title": "Most common questions from parents",
+    "lead": "The most important answers in one place.",
+    "items": [
+      {
+        "q": "How does registration work?",
+        "a": "The parent fills in the form and the organizer contacts them with further details."
+      },
+      {
+        "q": "When are payment details sent?",
+        "a": "Payment details are sent after registration and contact with the organizer."
+      }
+    ]
+  }
+}

@@ -7,17 +7,18 @@ import RegistrationForm from "../components/RegistrationForm.astro";
 import FAQSection from "../components/FAQSection.astro";
 import ProcessSection from "../components/ProcessSection.astro";
 import { siteConfig } from "../data/site";
+import registrationData from "../../content/registration/main.json";
+
+const registration = registrationData.pl;
 ---
 
 <MainLayout title="Zapisy" description="Formularz zapisów MK SPORT" lang="pl">
   <Header lang="pl" currentPath="/zapisy" />
 
   <PageHero
-    eyebrow="Zapisy"
-    title="Zgłoś dziecko na wyjazd"
-    lead="Po wysłaniu formularza organizator kontaktuje się w sprawie dalszych szczegółów,
-    dokumentów oraz płatności. Jeśli chcesz o coś dopytać wcześniej, możesz również
-    skontaktować się z nami telefonicznie lub mailowo."
+    eyebrow={registration.pageEyebrow}
+    title={registration.pageTitle}
+    lead={registration.pageLead}
   />
 
   <section class="section">
@@ -29,22 +30,20 @@ import { siteConfig } from "../data/site";
 
         <div class="registration-premium__side">
           <div class="card card-padding-lg register-info-card">
-            <div class="eyebrow">Jak to działa?</div>
-            <h3>Co dzieje się po wysłaniu zgłoszenia?</h3>
+            <div class="eyebrow">{registration.sideProcessEyebrow}</div>
+            <h3>{registration.sideProcessTitle}</h3>
+
             <ul class="list-check">
-              <li>zgłoszenie trafia na adres: {siteConfig.email}</li>
-              <li>organizator kontaktuje się w sprawie dalszych szczegółów</li>
-              <li>dane do wpłaty są przekazywane po zgłoszeniu</li>
-              <li>dokumenty można pobrać bezpośrednio ze strony</li>
+              {registration.sideProcessItems.map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
           </div>
 
           <div class="card card-padding-lg register-info-card">
-            <div class="eyebrow">Kontakt</div>
-            <h3>Masz pytania przed zapisaniem?</h3>
-            <p class="muted">
-              Najszybciej skontaktujesz się telefonicznie lub mailowo.
-            </p>
+            <div class="eyebrow">{registration.sideContactEyebrow}</div>
+            <h3>{registration.sideContactTitle}</h3>
+            <p class="muted">{registration.sideContactText}</p>
 
             <div class="register-contact-list">
               <a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a>
@@ -53,16 +52,14 @@ import { siteConfig } from "../data/site";
             </div>
 
             <div style="margin-top:18px;">
-              <a href="/kontakt" class="btn btn-secondary">Przejdź do kontaktu</a>
+              <a href="/kontakt" class="btn btn-secondary">{registration.sideContactButton}</a>
             </div>
           </div>
 
           <div class="card card-padding-lg register-info-card">
-            <div class="eyebrow">Ważne</div>
-            <h3>Informacja dla rodziców</h3>
-            <p class="muted">
-              Wypełnij formularz aby zgłosić dziecko na obóz
-            </p>
+            <div class="eyebrow">{registration.sideImportantEyebrow}</div>
+            <h3>{registration.sideImportantTitle}</h3>
+            <p class="muted">{registration.sideImportantText}</p>
           </div>
         </div>
       </div>

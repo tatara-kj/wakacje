@@ -1,0 +1,46 @@
+{
+  "pl": {
+    "eyebrow": "Opinie",
+    "title": "Co mówią rodzice?",
+    "lead": "Kilka przykładowych opinii rodziców po wyjazdach MK SPORT.",
+    "items": [
+      {
+        "name": "Karolina M.",
+        "rating": 5,
+        "text": "Córka wróciła bardzo zadowolona i od razu pytała, czy może jechać ponownie. Świetny kontakt z organizatorem i dużo atrakcji."
+      },
+      {
+        "name": "Paweł D.",
+        "rating": 5,
+        "text": "Bardzo dobra organizacja, jasne informacje przed wyjazdem i fajna atmosfera. Dziecko wróciło zadowolone i pełne wrażeń."
+      },
+      {
+        "name": "Ewa S.",
+        "rating": 5,
+        "text": "Najbardziej doceniam opiekę i kontakt. Było bezpiecznie, aktywnie i bez chaosu organizacyjnego."
+      },
+      {
+        "name": "Marek K.",
+        "rating": 5,
+        "text": "Syn bardzo dobrze wspomina wyjazd. Dużo ruchu, integracji i atrakcji. Polecam rodzicom, którzy szukają aktywnego obozu."
+      }
+    ]
+  },
+  "en": {
+    "eyebrow": "Reviews",
+    "title": "What do parents say?",
+    "lead": "A few sample parent reviews after MK SPORT trips.",
+    "items": [
+      {
+        "name": "Karolina M.",
+        "rating": 5,
+        "text": "My daughter came back very happy and immediately asked if she could go again."
+      },
+      {
+        "name": "Paweł D.",
+        "rating": 5,
+        "text": "Very good organization, clear information and a great atmosphere."
+      }
+    ]
+  }
+}

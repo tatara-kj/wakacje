@@ -3,7 +3,6 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import OfferCard from "../components/OfferCard.astro";
-import DocumentsSection from "../components/DocumentsSection.astro";
 import SocialSection from "../components/SocialSection.astro";
 import FAQSection from "../components/FAQSection.astro";
 import ProcessSection from "../components/ProcessSection.astro";
@@ -14,6 +13,9 @@ import SectionDivider from "../components/SectionDivider.astro";
 import VideoShowcase from "../components/VideoShowcase.astro";
 import { siteConfig } from "../data/site";
 import { offers } from "../data/offers";
+import { homeContent } from "../data/home";
+
+const home = homeContent.pl;
 ---
 
 <MainLayout title={siteConfig.pl.siteName} description={siteConfig.pl.shortDescription} lang="pl">
@@ -22,18 +24,18 @@ import { offers } from "../data/offers";
   <section class="hero hero--immersive hero--sunny hero-home-clean">
     <div class="container">
       <div class="hero-stage hero-stage--clean">
-     <div class="hero-stage__ambient" aria-hidden="true">
-  <div class="hero-ambient hero-ambient--gradient"></div>
-  <div class="hero-ambient hero-ambient--blob hero-ambient--blob-1" data-parallax></div>
-  <div class="hero-ambient hero-ambient--blob hero-ambient--blob-2" data-parallax></div>
-  <div class="hero-ambient hero-ambient--blob hero-ambient--blob-3" data-parallax></div>
-  <div class="hero-ambient hero-ambient--ring hero-ambient--ring-1"></div>
-  <div class="hero-ambient hero-ambient--ring hero-ambient--ring-2"></div>
-  <div class="hero-ambient hero-ambient--wave hero-ambient--wave-1"></div>
-  <div class="hero-ambient hero-ambient--wave hero-ambient--wave-2"></div>
-  <div class="hero-ambient hero-ambient--spark hero-ambient--spark-1">✦</div>
-  <div class="hero-ambient hero-ambient--spark hero-ambient--spark-2">✦</div>
-</div>
+        <div class="hero-stage__ambient" aria-hidden="true">
+          <div class="hero-ambient hero-ambient--gradient"></div>
+          <div class="hero-ambient hero-ambient--blob hero-ambient--blob-1" data-parallax></div>
+          <div class="hero-ambient hero-ambient--blob hero-ambient--blob-2" data-parallax></div>
+          <div class="hero-ambient hero-ambient--blob hero-ambient--blob-3" data-parallax></div>
+          <div class="hero-ambient hero-ambient--ring hero-ambient--ring-1"></div>
+          <div class="hero-ambient hero-ambient--ring hero-ambient--ring-2"></div>
+          <div class="hero-ambient hero-ambient--wave hero-ambient--wave-1"></div>
+          <div class="hero-ambient hero-ambient--wave hero-ambient--wave-2"></div>
+          <div class="hero-ambient hero-ambient--spark hero-ambient--spark-1">✦</div>
+          <div class="hero-ambient hero-ambient--spark hero-ambient--spark-2">✦</div>
+        </div>
 
         <div class="hero-decor hero-decor--sun" data-parallax></div>
         <div class="hero-decor hero-decor--mint" data-parallax></div>
@@ -46,77 +48,65 @@ import { offers } from "../data/offers";
 
         <div class="hero-stage__content hero-stage__content--rich">
           <div class="hero-stage__panel fade-up reveal">
-            <div class="eyebrow">Obozy i kolonie • MK SPORT</div>
+            <div class="eyebrow">{home.heroEyebrow}</div>
 
             <h1 class="display-title">
-              Obozy i kolonie z
-              <span class="accent shimmer-text">programem, ruchem i przygodą</span>
+              {home.heroTitleLine1}
+              <span class="accent shimmer-text">{home.heroTitleAccent}</span>
             </h1>
 
-            <p class="hero__lead">
-              W MK SPORT dzieci spędzają czas aktywnie, radośnie i w dobrej atmosferze.
-              To wyjazdy pełne zabawy, ruchu, integracji oraz pięknych wspomnień, do których chce się wracać.
-            </p>
+            <p class="hero__lead">{home.heroLead}</p>
 
             <div class="hero-mini-points">
-              <span>☀ aktywny wypoczynek</span>
-              <span>✦ dobra atmosfera</span>
-              <span>〰 bezpieczna opieka</span>
+              {home.heroSmallPoints.map((point) => (
+                <span>{point}</span>
+              ))}
             </div>
 
             <div class="hero-ribbon">
-              <span>sport</span>
-              <span>zabawa</span>
-              <span>integracja</span>
-              <span>przygoda</span>
+              {home.heroTags.map((tag) => (
+                <span>{tag}</span>
+              ))}
             </div>
 
             <div class="hero-info-row">
-              <span class="hero-info-chip">bezpieczna opieka i doświadczona kadra</span>
-              <span class="hero-info-chip">dużo ruchu, zabawy i atrakcji</span>
-              <span class="hero-info-chip">prosty kontakt i wygodne zapisy</span>
+              {home.heroChips.map((chip) => (
+                <span class="hero-info-chip">{chip}</span>
+              ))}
             </div>
 
             <div class="hero__actions">
-              <a href="/oferta" class="btn btn-primary">Zobacz ofertę</a>
-              <a href="/zapisy" class="btn btn-secondary">Przejdź do zapisów</a>
+              <a href="/oferta" class="btn btn-primary">{home.heroButtonPrimary}</a>
+              <a href="/zapisy" class="btn btn-secondary">{home.heroButtonSecondary}</a>
             </div>
           </div>
 
           <div class="hero-stage__aside reveal">
             <div class="hero-visual card tilt-card" data-parallax>
               <img
-                src="/images/ogolne/ess.jpeg"
-                alt="MK SPORT – aktywny wypoczynek dzieci"
+                src={home.heroImage}
+                alt={home.heroImageAlt}
                 class="hero-main-image"
               />
 
               <div class="hero-floating-card hero-floating-card--top">
-                <strong>Radość i aktywność</strong>
-                <span>Kolonie, zimowiska i wspomnienia na całe życie</span>
+                <strong>{home.floatingCardTopTitle}</strong>
+                <span>{home.floatingCardTopText}</span>
               </div>
 
               <div class="hero-floating-card hero-floating-card--bottom">
-                <strong>Bezpieczna organizacja</strong>
-                <span>Sprawdzona kadra i program dopasowany do dzieci</span>
+                <strong>{home.floatingCardBottomTitle}</strong>
+                <span>{home.floatingCardBottomText}</span>
               </div>
             </div>
 
             <div class="hero-stage__info-grid">
-              <div class="mini-glass mini-glass--warm" data-parallax>
-                <strong>Bezpieczny i aktywny wypoczynek</strong>
-                <span>Dobrze zaplanowane wyjazdy z atrakcjami, sportem i opieką kadry.</span>
-              </div>
-
-              <div class="mini-glass mini-glass--warm" data-parallax>
-                <strong>Program, który nie nudzi</strong>
-                <span>Wycieczki, integracja, ruch, zabawa i wspomnienia po wakacjach.</span>
-              </div>
-
-              <div class="mini-glass mini-glass--warm" data-parallax>
-                <strong>Wszystko w jednym miejscu</strong>
-                <span>Oferta, dokumenty, kontakt i zgłoszenie bez zbędnego szukania.</span>
-              </div>
+              {home.infoCards.map((card) => (
+                <div class="mini-glass mini-glass--warm" data-parallax>
+                  <strong>{card.title}</strong>
+                  <span>{card.text}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -130,24 +120,20 @@ import { offers } from "../data/offers";
 
   <section class="section offer-section offer-section--playful">
     <div class="container">
-     
-     <div class="offer-parallax-bg">
-  <div class="offer-orb offer-orb--1" data-parallax></div>
-  <div class="offer-orb offer-orb--2" data-parallax></div>
-  <div class="offer-orb offer-orb--3" data-parallax></div>
+      <div class="offer-parallax-bg">
+        <div class="offer-orb offer-orb--1" data-parallax></div>
+        <div class="offer-orb offer-orb--2" data-parallax></div>
+        <div class="offer-orb offer-orb--3" data-parallax></div>
 
-  <div class="offer-spark offer-spark--1" data-float="8">✦</div>
-  <div class="offer-spark offer-spark--2" data-float="10">☀</div>
-  <div class="offer-spark offer-spark--3" data-float="7">〰</div>
-</div>
+        <div class="offer-spark offer-spark--1" data-float="8">✦</div>
+        <div class="offer-spark offer-spark--2" data-float="10">☀</div>
+        <div class="offer-spark offer-spark--3" data-float="7">〰</div>
+      </div>
 
       <div class="section-head reveal">
-        <div class="eyebrow">Oferta</div>
-        <h2 class="section-title">Wybierz odpowiedni wyjazd dla swojego dziecka</h2>
-        <p class="section-lead">
-          Każdy wyjazd ma swój klimat i program. Sprawdź aktualne kierunki, porównaj najważniejsze informacje
-          i wybierz najlepszą opcję dla swojego dziecka.
-        </p>
+        <div class="eyebrow">{home.offerEyebrow}</div>
+        <h2 class="section-title">{home.offerTitle}</h2>
+        <p class="section-lead">{home.offerLead}</p>
       </div>
 
       <div class="offer-grid offer-grid--lift">
@@ -168,17 +154,14 @@ import { offers } from "../data/offers";
     <div class="container">
       <div class="home-bottom-banner card reveal">
         <div class="home-bottom-banner__content">
-          <div class="eyebrow">MK SPORT</div>
-          <h2 class="section-title">W jednym miejscu znajdziesz wszystko, co potrzebne przed wyjazdem</h2>
-          <p class="section-lead">
-            Sprawdź aktualne terminy, poznaj ofertę, pobierz dokumenty i wygodnie zgłoś dziecko online.
-            Wszystkie najważniejsze informacje są zebrane jasno, przejrzyście i wygodnie.
-          </p>
+          <div class="eyebrow">{home.bottomEyebrow}</div>
+          <h2 class="section-title">{home.bottomTitle}</h2>
+          <p class="section-lead">{home.bottomLead}</p>
         </div>
 
         <div class="home-bottom-banner__actions">
-          <a href="/oferta" class="btn btn-primary">Sprawdź ofertę</a>
-          <a href="/kontakt" class="btn btn-secondary">Skontaktuj się</a>
+          <a href="/oferta" class="btn btn-primary">{home.bottomButtonPrimary}</a>
+          <a href="/kontakt" class="btn btn-secondary">{home.bottomButtonSecondary}</a>
         </div>
       </div>
     </div>
@@ -267,10 +250,28 @@ import { offers } from "../data/offers";
       pointer-events: none;
     }
 
-    .hero-spark--1 { top: 76px; left: 48px; }
-    .hero-spark--2 { top: 120px; right: 120px; font-size: 1.55rem; }
-    .hero-spark--3 { bottom: 84px; left: 52%; color: rgba(92, 190, 255, 0.48); }
-    .hero-spark--4 { bottom: 54px; right: 58px; color: rgba(110, 220, 184, 0.58); }
+    .hero-spark--1 {
+      top: 76px;
+      left: 48px;
+    }
+
+    .hero-spark--2 {
+      top: 120px;
+      right: 120px;
+      font-size: 1.55rem;
+    }
+
+    .hero-spark--3 {
+      bottom: 84px;
+      left: 52%;
+      color: rgba(92, 190, 255, 0.48);
+    }
+
+    .hero-spark--4 {
+      bottom: 54px;
+      right: 58px;
+      color: rgba(110, 220, 184, 0.58);
+    }
 
     .hero-mini-points {
       display: flex;
@@ -336,46 +337,6 @@ import { offers } from "../data/offers";
       overflow: hidden;
     }
 
-    .offer-floating-notes {
-      position: relative;
-      height: 0;
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    .offer-note {
-      position: absolute;
-      display: inline-flex;
-      align-items: center;
-      min-height: 36px;
-      padding: 0.58rem 0.95rem;
-      border-radius: 999px;
-      font-size: 0.84rem;
-      font-weight: 800;
-      color: #17324d;
-      border: 1px solid rgba(255,255,255,0.65);
-      box-shadow: 0 14px 28px rgba(18, 44, 74, 0.12);
-      backdrop-filter: blur(10px);
-    }
-
-    .offer-note--1 {
-      top: -14px;
-      right: 20px;
-      background: linear-gradient(135deg, #fff0b6, #ffd86b);
-    }
-
-    .offer-note--2 {
-      top: 92px;
-      left: -10px;
-      background: linear-gradient(135deg, #dffff1, #b8f0db);
-    }
-
-    .offer-note--3 {
-      top: 260px;
-      right: -16px;
-      background: linear-gradient(135deg, #e0efff, #bfdcff);
-    }
-
     .offer-grid--lift :global(.offer-card) {
       transition:
         transform 0.35s ease,
@@ -403,16 +364,9 @@ import { offers } from "../data/offers";
       box-shadow: 0 26px 64px rgba(18, 44, 74, 0.18);
     }
 
-    @media (max-width: 1100px) {
-      .offer-note--3 {
-        display: none;
-      }
-    }
-
     @media (max-width: 768px) {
       .hero-decor--mint,
       .hero-decor--blue,
-      .offer-floating-notes,
       .hero-spark--2,
       .hero-spark--4 {
         display: none;

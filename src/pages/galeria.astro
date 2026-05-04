@@ -1,73 +1,60 @@
 ---
-import fs from "node:fs";
-import path from "node:path";
 import MainLayout from "../layouts/MainLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PageHero from "../components/PageHero.astro";
+import galleryData from "../../content/gallery/main.json";
 
-const root = process.cwd();
+const gallery = galleryData.pl;
 
-function readImages(folder: string) {
-  const dir = path.join(root, "public", "images", folder);
+const galleryItems = Array.isArray(gallery.items)
+  ? gallery.items.filter((item) => item && item.image)
+  : [];
 
-  if (!fs.existsSync(dir)) return [];
+const categories = [...new Set(galleryItems.map((item) => item.category || "Galeria"))];
 
-  const priority = (name: string) => {
-    const lower = name.toLowerCase();
-    if (lower.startsWith("main.")) return 0;
-    if (lower.startsWith("1.")) return 1;
-    return 2;
+const sections = categories.map((category) => {
+  const images = galleryItems.filter((item) => (item.category || "Galeria") === category);
+
+  return {
+    title: category,
+    subtitle:
+      category === "Jarosławiec"
+        ? "Nadmorski klimat, aktywność i wakacyjna energia"
+        : category === "Mazury"
+          ? "Natura, jezioro i aktywny wypoczynek"
+          : category === "Zima"
+            ? "Górski klimat, ruch i zimowe atrakcje"
+            : "Wspólne chwile, ruch i dobra atmosfera",
+    description:
+      category === "Jarosławiec"
+        ? "Zdjęcia z Jarosławca pokazują wakacyjny klimat, aktywność, integrację i radość dzieci podczas kolonii."
+        : category === "Mazury"
+          ? "Mazury to przestrzeń, natura, aktywność i spokojniejszy rytm wyjazdu pełnego wspólnych atrakcji."
+          : category === "Zima"
+            ? "Zimowe zdjęcia pokazują górski klimat, wspólne aktywności i energię wyjazdu."
+            : "Zobacz wybrane zdjęcia z wyjazdów MK SPORT.",
+    images,
   };
-
-  return fs
-    .readdirSync(dir)
-    .filter((name) => /\.(jpg|jpeg|jfif|png|webp)$/i.test(name))
-    .sort((a, b) => priority(a) - priority(b) || a.localeCompare(b, "pl"))
-    .map((name) => `/images/${folder}/${name}`);
-}
-
-const sections = [
-  {
-    title: "Jarosławiec",
-    subtitle: "Nadmorski klimat, aktywność i wakacyjna energia",
-    description:
-      "  Zdjęcia z Jarosławca pokazują nadmorski klimat wyjazdu, wspólne aktywności,integrację i codzienną radość dzieci podczas kolonii..",
-    images: readImages("jaroslawiec"),
-  },
-  {
-    title: "Ostrów Pieckowskie",
-    subtitle: "Mazury, natura i aktywny wypoczynek",
-    description:
-      "Mazury pokazują przestrzeń, naturę i spokojniejszy rytm wyjazdu, ale nadal pełen aktywności i wspólnych atrakcji.",
-    images: readImages("ostrow-pieckowskie"),
-  },
-  {
-    title: "Poronin",
-    subtitle: "Górski wyjazd i zimowy klimat",
-    description:
-      "Tutaj wchodzą bardziej dynamiczne, zimowe kadry i klimat wspólnych aktywności w górach.",
-    images: readImages("poronin-zimowy"),
-  },
-];
+});
 ---
 
 <MainLayout title="Galeria" description="Galeria MK SPORT" lang="pl">
   <Header lang="pl" currentPath="/galeria" />
 
   <PageHero
-    eyebrow="Galeria"
-    title="Zobacz klimat naszych wyjazdów"
-    lead="Zdjęcia pokazują więcej niż długi opis. Tutaj widać miejsca, atmosferę grupy i charakter każdego wyjazdu."
+    eyebrow={gallery.eyebrow}
+    title={gallery.title}
+    lead={gallery.lead}
   />
 
   {sections.map((section) => {
     const preview = section.images.slice(0, 5);
 
     return (
-      <section class="section">
+      <section class="section gallery-cms-section">
         <div class="container">
-          <div class="gallery-band gallery-band--lux">
+          <div class="gallery-band gallery-band--lux gallery-band--cms">
             <div class="gallery-band__intro card card-padding-lg">
               <div class="eyebrow">{section.title}</div>
               <h2 class="section-title">{section.subtitle}</h2>
@@ -75,41 +62,77 @@ const sections = [
             </div>
 
             <div class="gallery-preview-grid">
-              {preview.map((src, index) => (
+              {preview.map((item, index) => (
                 <button
                   class={`gallery-preview-grid__item card ${index === 0 ? "is-featured" : ""}`}
-                  data-lightbox-image={src}
-                  data-lightbox-title={section.title}
+                  data-lightbox-image={item.image}
+                  data-lightbox-title={item.caption || section.title}
                   type="button"
                 >
-                  <img src={src} alt={section.title} loading="lazy" />
+                  <img
+                    src={item.image}
+                    alt={item.alt || item.caption || section.title}
+                    loading="lazy"
+                  />
+
+                  {item.caption && (
+                    <span class="gallery-preview-grid__caption">
+                      {item.caption}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
 
-            <details class="gallery-expand card">
-              <summary>
-                <span>Pokaż pełną galerię — {section.images.length} zdjęć</span>
-              </summary>
+            {section.images.length > 5 && (
+              <details class="gallery-expand card">
+                <summary>
+                  <span>Pokaż pełną galerię — {section.images.length} zdjęć</span>
+                </summary>
 
-              <div class="gallery-wall gallery-wall--expanded">
-                {section.images.map((src) => (
-                  <button
-                    class="gallery-wall__item card"
-                    data-lightbox-image={src}
-                    data-lightbox-title={section.title}
-                    type="button"
-                  >
-                    <img src={src} alt={section.title} loading="lazy" />
-                  </button>
-                ))}
-              </div>
-            </details>
+                <div class="gallery-wall gallery-wall--expanded">
+                  {section.images.map((item) => (
+                    <button
+                      class="gallery-wall__item card"
+                      data-lightbox-image={item.image}
+                      data-lightbox-title={item.caption || section.title}
+                      type="button"
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.alt || item.caption || section.title}
+                        loading="lazy"
+                      />
+
+                      {item.caption && (
+                        <span class="gallery-wall__caption">
+                          {item.caption}
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </details>
+            )}
           </div>
         </div>
       </section>
     );
   })}
+
+  {sections.length === 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="card card-padding-lg">
+          <div class="eyebrow">Galeria</div>
+          <h2 class="section-title">Brak zdjęć w galerii</h2>
+          <p class="section-lead">
+            Dodaj zdjęcia w panelu TinaCMS w zakładce „GALERIA — zdjęcia”.
+          </p>
+        </div>
+      </div>
+    </section>
+  )}
 
   <dialog class="lightbox-dialog" id="lightboxDialog">
     <button class="lightbox-close" id="lightboxClose" type="button">✕</button>
@@ -118,36 +141,138 @@ const sections = [
   </dialog>
 
   <script is:inline>
-    const dialog = document.getElementById("lightboxDialog");
-    const dialogImage = document.getElementById("lightboxImage");
-    const dialogCaption = document.getElementById("lightboxCaption");
-    const dialogClose = document.getElementById("lightboxClose");
+    (() => {
+      const dialog = document.getElementById("lightboxDialog");
+      const dialogImage = document.getElementById("lightboxImage");
+      const dialogCaption = document.getElementById("lightboxCaption");
+      const dialogClose = document.getElementById("lightboxClose");
 
-    document.querySelectorAll("[data-lightbox-image]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const src = btn.getAttribute("data-lightbox-image");
-        const title = btn.getAttribute("data-lightbox-title") || "";
-        if (!src || !dialog || !dialogImage || !dialogCaption) return;
-        dialogImage.src = src;
-        dialogImage.alt = title;
-        dialogCaption.textContent = title;
-        dialog.showModal();
+      document.querySelectorAll("[data-lightbox-image]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const src = btn.getAttribute("data-lightbox-image");
+          const title = btn.getAttribute("data-lightbox-title") || "";
+
+          if (!src || !dialog || !dialogImage || !dialogCaption) return;
+
+          dialogImage.src = src;
+          dialogImage.alt = title;
+          dialogCaption.textContent = title;
+          dialog.showModal();
+        });
       });
-    });
 
-    dialogClose?.addEventListener("click", () => dialog?.close());
+      dialogClose?.addEventListener("click", () => dialog?.close());
 
-    dialog?.addEventListener("click", (e) => {
-      const rect = dialog.getBoundingClientRect();
-      const isInside =
-        rect.top <= e.clientY &&
-        e.clientY <= rect.top + rect.height &&
-        rect.left <= e.clientX &&
-        e.clientX <= rect.left + rect.width;
+      dialog?.addEventListener("click", (event) => {
+        const rect = dialog.getBoundingClientRect();
 
-      if (!isInside) dialog.close();
-    });
+        const isInside =
+          rect.top <= event.clientY &&
+          event.clientY <= rect.top + rect.height &&
+          rect.left <= event.clientX &&
+          event.clientX <= rect.left + rect.width;
+
+        if (!isInside) dialog.close();
+      });
+    })();
   </script>
 
   <Footer lang="pl" />
+
+  <style>
+    .gallery-cms-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-band--cms {
+      position: relative;
+    }
+
+    .gallery-band--cms::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -80px;
+      top: 10%;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255, 202, 40, 0.14), rgba(255, 202, 40, 0));
+      filter: blur(18px);
+      pointer-events: none;
+    }
+
+    .gallery-band--cms::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      left: -100px;
+      bottom: 8%;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(122, 221, 196, 0.14), rgba(122, 221, 196, 0));
+      filter: blur(20px);
+      pointer-events: none;
+    }
+
+    .gallery-preview-grid__item,
+    .gallery-wall__item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border: 0;
+      padding: 0;
+      transition:
+        transform 0.32s ease,
+        box-shadow 0.32s ease;
+    }
+
+    .gallery-preview-grid__item:hover,
+    .gallery-wall__item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 26px 60px rgba(16, 39, 68, 0.16);
+    }
+
+    .gallery-preview-grid__item img,
+    .gallery-wall__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .gallery-preview-grid__item:hover img,
+    .gallery-wall__item:hover img {
+      transform: scale(1.045);
+    }
+
+    .gallery-preview-grid__caption,
+    .gallery-wall__caption {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.86);
+      color: #14324f;
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-align: left;
+      box-shadow: 0 12px 28px rgba(16, 39, 68, 0.12);
+      backdrop-filter: blur(12px);
+    }
+
+    @media (max-width: 768px) {
+      .gallery-preview-grid__caption,
+      .gallery-wall__caption {
+        font-size: 0.78rem;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        border-radius: 13px;
+      }
+    }
+  </style>
 </MainLayout>
