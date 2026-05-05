@@ -1,0 +1,66 @@
+{
+  "pl": {
+    "pageEyebrow": "Dla firm",
+    "pageTitle": "Kolonie dla dzieci pracowników",
+    "pageLead": "Zorganizuj wartościowy benefit dla pracowników i zapewnij ich dzieciom aktywne, bezpieczne wakacje.",
+    "heroImage": "/images/ogolne/ess.jpeg",
+    "heroImageAlt": "Kolonie dla dzieci pracowników",
+    "sectionEyebrow": "Benefit pracowniczy",
+    "sectionTitle": "Gotowe rozwiązanie dla firm i funduszu socjalnego",
+    "sectionLead": "Kolonie dla dzieci pracowników to praktyczny benefit, który realnie wspiera rodziców w okresie wakacyjnym i buduje pozytywny wizerunek pracodawcy.",
+    "features": [
+      {
+        "title": "Wsparcie dla rodziców",
+        "text": "Firma pomaga pracownikom rozwiązać jeden z największych wakacyjnych problemów — opiekę i organizację czasu dzieci."
+      },
+      {
+        "title": "Aktywne wakacje dla dzieci",
+        "text": "Program obejmuje ruch, integrację, wycieczki, zabawę i bezpieczny wypoczynek pod opieką kadry."
+      },
+      {
+        "title": "Pozytywny wizerunek firmy",
+        "text": "Taki benefit zwiększa atrakcyjność pracodawcy i pokazuje, że firma dba o życie rodzinne pracowników."
+      },
+      {
+        "title": "Prosta organizacja",
+        "text": "MK SPORT przygotowuje ofertę, program i obsługę wyjazdu, a firma otrzymuje gotowe rozwiązanie."
+      }
+    ],
+    "ctaTitle": "Chcesz przygotować kolonie dla dzieci pracowników?",
+    "ctaText": "Skontaktuj się z nami, a przygotujemy propozycję dopasowaną do potrzeb firmy, liczby uczestników i terminu.",
+    "ctaButton": "Skontaktuj się",
+    "secondaryButton": "Zobacz ofertę"
+  },
+  "en": {
+    "pageEyebrow": "For companies",
+    "pageTitle": "Camps for employees' children",
+    "pageLead": "Organize a valuable employee benefit and provide children with active and safe holidays.",
+    "heroImage": "/images/ogolne/ess.jpeg",
+    "heroImageAlt": "Camps for employees children",
+    "sectionEyebrow": "Employee benefit",
+    "sectionTitle": "A ready solution for companies",
+    "sectionLead": "Camps for employees' children are a practical benefit supporting families during the holiday season.",
+    "features": [
+      {
+        "title": "Support for parents",
+        "text": "The company helps employees solve one of the biggest holiday challenges."
+      },
+      {
+        "title": "Active holidays for children",
+        "text": "The program includes movement, integration, trips and safe recreation."
+      },
+      {
+        "title": "Positive employer image",
+        "text": "This benefit shows that the company cares about family life."
+      },
+      {
+        "title": "Simple organization",
+        "text": "MK SPORT prepares the offer, program and trip service."
+      }
+    ],
+    "ctaTitle": "Do you want to prepare camps for employees' children?",
+    "ctaText": "Contact us and we will prepare a proposal suited to your company.",
+    "ctaButton": "Contact us",
+    "secondaryButton": "See offer"
+  }
+}

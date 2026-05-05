@@ -1,51 +1,51 @@
 {
   "pl": {
-    "eyebrow": "Galeria",
-    "title": "Zobacz klimat wyjazdów MK SPORT",
-    "lead": "Zdjęcia pokazują atmosferę, aktywności i miejsca, w których dzieci spędzają czas podczas obozów.",
-    "items": [
+    "pageEyebrow": "Galeria",
+    "pageTitle": "Zobacz klimat naszych wyjazdów",
+    "pageLead": "Zdjęcia pokazują miejsca, atmosferę grupy i charakter każdego wyjazdu.",
+    "sections": [
       {
-        "image": "/images/ogolne/jaroslawiec_oferta.jpeg",
-        "alt": "Kolonie Jarosławiec",
-        "caption": "Jarosławiec — wakacyjny wyjazd nad morze",
-        "category": "Jarosławiec"
+        "title": "Jarosławiec",
+        "subtitle": "Nadmorski klimat, aktywność i wakacyjna energia",
+        "description": "Zdjęcia z Jarosławca pokazują nadmorski klimat wyjazdu, wspólne aktywności, integrację i codzienną radość dzieci podczas kolonii.",
+        "folder": "jaroslawiec"
       },
       {
-        "image": "/images/ogolne/ostrow_oferta.jpeg",
-        "alt": "Obóz na Mazurach",
-        "caption": "Mazury — aktywny wypoczynek blisko natury",
-        "category": "Mazury"
+        "title": "Ostrów Pieckowskie",
+        "subtitle": "Mazury, natura i aktywny wypoczynek",
+        "description": "Mazury pokazują przestrzeń, naturę i spokojniejszy rytm wyjazdu, ale nadal pełen aktywności i wspólnych atrakcji.",
+        "folder": "ostrow-pieckowskie"
       },
       {
-        "image": "/images/ogolne/poronin_oferta.jpeg",
-        "alt": "Obóz zimowy Poronin",
-        "caption": "Poronin — zimowy wyjazd w górach",
-        "category": "Zima"
-      },
-      {
-        "image": "/images/ogolne/ess.jpeg",
-        "alt": "MK SPORT",
-        "caption": "Wspólne chwile, ruch i dobra atmosfera",
-        "category": "Ogólne"
+        "title": "Poronin",
+        "subtitle": "Górski klimat, ruch i zimowe atrakcje",
+        "description": "Zimowe zdjęcia pokazują górski klimat, wspólne aktywności, integrację i atrakcje, które dzieci długo pamiętają po wyjeździe.",
+        "folder": "poronin-zimowy"
       }
     ]
   },
   "en": {
-    "eyebrow": "Gallery",
-    "title": "See the atmosphere of MK SPORT trips",
-    "lead": "Photos show the atmosphere, activities and places where children spend time during camps.",
-    "items": [
+    "pageEyebrow": "Gallery",
+    "pageTitle": "See the atmosphere of our trips",
+    "pageLead": "Photos show the places, group atmosphere and character of each trip.",
+    "sections": [
       {
-        "image": "/images/ogolne/jaroslawiec_oferta.jpeg",
-        "alt": "Jaroslawiec camp",
-        "caption": "Jaroslawiec — seaside summer trip",
-        "category": "Jaroslawiec"
+        "title": "Jaroslawiec",
+        "subtitle": "Seaside atmosphere, activity and summer energy",
+        "description": "Photos from Jaroslawiec show the seaside atmosphere, activities and everyday joy during the camp.",
+        "folder": "jaroslawiec"
       },
       {
-        "image": "/images/ogolne/ostrow_oferta.jpeg",
-        "alt": "Masuria camp",
-        "caption": "Masuria — active rest close to nature",
-        "category": "Masuria"
+        "title": "Ostrow Pieckowskie",
+        "subtitle": "Masuria, nature and active rest",
+        "description": "Masuria shows space, nature and a calmer rhythm of the trip, still full of activity.",
+        "folder": "ostrow-pieckowskie"
+      },
+      {
+        "title": "Poronin",
+        "subtitle": "Mountain atmosphere, movement and winter attractions",
+        "description": "Winter photos show the mountain atmosphere, group activities and attractions.",
+        "folder": "poronin-zimowy"
       }
     ]
   }

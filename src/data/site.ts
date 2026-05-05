@@ -5,6 +5,7 @@ export const siteConfig = siteSettings;
 export const navItemsPL = [
   { label: "Start", href: "/" },
   { label: "Oferta", href: "/oferta" },
+  { label: "Dla firm", href: "/dla-firm" },
   { label: "O nas", href: "/o-nas" },
   { label: "Galeria", href: "/galeria" },
   { label: "Zapisy", href: "/zapisy" },

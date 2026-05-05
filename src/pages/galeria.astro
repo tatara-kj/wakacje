@@ -5,133 +5,128 @@ import Footer from "../components/Footer.astro";
 import PageHero from "../components/PageHero.astro";
 import galleryData from "../../content/gallery/main.json";
 
-const gallery = galleryData.pl;
+const page = galleryData.pl;
 
-const galleryItems = Array.isArray(gallery.items)
-  ? gallery.items.filter((item) => item && item.image)
-  : [];
+const rawImages =
+  page.images ||
+  page.galleryImages ||
+  page.photos ||
+  [];
 
-const categories = [...new Set(galleryItems.map((item) => item.category || "Galeria"))];
+const galleryImages = rawImages
+  .map((item) => {
+    const src = item.image || item.src || item.photo || "";
+    const category = item.category || item.kategoria || "Galeria";
 
-const sections = categories.map((category) => {
-  const images = galleryItems.filter((item) => (item.category || "Galeria") === category);
+    return {
+      src,
+      category,
+      short: item.short || item.description || item.opis || "",
+      caption: item.caption || item.title || item.podpis || item.short || "",
+      alt:
+        item.alt ||
+        item.caption ||
+        item.short ||
+        item.description ||
+        "Zdjęcie z galerii MK SPORT",
+    };
+  })
+  .filter((item) => item.src);
 
-  return {
-    title: category,
-    subtitle:
-      category === "Jarosławiec"
-        ? "Nadmorski klimat, aktywność i wakacyjna energia"
-        : category === "Mazury"
-          ? "Natura, jezioro i aktywny wypoczynek"
-          : category === "Zima"
-            ? "Górski klimat, ruch i zimowe atrakcje"
-            : "Wspólne chwile, ruch i dobra atmosfera",
-    description:
-      category === "Jarosławiec"
-        ? "Zdjęcia z Jarosławca pokazują wakacyjny klimat, aktywność, integrację i radość dzieci podczas kolonii."
-        : category === "Mazury"
-          ? "Mazury to przestrzeń, natura, aktywność i spokojniejszy rytm wyjazdu pełnego wspólnych atrakcji."
-          : category === "Zima"
-            ? "Zimowe zdjęcia pokazują górski klimat, wspólne aktywności i energię wyjazdu."
-            : "Zobacz wybrane zdjęcia z wyjazdów MK SPORT.",
-    images,
-  };
-});
+const categories = [...new Set(galleryImages.map((item) => item.category))];
+
+const sections = categories.map((category) => ({
+  title: category,
+  images: galleryImages.filter((item) => item.category === category),
+}));
 ---
 
 <MainLayout title="Galeria" description="Galeria MK SPORT" lang="pl">
   <Header lang="pl" currentPath="/galeria" />
 
   <PageHero
-    eyebrow={gallery.eyebrow}
-    title={gallery.title}
-    lead={gallery.lead}
+    eyebrow={page.pageEyebrow || page.eyebrow || "Galeria"}
+    title={page.pageTitle || page.title || "Zobacz klimat naszych wyjazdów"}
+    lead={page.pageLead || page.lead || "Zdjęcia pokazują miejsca, atmosferę grupy i charakter każdego wyjazdu."}
   />
 
-  {sections.map((section) => {
-    const preview = section.images.slice(0, 5);
-
-    return (
-      <section class="section gallery-cms-section">
-        <div class="container">
-          <div class="gallery-band gallery-band--lux gallery-band--cms">
-            <div class="gallery-band__intro card card-padding-lg">
-              <div class="eyebrow">{section.title}</div>
-              <h2 class="section-title">{section.subtitle}</h2>
-              <p class="section-lead">{section.description}</p>
-            </div>
-
-            <div class="gallery-preview-grid">
-              {preview.map((item, index) => (
-                <button
-                  class={`gallery-preview-grid__item card ${index === 0 ? "is-featured" : ""}`}
-                  data-lightbox-image={item.image}
-                  data-lightbox-title={item.caption || section.title}
-                  type="button"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.alt || item.caption || section.title}
-                    loading="lazy"
-                  />
-
-                  {item.caption && (
-                    <span class="gallery-preview-grid__caption">
-                      {item.caption}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-
-            {section.images.length > 5 && (
-              <details class="gallery-expand card">
-                <summary>
-                  <span>Pokaż pełną galerię — {section.images.length} zdjęć</span>
-                </summary>
-
-                <div class="gallery-wall gallery-wall--expanded">
-                  {section.images.map((item) => (
-                    <button
-                      class="gallery-wall__item card"
-                      data-lightbox-image={item.image}
-                      data-lightbox-title={item.caption || section.title}
-                      type="button"
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.alt || item.caption || section.title}
-                        loading="lazy"
-                      />
-
-                      {item.caption && (
-                        <span class="gallery-wall__caption">
-                          {item.caption}
-                        </span>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </details>
-            )}
-          </div>
-        </div>
-      </section>
-    );
-  })}
-
-  {sections.length === 0 && (
+  {sections.length === 0 ? (
     <section class="section">
       <div class="container">
-        <div class="card card-padding-lg">
+        <div class="gallery-empty card">
           <div class="eyebrow">Galeria</div>
           <h2 class="section-title">Brak zdjęć w galerii</h2>
           <p class="section-lead">
-            Dodaj zdjęcia w panelu TinaCMS w zakładce „GALERIA — zdjęcia”.
+            Dodaj zdjęcia w panelu TinaCMS w sekcji „Galeria — zdjęcia”.
           </p>
         </div>
       </div>
     </section>
+  ) : (
+    sections.map((section) => {
+      const preview = section.images.slice(0, 7);
+
+      return (
+        <section class="section gallery-auto-section">
+          <div class="container">
+            <div class="gallery-band gallery-band--lux gallery-band--fixed">
+              <div class="gallery-band__intro card card-padding-lg gallery-intro-card">
+                <div class="eyebrow">Galeria</div>
+                <h2 class="section-title">{section.title}</h2>
+                <p class="section-lead">
+                  {section.images.length === 1
+                    ? "Zobacz zdjęcie z tej części galerii."
+                    : `Zobacz zdjęcia z kategorii: ${section.title}.`}
+                </p>
+              </div>
+
+              <div class="gallery-preview-grid gallery-preview-grid--better">
+                {preview.map((item, index) => (
+                  <button
+                    class={`gallery-preview-grid__item card ${index === 0 ? "is-featured" : ""}`}
+                    data-lightbox-image={item.src}
+                    data-lightbox-title={item.caption || section.title}
+                    data-lightbox-text={item.short}
+                    type="button"
+                  >
+                    <img src={item.src} alt={item.alt} loading="lazy" />
+
+                    {(item.caption || item.short) && (
+                      <span class="gallery-preview-grid__caption">
+                        <strong>{item.caption}</strong>
+                        {item.short && <small>{item.short}</small>}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {section.images.length > 7 && (
+                <details class="gallery-expand card">
+                  <summary>
+                    <span>Pokaż pełną galerię — {section.images.length} zdjęć</span>
+                  </summary>
+
+                  <div class="gallery-wall gallery-wall--expanded">
+                    {section.images.map((item) => (
+                      <button
+                        class="gallery-wall__item card"
+                        data-lightbox-image={item.src}
+                        data-lightbox-title={item.caption || section.title}
+                        data-lightbox-text={item.short}
+                        type="button"
+                      >
+                        <img src={item.src} alt={item.alt} loading="lazy" />
+                      </button>
+                    ))}
+                  </div>
+                </details>
+              )}
+            </div>
+          </div>
+        </section>
+      );
+    })
   )}
 
   <dialog class="lightbox-dialog" id="lightboxDialog">
@@ -141,137 +136,232 @@ const sections = categories.map((category) => {
   </dialog>
 
   <script is:inline>
-    (() => {
-      const dialog = document.getElementById("lightboxDialog");
-      const dialogImage = document.getElementById("lightboxImage");
-      const dialogCaption = document.getElementById("lightboxCaption");
-      const dialogClose = document.getElementById("lightboxClose");
+    const dialog = document.getElementById("lightboxDialog");
+    const dialogImage = document.getElementById("lightboxImage");
+    const dialogCaption = document.getElementById("lightboxCaption");
+    const dialogClose = document.getElementById("lightboxClose");
 
-      document.querySelectorAll("[data-lightbox-image]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const src = btn.getAttribute("data-lightbox-image");
-          const title = btn.getAttribute("data-lightbox-title") || "";
+    document.querySelectorAll("[data-lightbox-image]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const src = btn.getAttribute("data-lightbox-image");
+        const title = btn.getAttribute("data-lightbox-title") || "";
+        const text = btn.getAttribute("data-lightbox-text") || "";
 
-          if (!src || !dialog || !dialogImage || !dialogCaption) return;
+        if (!src || !dialog || !dialogImage || !dialogCaption) return;
 
-          dialogImage.src = src;
-          dialogImage.alt = title;
-          dialogCaption.textContent = title;
-          dialog.showModal();
-        });
+        dialogImage.src = src;
+        dialogImage.alt = title;
+        dialogCaption.textContent = text ? ${title} — ${text} : title;
+        dialog.showModal();
       });
+    });
 
-      dialogClose?.addEventListener("click", () => dialog?.close());
+    dialogClose?.addEventListener("click", () => dialog?.close());
 
-      dialog?.addEventListener("click", (event) => {
-        const rect = dialog.getBoundingClientRect();
+    dialog?.addEventListener("click", (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInside =
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width;
 
-        const isInside =
-          rect.top <= event.clientY &&
-          event.clientY <= rect.top + rect.height &&
-          rect.left <= event.clientX &&
-          event.clientX <= rect.left + rect.width;
-
-        if (!isInside) dialog.close();
-      });
-    })();
+      if (!isInside) dialog.close();
+    });
   </script>
 
   <Footer lang="pl" />
 
   <style>
-    .gallery-cms-section {
-      position: relative;
+    .gallery-auto-section {
       overflow: hidden;
     }
 
-    .gallery-band--cms {
+    .gallery-empty {
+      max-width: 900px;
+      margin-inline: auto;
+      padding: clamp(28px, 4vw, 52px);
+      text-align: center;
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(16, 44, 76, 0.08);
+      box-shadow: 0 22px 60px rgba(16, 39, 68, 0.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .gallery-band--fixed {
+      display: grid;
+      gap: 28px;
+      width: 100%;
+    }
+
+    .gallery-intro-card {
+      max-width: 980px;
+      margin-inline: auto;
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.9), rgba(248,252,255,0.78)),
+        radial-gradient(circle at 15% 20%, rgba(255, 202, 40, 0.16), transparent 36%),
+        radial-gradient(circle at 85% 15%, rgba(117, 220, 206, 0.14), transparent 35%);
+      border: 1px solid rgba(16, 44, 76, 0.08);
+      box-shadow: 0 22px 60px rgba(16, 39, 68, 0.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .gallery-preview-grid--better {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .gallery-preview-grid__item {
       position: relative;
-    }
-
-    .gallery-band--cms::before {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      right: -80px;
-      top: 10%;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(255, 202, 40, 0.14), rgba(255, 202, 40, 0));
-      filter: blur(18px);
-      pointer-events: none;
-    }
-
-    .gallery-band--cms::after {
-      content: "";
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      left: -100px;
-      bottom: 8%;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(122, 221, 196, 0.14), rgba(122, 221, 196, 0));
-      filter: blur(20px);
-      pointer-events: none;
-    }
-
-    .gallery-preview-grid__item,
-    .gallery-wall__item {
-      position: relative;
+      min-height: 240px;
       overflow: hidden;
-      cursor: pointer;
-      border: 0;
+      border-radius: 28px;
       padding: 0;
-      transition:
-        transform 0.32s ease,
-        box-shadow 0.32s ease;
+      border: 1px solid rgba(16, 44, 76, 0.08);
+      box-shadow: 0 18px 42px rgba(16, 39, 68, 0.08);
+      cursor: pointer;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+      background: #fff;
     }
 
-    .gallery-preview-grid__item:hover,
-    .gallery-wall__item:hover {
+    .gallery-preview-grid__item:hover {
       transform: translateY(-6px);
-      box-shadow: 0 26px 60px rgba(16, 39, 68, 0.16);
+      box-shadow: 0 26px 70px rgba(16, 39, 68, 0.15);
     }
 
-    .gallery-preview-grid__item img,
-    .gallery-wall__item img {
+    .gallery-preview-grid__item img {
       width: 100%;
       height: 100%;
+      min-height: 240px;
       object-fit: cover;
       display: block;
       transition: transform 0.45s ease;
     }
 
-    .gallery-preview-grid__item:hover img,
-    .gallery-wall__item:hover img {
+    .gallery-preview-grid__item:hover img {
       transform: scale(1.045);
     }
 
-    .gallery-preview-grid__caption,
-    .gallery-wall__caption {
+    .gallery-preview-grid__item.is-featured {
+      grid-column: span 2;
+      grid-row: span 2;
+      min-height: 500px;
+    }
+
+    .gallery-preview-grid__item.is-featured img {
+      min-height: 500px;
+    }
+
+    .gallery-preview-grid__caption {
       position: absolute;
       left: 14px;
       right: 14px;
       bottom: 14px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.86);
-      color: #14324f;
-      font-size: 0.88rem;
-      font-weight: 800;
+      display: grid;
+      gap: 4px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 14px 35px rgba(16, 39, 68, 0.14);
+      color: #173252;
       text-align: left;
-      box-shadow: 0 12px 28px rgba(16, 39, 68, 0.12);
-      backdrop-filter: blur(12px);
     }
 
-    @media (max-width: 768px) {
-      .gallery-preview-grid__caption,
-      .gallery-wall__caption {
-        font-size: 0.78rem;
+    .gallery-preview-grid__caption strong {
+      font-size: 0.98rem;
+      line-height: 1.2;
+    }
+
+    .gallery-preview-grid__caption small {
+      color: #60748c;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .gallery-expand {
+      padding: 22px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(16, 44, 76, 0.08);
+      box-shadow: 0 18px 50px rgba(16, 39, 68, 0.07);
+    }
+
+    .gallery-expand summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: #173252;
+      list-style: none;
+    }
+
+    .gallery-expand summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .gallery-wall--expanded {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .gallery-wall__item {
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      border-radius: 20px;
+      min-height: 160px;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .gallery-wall__item img {
+      width: 100%;
+      height: 100%;
+      min-height: 160px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .gallery-wall__item:hover img {
+      transform: scale(1.04);
+    }
+
+    @media (max-width: 1100px) {
+      .gallery-preview-grid--better {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery-wall--expanded {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .gallery-preview-grid--better {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-preview-grid__item,
+      .gallery-preview-grid__item.is-featured,
+      .gallery-preview-grid__item img,
+      .gallery-preview-grid__item.is-featured img {
+        min-height: 320px;
+      }
+
+      .gallery-wall--expanded {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery-preview-grid__caption {
         left: 10px;
         right: 10px;
         bottom: 10px;
-        border-radius: 13px;
       }
     }
   </style>

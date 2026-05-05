@@ -26,6 +26,144 @@ export default defineConfig({
   schema: {
     collections: [
       {
+        name: "companiesPage",
+        label: "12. DLA FIRM — kolonie dla pracowników",
+        path: "content/companies",
+        format: "json",
+        fields: [
+          {
+            type: "object",
+            name: "pl",
+            label: "Dla firm PL",
+            fields: [
+              {
+                type: "string",
+                name: "pageEyebrow",
+                label: "Mały napis nad tytułem",
+              },
+              { type: "string", name: "pageTitle", label: "Tytuł strony" },
+              {
+                type: "string",
+                name: "pageLead",
+                label: "Opis pod tytułem",
+                ui: { component: "textarea" },
+              },
+              { type: "image", name: "heroImage", label: "Zdjęcie główne" },
+              { type: "string", name: "heroImageAlt", label: "Opis zdjęcia" },
+              {
+                type: "string",
+                name: "sectionEyebrow",
+                label: "Mały napis w sekcji",
+              },
+              {
+                type: "string",
+                name: "sectionTitle",
+                label: "Tytuł głównej sekcji",
+              },
+              {
+                type: "string",
+                name: "sectionLead",
+                label: "Opis głównej sekcji",
+                ui: { component: "textarea" },
+              },
+              {
+                type: "object",
+                name: "features",
+                label: "Kafelki / korzyści",
+                list: true,
+                fields: [
+                  { type: "string", name: "title", label: "Tytuł kafelka" },
+                  {
+                    type: "string",
+                    name: "text",
+                    label: "Opis kafelka",
+                    ui: { component: "textarea" },
+                  },
+                ],
+              },
+              {
+                type: "string",
+                name: "ctaTitle",
+                label: "Tytuł sekcji końcowej",
+              },
+              {
+                type: "string",
+                name: "ctaText",
+                label: "Opis sekcji końcowej",
+                ui: { component: "textarea" },
+              },
+              {
+                type: "string",
+                name: "ctaButton",
+                label: "Tekst głównego przycisku",
+              },
+              {
+                type: "string",
+                name: "secondaryButton",
+                label: "Tekst drugiego przycisku",
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "en",
+            label: "Dla firm EN",
+            fields: [
+              { type: "string", name: "pageEyebrow", label: "Small label" },
+              { type: "string", name: "pageTitle", label: "Page title" },
+              {
+                type: "string",
+                name: "pageLead",
+                label: "Lead",
+                ui: { component: "textarea" },
+              },
+              { type: "image", name: "heroImage", label: "Hero image" },
+              { type: "string", name: "heroImageAlt", label: "Image alt" },
+              {
+                type: "string",
+                name: "sectionEyebrow",
+                label: "Section label",
+              },
+              { type: "string", name: "sectionTitle", label: "Section title" },
+              {
+                type: "string",
+                name: "sectionLead",
+                label: "Section lead",
+                ui: { component: "textarea" },
+              },
+              {
+                type: "object",
+                name: "features",
+                label: "Features",
+                list: true,
+                fields: [
+                  { type: "string", name: "title", label: "Feature title" },
+                  {
+                    type: "string",
+                    name: "text",
+                    label: "Feature text",
+                    ui: { component: "textarea" },
+                  },
+                ],
+              },
+              { type: "string", name: "ctaTitle", label: "CTA title" },
+              {
+                type: "string",
+                name: "ctaText",
+                label: "CTA text",
+                ui: { component: "textarea" },
+              },
+              { type: "string", name: "ctaButton", label: "Main button text" },
+              {
+                type: "string",
+                name: "secondaryButton",
+                label: "Second button text",
+              },
+            ],
+          },
+        ],
+      },
+      {
         name: "homePage",
         label: "1. START — strona główna",
         path: "content/home",

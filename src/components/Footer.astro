@@ -8,7 +8,6 @@ interface Props {
 const { lang = "pl" } = Astro.props;
 
 const nav = lang === "pl" ? navItemsPL : navItemsEN;
-const docsPageHref = lang === "pl" ? "/dokumenty" : "/en/dokumenty";
 const registerHref = lang === "pl" ? "/zapisy" : "/en/zapisy";
 
 const t =
@@ -18,20 +17,16 @@ const t =
           "Obozy i kolonie dla dzieci i młodzieży. Aktywność, dobra organizacja, kontakt z rodzicami i wyjazdy, które zostają w pamięci na długo.",
         navTitle: "Nawigacja",
         contactTitle: "Kontakt",
-        docsTitle: "Dokumenty",
         socialTitle: "Social media",
         rights: "Wszelkie prawa zastrzeżone.",
-        docsPage: "Wszystkie dokumenty",
       }
     : {
         aboutText:
           "Camps and holiday trips for children and teenagers. Activity, good organization, parent communication and memorable trips.",
         navTitle: "Navigation",
         contactTitle: "Contact",
-        docsTitle: "Documents",
         socialTitle: "Social media",
         rights: "All rights reserved.",
-        docsPage: "All documents",
       };
 ---
 
@@ -55,7 +50,7 @@ const t =
         <p class="footer-premium__about">{t.aboutText}</p>
       </div>
 
-      <div class="footer-premium__grid">
+      <div class="footer-premium__grid footer-premium__grid--clean">
         <div>
           <h3 class="footer__title">{t.navTitle}</h3>
           <ul class="footer__list">
@@ -71,17 +66,6 @@ const t =
             <li><a href={`tel:${siteConfig.phoneRaw}`}>{siteConfig.phone}</a></li>
             <li><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></li>
             <li><span class="footer__text">{siteConfig.owner}</span></li>
-           
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="footer__title">{t.docsTitle}</h3>
-          <ul class="footer__list">
-            <li><a href={docsPageHref}>{t.docsPage}</a></li>
-            <li><a href="/docs/karta-kwalifikacyjna.pdf" target="_blank" rel="noreferrer">Karta kwalifikacyjna</a></li>
-            <li><a href="/docs/warunki-uczestnictwa.pdf" target="_blank" rel="noreferrer">Warunki uczestnictwa</a></li>
-            <li><a href="/docs/informacje-organizacyjne.pdf" target="_blank" rel="noreferrer">Informacje organizacyjne</a></li>
           </ul>
         </div>
 
@@ -102,3 +86,15 @@ const t =
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-premium__grid--clean {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (max-width: 900px) {
+    .footer-premium__grid--clean {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
