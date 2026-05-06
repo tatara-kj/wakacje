@@ -3,34 +3,37 @@ import path from "node:path";
 
 const root = process.cwd();
 
-const folders = [
+const camps = [
   {
     folder: "jaroslawiec",
-    category: "Jarosławiec",
-    short: "Kolonie Jarosławiec",
-    caption: "Jarosławiec — wakacyjny wyjazd nad morze",
+    title: "Jarosławiec",
+    subtitle: "Nadmorski klimat, aktywność i wakacyjna energia",
+    description:
+      "Zdjęcia z Jarosławca pokazują nadmorski klimat wyjazdu, wspólne aktywności, integrację i codzienną radość dzieci podczas kolonii.",
   },
   {
     folder: "ostrow-pieckowskie",
-    category: "Ostrów Pieckowskie",
-    short: "Mazury i aktywny wypoczynek",
-    caption: "Ostrów Pieckowskie — obóz na Mazurach",
+    title: "Ostrów Pieckowskie",
+    subtitle: "Mazury, jezioro i aktywny wypoczynek",
+    description:
+      "Mazury pokazują przestrzeń, naturę i spokojniejszy rytm wyjazdu, ale nadal pełen aktywności i wspólnych atrakcji.",
   },
   {
     folder: "poronin-zimowy",
-    category: "Poronin",
-    short: "Zimowisko Poronin",
-    caption: "Poronin — zimowy wyjazd w górach",
+    title: "Poronin",
+    subtitle: "Górski klimat, ruch i zimowe atrakcje",
+    description:
+      "Tutaj wchodzą zimowe kadry, góry, integracja i wspólne aktywności podczas zimowiska.",
   },
 ];
 
 const allowed = /\.(jpg|jpeg|png|webp|jfif)$/i;
 
-function readImages(folderData) {
-  const dir = path.join(root, "public", "images", folderData.folder);
+function getImages(camp) {
+  const dir = path.join(root, "public", "images", camp.folder);
 
   if (!fs.existsSync(dir)) {
-    console.log(`Brak folderu: ${dir}`);
+    console.log(`BRAK FOLDERU: public/images/${camp.folder}`);
     return [];
   }
 
@@ -39,63 +42,63 @@ function readImages(folderData) {
     .filter((file) => allowed.test(file))
     .sort((a, b) => a.localeCompare(b, "pl"))
     .map((file) => ({
-      image: `/images/${folderData.folder}/${file}`,
-      short: folderData.short,
-      caption: folderData.caption,
-      category: folderData.category,
+      image: `/images/${camp.folder}/${file}`,
+      alt: camp.title,
+      caption: camp.title,
+      short: camp.subtitle,
     }));
 }
 
-const images = folders.flatMap(readImages);
+const sections = camps.map((camp) => ({
+  title: camp.title,
+  subtitle: camp.subtitle,
+  description: camp.description,
+  images: getImages(camp),
+}));
 
-const galleryPath = path.join(root, "content", "gallery", "main.json");
+const allItems = sections.flatMap((section) =>
+  section.images.map((img) => ({
+    ...img,
+    category: section.title,
+  })),
+);
 
-let current = {
+const data = {
   pl: {
     pageEyebrow: "Galeria",
     pageTitle: "Zobacz klimat naszych wyjazdów",
     pageLead:
       "Zdjęcia pokazują miejsca, atmosferę grupy i charakter każdego wyjazdu.",
-    images: [],
+
+    eyebrow: "Galeria",
+    title: "Zobacz klimat naszych wyjazdów",
+    lead: "Zdjęcia pokazują miejsca, atmosferę grupy i charakter każdego wyjazdu.",
+
+    sections,
+    items: allItems,
   },
   en: {
     pageEyebrow: "Gallery",
     pageTitle: "See the atmosphere of our trips",
     pageLead:
       "Photos show the places, group atmosphere and character of each trip.",
-    images: [],
+
+    eyebrow: "Gallery",
+    title: "See the atmosphere of our trips",
+    lead: "Photos show the places, group atmosphere and character of each trip.",
+
+    sections: [],
+    items: [],
   },
 };
 
-if (fs.existsSync(galleryPath)) {
-  current = JSON.parse(fs.readFileSync(galleryPath, "utf8"));
-}
+const output = path.join(root, "content", "gallery", "main.json");
 
-current.pl = current.pl || {};
-current.en = current.en || {};
+fs.mkdirSync(path.dirname(output), { recursive: true });
+fs.writeFileSync(output, JSON.stringify(data, null, 2), "utf8");
 
-current.pl.pageEyebrow =
-  current.pl.pageEyebrow || current.pl.eyebrow || "Galeria";
-current.pl.pageTitle =
-  current.pl.pageTitle || current.pl.title || "Zobacz klimat naszych wyjazdów";
-current.pl.pageLead =
-  current.pl.pageLead ||
-  current.pl.lead ||
-  "Zdjęcia pokazują miejsca, atmosferę grupy i charakter każdego wyjazdu.";
-
-current.en.pageEyebrow =
-  current.en.pageEyebrow || current.en.eyebrow || "Gallery";
-current.en.pageTitle =
-  current.en.pageTitle || current.en.title || "See the atmosphere of our trips";
-current.en.pageLead =
-  current.en.pageLead ||
-  current.en.lead ||
-  "Photos show the places, group atmosphere and character of each trip.";
-
-current.pl.images = images;
-current.en.images = [];
-
-fs.writeFileSync(galleryPath, JSON.stringify(current, null, 2), "utf8");
-
-console.log(`Gotowe. Dodano zdjęć do galerii: ${images.length}`);
-console.log(`Zapisano: ${galleryPath}`);
+console.log("Gotowe. Wygenerowano galerię:");
+sections.forEach((section) => {
+  console.log(`${section.title}: ${section.images.length} zdjęć`);
+});
+console.log(`Razem: ${allItems.length} zdjęć`);
