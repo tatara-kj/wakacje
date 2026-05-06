@@ -1,40 +1,75 @@
 ---
+import fs from "node:fs";
+import path from "node:path";
 import MainLayout from "../layouts/MainLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PageHero from "../components/PageHero.astro";
-import galleryData from "../../content/gallery/main.json";
 
-const page = galleryData.pl;
+const root = process.cwd();
 
-const sections = Array.isArray(page.sections)
-  ? page.sections
-      .map((section) => ({
-        title: section.title || "Galeria",
-        subtitle: section.subtitle || "",
-        description: section.description || "",
-        images: Array.isArray(section.images)
-          ? section.images
-              .map((item) => ({
-                src: item.image || "",
-                alt: item.alt || item.caption || section.title || "Zdjęcie MK SPORT",
-                caption: item.caption || "",
-                short: item.short || "",
-              }))
-              .filter((item) => item.src)
-          : [],
-      }))
-      .filter((section) => section.images.length > 0)
-  : [];
+const gallerySections = [
+  {
+    folder: "jaroslawiec",
+    title: "Jarosławiec",
+    subtitle: "Nadmorski klimat, aktywność i wakacyjna energia",
+    description:
+      "Zdjęcia z Jarosławca pokazują nadmorski klimat wyjazdu, wspólne aktywności, integrację i codzienną radość dzieci podczas kolonii.",
+  },
+  {
+    folder: "ostrow-pieckowskie",
+    title: "Ostrów Pieckowskie",
+    subtitle: "Mazury, jezioro i aktywny wypoczynek",
+    description:
+      "Mazury pokazują przestrzeń, naturę i spokojniejszy rytm wyjazdu, ale nadal pełen aktywności i wspólnych atrakcji.",
+  },
+  {
+    folder: "poronin-zimowy",
+    title: "Poronin",
+    subtitle: "Górski klimat, ruch i zimowe atrakcje",
+    description:
+      "Tutaj wchodzą zimowe kadry, góry, integracja i wspólne aktywności podczas zimowiska.",
+  },
+];
+
+function readImages(folder: string) {
+  const dir = path.join(root, "public", "images", folder);
+
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+
+  const priority = (name: string) => {
+    const lower = name.toLowerCase();
+
+    if (lower.startsWith("main.")) return 0;
+    if (lower.startsWith("1.")) return 1;
+
+    return 2;
+  };
+
+  return fs
+    .readdirSync(dir)
+    .filter((name) => /\.(jpg|jpeg|jfif|png|webp)$/i.test(name))
+    .sort((a, b) => priority(a) - priority(b) || a.localeCompare(b, "pl"))
+    .map((name) => `/images/${folder}/${name}`);
+}
+
+const sections = gallerySections
+  .map((section) => ({
+    ...section,
+    images: readImages(section.folder),
+  }))
+  .filter((section) => section.images.length > 0);
 ---
 
 <MainLayout title="Galeria" description="Galeria MK SPORT" lang="pl">
   <Header lang="pl" currentPath="/galeria" />
 
   <PageHero
-    eyebrow={page.pageEyebrow || "Galeria"}
-    title={page.pageTitle || "Zobacz klimat naszych wyjazdów"}
-    lead={page.pageLead || "Zdjęcia pokazują miejsca, atmosferę grupy i charakter każdego wyjazdu."}
+    eyebrow="Galeria"
+    title="Zobacz klimat naszych wyjazdów"
+    lead="Zdjęcia pokazują miejsca, atmosferę grupy i charakter każdego wyjazdu."
   />
 
   {sections.length === 0 ? (
@@ -44,71 +79,69 @@ const sections = Array.isArray(page.sections)
           <div class="eyebrow">Galeria</div>
           <h2 class="section-title">Brak zdjęć w galerii</h2>
           <p class="section-lead">
-            Dodaj zdjęcia w panelu TinaCMS w sekcji „8. GALERIA — zdjęcia”.
+            Sprawdź, czy zdjęcia są w folderach: jaroslawiec, ostrow-pieckowskie i poronin-zimowy.
           </p>
         </div>
       </div>
     </section>
   ) : (
-    sections.map((section) => (
-      <section class="section gallery-auto-section">
-        <div class="container">
-          <div class="gallery-band gallery-band--fixed">
-            <div class="gallery-intro-card card card-padding-lg">
-              <div class="eyebrow">Galeria</div>
-              <h2 class="section-title">{section.title}</h2>
-              {section.subtitle && <p class="section-lead">{section.subtitle}</p>}
-              {section.description && (
+    sections.map((section) => {
+      const preview = section.images.slice(0, 8);
+
+      return (
+        <section class="section gallery-auto-section">
+          <div class="container">
+            <div class="gallery-band gallery-band--fixed">
+              <div class="gallery-intro-card card card-padding-lg">
+                <div class="eyebrow">Galeria</div>
+                <h2 class="section-title">{section.title}</h2>
+                <p class="section-lead">{section.subtitle}</p>
                 <p class="gallery-section-description">{section.description}</p>
+              </div>
+
+              <div class="gallery-preview-grid gallery-preview-grid--better">
+                {preview.map((src, index) => (
+                  <button
+                    class={`gallery-preview-grid__item card ${index === 0 ? "is-featured" : ""}`}
+                    data-lightbox-image={src}
+                    data-lightbox-title={section.title}
+                    type="button"
+                  >
+                    <img src={src} alt={section.title} loading="lazy" />
+
+                    <span class="gallery-preview-grid__caption">
+                      <strong>{section.title}</strong>
+                      <small>{section.subtitle}</small>
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {section.images.length > 8 && (
+                <details class="gallery-expand card">
+                  <summary>
+                    <span>Pokaż pełną galerię — {section.images.length} zdjęć</span>
+                  </summary>
+
+                  <div class="gallery-wall gallery-wall--expanded">
+                    {section.images.map((src) => (
+                      <button
+                        class="gallery-wall__item card"
+                        data-lightbox-image={src}
+                        data-lightbox-title={section.title}
+                        type="button"
+                      >
+                        <img src={src} alt={section.title} loading="lazy" />
+                      </button>
+                    ))}
+                  </div>
+                </details>
               )}
             </div>
-
-            <div class="gallery-preview-grid gallery-preview-grid--better">
-              {section.images.slice(0, 8).map((item, index) => (
-                <button
-                  class={`gallery-preview-grid__item card ${index === 0 ? "is-featured" : ""}`}
-                  data-lightbox-image={item.src}
-                  data-lightbox-title={item.caption || section.title}
-                  data-lightbox-text={item.short}
-                  type="button"
-                >
-                  <img src={item.src} alt={item.alt} loading="lazy" />
-
-                  {(item.caption || item.short) && (
-                    <span class="gallery-preview-grid__caption">
-                      {item.caption && <strong>{item.caption}</strong>}
-                      {item.short && <small>{item.short}</small>}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-
-            {section.images.length > 8 && (
-              <details class="gallery-expand card">
-                <summary>
-                  <span>Pokaż pełną galerię — {section.images.length} zdjęć</span>
-                </summary>
-
-                <div class="gallery-wall gallery-wall--expanded">
-                  {section.images.map((item) => (
-                    <button
-                      class="gallery-wall__item card"
-                      data-lightbox-image={item.src}
-                      data-lightbox-title={item.caption || section.title}
-                      data-lightbox-text={item.short}
-                      type="button"
-                    >
-                      <img src={item.src} alt={item.alt} loading="lazy" />
-                    </button>
-                  ))}
-                </div>
-              </details>
-            )}
           </div>
-        </div>
-      </section>
-    ))
+        </section>
+      );
+    })
   )}
 
   <dialog class="lightbox-dialog" id="lightboxDialog">
@@ -127,18 +160,31 @@ const sections = Array.isArray(page.sections)
       btn.addEventListener("click", () => {
         const src = btn.getAttribute("data-lightbox-image");
         const title = btn.getAttribute("data-lightbox-title") || "";
-        const text = btn.getAttribute("data-lightbox-text") || "";
 
         if (!src || !dialog || !dialogImage || !dialogCaption) return;
 
         dialogImage.src = src;
         dialogImage.alt = title;
-        dialogCaption.textContent = text ? `${title} — ${text}` : title;
+        dialogCaption.textContent = title;
         dialog.showModal();
       });
     });
 
     dialogClose?.addEventListener("click", () => dialog?.close());
+
+    dialog?.addEventListener("click", (event) => {
+      const rect = dialog.getBoundingClientRect();
+
+      const isInside =
+        rect.top <= event.clientY &&
+        event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX &&
+        event.clientX <= rect.left + rect.width;
+
+      if (!isInside) {
+        dialog.close();
+      }
+    });
   </script>
 
   <Footer lang="pl" />
@@ -156,6 +202,10 @@ const sections = Array.isArray(page.sections)
       backdrop-filter: blur(16px);
     }
 
+    .gallery-auto-section {
+      position: relative;
+    }
+
     .gallery-band--fixed {
       display: grid;
       gap: 28px;
@@ -166,6 +216,7 @@ const sections = Array.isArray(page.sections)
       max-width: 980px;
       margin-inline: auto;
       text-align: center;
+      border-radius: 34px;
       background:
         linear-gradient(135deg, rgba(255,255,255,0.9), rgba(248,252,255,0.78)),
         radial-gradient(circle at 15% 20%, rgba(255, 202, 40, 0.16), transparent 36%),
@@ -208,6 +259,11 @@ const sections = Array.isArray(page.sections)
       min-height: 240px;
       object-fit: cover;
       display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .gallery-preview-grid__item:hover img {
+      transform: scale(1.04);
     }
 
     .gallery-preview-grid__item.is-featured {
@@ -229,7 +285,7 @@ const sections = Array.isArray(page.sections)
       gap: 4px;
       padding: 14px 16px;
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.84);
+      background: rgba(255, 255, 255, 0.86);
       backdrop-filter: blur(14px);
       box-shadow: 0 14px 35px rgba(16, 39, 68, 0.14);
       color: #173252;
@@ -284,6 +340,57 @@ const sections = Array.isArray(page.sections)
       min-height: 160px;
       object-fit: cover;
       display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .gallery-wall__item:hover img {
+      transform: scale(1.04);
+    }
+
+    .lightbox-dialog {
+      width: min(92vw, 1100px);
+      border: 0;
+      border-radius: 28px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+    }
+
+    .lightbox-dialog::backdrop {
+      background: rgba(6, 18, 35, 0.72);
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-dialog img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+      border-radius: 20px;
+      background: #eef3f8;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      z-index: 2;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      font-weight: 900;
+      color: #173252;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+    }
+
+    .lightbox-caption {
+      margin-top: 12px;
+      text-align: center;
+      font-weight: 800;
+      color: #173252;
     }
 
     @media (max-width: 1100px) {
