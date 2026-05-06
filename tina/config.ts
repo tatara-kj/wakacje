@@ -847,31 +847,83 @@ export default defineConfig({
             name: "pl",
             label: "Galeria PL",
             fields: [
-              { type: "string", name: "eyebrow", label: "Mały napis" },
-              { type: "string", name: "title", label: "Tytuł sekcji" },
               {
                 type: "string",
-                name: "lead",
-                label: "Opis sekcji",
+                name: "pageEyebrow",
+                label: "Mały napis nad tytułem",
+              },
+              {
+                type: "string",
+                name: "pageTitle",
+                label: "Tytuł strony galerii",
+              },
+              {
+                type: "string",
+                name: "pageLead",
+                label: "Opis pod tytułem",
                 ui: { component: "textarea" },
               },
               {
                 type: "object",
-                name: "items",
-                label: "Zdjęcia w galerii",
+                name: "sections",
+                label: "Sekcje galerii — obozy",
                 list: true,
+                ui: {
+                  itemProps: (item) => ({
+                    label: item?.title || "Sekcja galerii",
+                  }),
+                },
                 fields: [
-                  { type: "image", name: "image", label: "Zdjęcie" },
-                  { type: "string", name: "alt", label: "Krótki opis zdjęcia" },
                   {
                     type: "string",
-                    name: "caption",
-                    label: "Podpis pod zdjęciem",
+                    name: "title",
+                    label: "Nazwa obozu / sekcji",
+                    required: true,
                   },
                   {
                     type: "string",
-                    name: "category",
-                    label: "Kategoria, np. Jarosławiec / Mazury / Zima",
+                    name: "subtitle",
+                    label: "Krótki tytuł pod nazwą",
+                  },
+                  {
+                    type: "string",
+                    name: "description",
+                    label: "Opis sekcji",
+                    ui: { component: "textarea" },
+                  },
+                  {
+                    type: "object",
+                    name: "images",
+                    label: "Zdjęcia w tej sekcji",
+                    list: true,
+                    ui: {
+                      itemProps: (item) => ({
+                        label: item?.caption || item?.short || "Zdjęcie",
+                      }),
+                    },
+                    fields: [
+                      {
+                        type: "image",
+                        name: "image",
+                        label: "Zdjęcie",
+                        required: true,
+                      },
+                      {
+                        type: "string",
+                        name: "alt",
+                        label: "Krótki opis zdjęcia",
+                      },
+                      {
+                        type: "string",
+                        name: "caption",
+                        label: "Podpis pod zdjęciem",
+                      },
+                      {
+                        type: "string",
+                        name: "short",
+                        label: "Krótki opis / podpis dodatkowy",
+                      },
+                    ],
                   },
                 ],
               },
@@ -882,24 +934,77 @@ export default defineConfig({
             name: "en",
             label: "Galeria EN",
             fields: [
-              { type: "string", name: "eyebrow", label: "Small label" },
-              { type: "string", name: "title", label: "Section title" },
               {
                 type: "string",
-                name: "lead",
-                label: "Lead",
+                name: "pageEyebrow",
+                label: "Small label",
+              },
+              {
+                type: "string",
+                name: "pageTitle",
+                label: "Gallery page title",
+              },
+              {
+                type: "string",
+                name: "pageLead",
+                label: "Page lead",
                 ui: { component: "textarea" },
               },
               {
                 type: "object",
-                name: "items",
-                label: "Gallery photos",
+                name: "sections",
+                label: "Gallery sections",
                 list: true,
+                ui: {
+                  itemProps: (item) => ({
+                    label: item?.title || "Gallery section",
+                  }),
+                },
                 fields: [
-                  { type: "image", name: "image", label: "Image" },
-                  { type: "string", name: "alt", label: "Image description" },
-                  { type: "string", name: "caption", label: "Caption" },
-                  { type: "string", name: "category", label: "Category" },
+                  {
+                    type: "string",
+                    name: "title",
+                    label: "Section title",
+                  },
+                  {
+                    type: "string",
+                    name: "subtitle",
+                    label: "Subtitle",
+                  },
+                  {
+                    type: "string",
+                    name: "description",
+                    label: "Description",
+                    ui: { component: "textarea" },
+                  },
+                  {
+                    type: "object",
+                    name: "images",
+                    label: "Photos in this section",
+                    list: true,
+                    fields: [
+                      {
+                        type: "image",
+                        name: "image",
+                        label: "Image",
+                      },
+                      {
+                        type: "string",
+                        name: "alt",
+                        label: "Image description",
+                      },
+                      {
+                        type: "string",
+                        name: "caption",
+                        label: "Caption",
+                      },
+                      {
+                        type: "string",
+                        name: "short",
+                        label: "Short text",
+                      },
+                    ],
+                  },
                 ],
               },
             ],
