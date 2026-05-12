@@ -89,7 +89,11 @@ const sections = gallerySections
       const preview = section.images.slice(0, 8);
 
       return (
-        <section class="section gallery-auto-section">
+        <section
+          class="section gallery-auto-section"
+          id={`galeria-${section.folder}`}
+          data-gallery-section={section.folder}
+        >
           <div class="container">
             <div class="gallery-band gallery-band--fixed">
               <div class="gallery-intro-card card card-padding-lg">
@@ -118,7 +122,10 @@ const sections = gallerySections
               </div>
 
               {section.images.length > 8 && (
-                <details class="gallery-expand card">
+                <details
+                  class="gallery-expand card"
+                  data-gallery-details={section.folder}
+                >
                   <summary>
                     <span>Pokaż pełną galerię — {section.images.length} zdjęć</span>
                   </summary>
@@ -185,6 +192,31 @@ const sections = gallerySections
         dialog.close();
       }
     });
+
+    const params = new URLSearchParams(window.location.search);
+    const selectedCamp = params.get("oboz");
+
+    if (selectedCamp) {
+      const selectedSection = document.querySelector(
+        `[data-gallery-section="${selectedCamp}"]`
+      );
+      const selectedDetails = document.querySelector(
+        `[data-gallery-details="${selectedCamp}"]`
+      );
+
+      if (selectedDetails) {
+        selectedDetails.setAttribute("open", "true");
+      }
+
+      if (selectedSection) {
+        setTimeout(() => {
+          selectedSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 250);
+      }
+    }
   </script>
 
   <Footer lang="pl" />
@@ -204,6 +236,7 @@ const sections = gallerySections
 
     .gallery-auto-section {
       position: relative;
+      scroll-margin-top: 120px;
     }
 
     .gallery-band--fixed {

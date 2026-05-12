@@ -11,11 +11,22 @@ const content = lang === "en" ? offer.en : offer.pl;
 
 const buttonLabel = lang === "pl" ? "Zobacz szczegóły" : "See details";
 const detailsHref = lang === "pl" ? `/oferta#${offer.slug}` : `/en/oferta#${offer.slug}`;
+const galleryHref = lang === "pl" ? `/galeria?oboz=${offer.slug}` : `/en/galeria?oboz=${offer.slug}`;
+const galleryLabel =
+  lang === "pl"
+    ? `Zobacz galerię: ${content.title}`
+    : `See gallery: ${content.title}`;
 ---
 
 <article class="card offer-card hover-lift" id={offer.slug}>
   <div class="offer-card__media">
-    <img src={offer.image} alt={content.title} class="image-cover" loading="lazy" />
+    <a href={galleryHref} class="offer-card__media-link" aria-label={galleryLabel}>
+      <img src={offer.image} alt={content.title} class="image-cover" loading="lazy" />
+
+      <span class="offer-card__gallery-hint">
+        {lang === "pl" ? "Zobacz galerię" : "See gallery"}
+      </span>
+    </a>
   </div>
 
   <div class="offer-card__body">
@@ -25,7 +36,10 @@ const detailsHref = lang === "pl" ? `/oferta#${offer.slug}` : `/en/oferta#${offe
     </div>
 
     <h3 class="offer-card__title">{content.title}</h3>
-    <p class="offer-card__desc">{content.short}</p>
+
+    <p class="offer-card__desc">
+      {content.short}
+    </p>
 
     <ul class="offer-card__list">
       <li><strong>{lang === "pl" ? "Termin:" : "Date:"}</strong> {content.date}</li>
@@ -40,3 +54,151 @@ const detailsHref = lang === "pl" ? `/oferta#${offer.slug}` : `/en/oferta#${offe
     </div>
   </div>
 </article>
+
+<style>
+  .offer-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .offer-card__media {
+    height: clamp(170px, 18vw, 230px);
+    flex: 0 0 auto;
+    overflow: hidden;
+  }
+
+  .offer-card__media-link {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .offer-card__media-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease, filter 0.35s ease;
+  }
+
+  .offer-card__media-link:hover img {
+    transform: scale(1.045);
+    filter: brightness(0.94);
+  }
+
+  .offer-card__gallery-hint {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #173252;
+    font-size: 0.88rem;
+    font-weight: 900;
+    box-shadow: 0 14px 34px rgba(16, 39, 68, 0.16);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+    pointer-events: none;
+  }
+
+  .offer-card__media-link:hover .offer-card__gallery-hint {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .offer-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(18px, 2vw, 24px);
+  }
+
+  .offer-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .offer-card__title {
+    margin: 0 0 10px;
+    line-height: 1.15;
+  }
+
+  .offer-card__desc {
+    margin: 0 0 16px;
+    line-height: 1.65;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .offer-card__list {
+    margin-top: auto;
+  }
+
+  .offer-card__list li {
+    line-height: 1.55;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .offer-card__bottom {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .offer-card__price {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .offer-card__media {
+      height: 220px;
+    }
+
+    .offer-card__gallery-hint {
+      opacity: 1;
+      transform: none;
+      font-size: 0.82rem;
+      min-height: 36px;
+    }
+
+    .offer-card__desc {
+      -webkit-line-clamp: 4;
+    }
+
+    .offer-card__bottom {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .offer-card__bottom .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
