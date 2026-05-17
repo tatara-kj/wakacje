@@ -1,7 +1,7 @@
 ---
 import { offers } from "../data/offers";
-import { siteConfig } from "../data/site";
 import registrationData from "../../content/registration/main.json";
+
 interface Props {
   lang?: "pl" | "en";
 }
@@ -31,26 +31,39 @@ const formOffers = offers
           .filter((term) => term && term.start && term.end)
           .map((term) => ({
             value: `${term.start}_${term.end}`,
-            label: `${term.label || "Termin"} • ${formatDate(term.start)} – ${formatDate(term.end)}`,
+            label: `${term.label || "Termin"} - ${formatDate(term.start)} - ${formatDate(term.end)}`,
           }))
       : [],
   }));
 
-const formAction = `https://formsubmit.co/${siteConfig.email}`;
+const formAction = "https://api.web3forms.com/submit";
+const web3FormsAccessKey = "f1891bc0-d2c8-494a-93b8-09c276e509c6";
 
 const t = lang === "pl" ? registrationData.pl : registrationData.en;
+
+const childBirthDateLabel =
+  lang === "pl" ? "Data urodzenia dziecka" : "Child's date of birth";
 ---
 
 <section class="section register-section" id="zapisy">
   <div class="container">
-   <div class="section-head reveal register-form-head">
-  <div class="eyebrow">{t.formEyebrow}</div>
-  <h2 class="section-title">{t.formTitle}</h2>
-  <p class="section-lead">{t.formLead}</p>
-</div>
+    <div class="section-head reveal register-form-head">
+      <div class="eyebrow">{t.formEyebrow}</div>
+      <h2 class="section-title">{t.formTitle}</h2>
+      <p class="section-lead">{t.formLead}</p>
+    </div>
 
     <div class="register-form-shell reveal">
-      <div id="formSuccessBox" class="form-success-box" style="display:none;">
+      <div
+        id="formSuccessBox"
+        class="form-success-box"
+        style="display:none;"
+        data-success={t.success}
+        data-error={lang === "pl"
+          ? "Nie udalo sie wyslac formularza. Sprobuj ponownie albo skontaktuj sie telefonicznie."
+          : "The form could not be sent. Please try again or contact us by phone."
+        }
+      >
         {t.success}
       </div>
 
@@ -60,11 +73,19 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
         action={formAction}
         method="POST"
       >
-        <input type="hidden" name="_subject" value="Nowe zgłoszenie MK SPORT" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="access_key" value={web3FormsAccessKey} />
+        <input type="hidden" name="subject" value="Nowe zgloszenie MK SPORT" />
+        <input type="hidden" name="from_name" value="MK SPORT - formularz zapisow" />
 
-        <input type="hidden" id="selectedCampLabel" name="Wybrany obóz" value="" />
+        <input
+          type="checkbox"
+          name="botcheck"
+          style="display:none;"
+          tabindex="-1"
+          autocomplete="off"
+        />
+
+        <input type="hidden" id="selectedCampLabel" name="Wybrany oboz" value="" />
         <input type="hidden" id="selectedTermLabel" name="Wybrany termin" value="" />
         <input type="hidden" id="selectedDepartureCity" name="Miejsce wyjazdu" value="" />
 
@@ -73,7 +94,7 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
             <label for="parentName">{t.parentName}</label>
             <input
               id="parentName"
-              name="Imię i nazwisko rodzica"
+              name="Imie i nazwisko rodzica"
               type="text"
               autocomplete="name"
               required
@@ -84,21 +105,25 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
             <label for="childName">{t.childName}</label>
             <input
               id="childName"
-              name="Imię i nazwisko dziecka"
+              name="Imie i nazwisko dziecka"
               type="text"
               required
             />
           </div>
 
           <div class="form-field">
-            <label for="childAge">{t.childAge}</label>
+            <label for="childBirthDate">{childBirthDateLabel}</label>
             <input
-              id="childAge"
-              name="Wiek dziecka"
-              type="number"
-              min="8"
-              max="16"
+              id="childBirthDate"
+              type="date"
+              autocomplete="bday"
               required
+            />
+            <input
+              id="childBirthDateFormatted"
+              type="hidden"
+              name="Data urodzenia dziecka"
+              value=""
             />
           </div>
 
@@ -106,7 +131,7 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
             <label for="email">{t.email}</label>
             <input
               id="email"
-              name="Adres e-mail"
+              name="email"
               type="email"
               autocomplete="email"
               required
@@ -126,7 +151,7 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
 
           <div class="form-field">
             <label for="campSelect">{t.camp}</label>
-            <select id="campSelect" name="Obóz technicznie" required>
+            <select id="campSelect" required>
               <option value="">{t.chooseCamp}</option>
               {formOffers.map((offer) => (
                 <option value={offer.slug}>{offer.title}</option>
@@ -138,7 +163,6 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
             <label for="termSelect">{t.term}</label>
             <select
               id="termSelect"
-              name="Termin technicznie"
               required
               disabled
               data-first-option={t.firstChooseCamp}
@@ -152,7 +176,6 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
             <label for="city">{t.city}</label>
             <input
               id="city"
-              name="Miejsce wyjazdu / miasto"
               type="text"
               value=""
               readonly
@@ -176,7 +199,11 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
           </div>
 
           <div class="form-field form-field--full">
-            <button type="submit" class="btn btn-primary btn-block">
+            <button
+              type="submit"
+              class="btn btn-primary btn-block"
+              data-sending={lang === "pl" ? "Wysylanie..." : "Sending..."}
+            >
               {t.submit}
             </button>
           </div>
@@ -201,16 +228,62 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
     const selectedTermLabel = document.getElementById("selectedTermLabel");
     const selectedDepartureCity = document.getElementById("selectedDepartureCity");
 
+    const childBirthDateInput = document.getElementById("childBirthDate");
+    const childBirthDateFormatted = document.getElementById("childBirthDateFormatted");
+
     const form = document.getElementById("mkRegistrationForm");
     const successBox = document.getElementById("formSuccessBox");
 
     if (!campSelect || !termSelect) return;
 
     const firstChooseCampText =
-      termSelect.getAttribute("data-first-option") || "Najpierw wybierz obóz";
+      termSelect.getAttribute("data-first-option") || "Najpierw wybierz oboz";
 
     const chooseTermText =
       termSelect.getAttribute("data-choose-option") || "Wybierz termin";
+
+    function makeEmailSafeText(value) {
+      return String(value || "")
+        .replaceAll("ą", "a")
+        .replaceAll("ć", "c")
+        .replaceAll("ę", "e")
+        .replaceAll("ł", "l")
+        .replaceAll("ń", "n")
+        .replaceAll("ó", "o")
+        .replaceAll("ś", "s")
+        .replaceAll("ź", "z")
+        .replaceAll("ż", "z")
+        .replaceAll("Ą", "A")
+        .replaceAll("Ć", "C")
+        .replaceAll("Ę", "E")
+        .replaceAll("Ł", "L")
+        .replaceAll("Ń", "N")
+        .replaceAll("Ó", "O")
+        .replaceAll("Ś", "S")
+        .replaceAll("Ź", "Z")
+        .replaceAll("Ż", "Z")
+        .replaceAll("•", "-")
+        .replaceAll("–", "-")
+        .replaceAll("—", "-");
+    }
+
+    function formatDateForEmail(dateValue) {
+      if (!dateValue || typeof dateValue !== "string") return "";
+
+      const [year, month, day] = dateValue.split("-");
+
+      if (!year || !month || !day) {
+        return dateValue;
+      }
+
+      return `${day}.${month}.${year}`;
+    }
+
+    function updateBirthDateHiddenField() {
+      if (!childBirthDateInput || !childBirthDateFormatted) return;
+
+      childBirthDateFormatted.value = formatDateForEmail(childBirthDateInput.value);
+    }
 
     function resetTerms() {
       termSelect.innerHTML = "";
@@ -233,15 +306,21 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
       const selectedTermOption = termSelect.options[termSelect.selectedIndex];
 
       if (selectedCampLabel) {
-        selectedCampLabel.value = selectedCampOption?.textContent?.trim() || "";
+        selectedCampLabel.value = makeEmailSafeText(
+          selectedCampOption?.textContent?.trim() || ""
+        );
       }
 
       if (selectedTermLabel) {
-        selectedTermLabel.value = selectedTermOption?.textContent?.trim() || "";
+        selectedTermLabel.value = makeEmailSafeText(
+          selectedTermOption?.textContent?.trim() || ""
+        );
       }
 
       if (selectedDepartureCity) {
-        selectedDepartureCity.value = selectedOffer?.departureCity || "";
+        selectedDepartureCity.value = makeEmailSafeText(
+          selectedOffer?.departureCity || ""
+        );
       }
     }
 
@@ -274,7 +353,9 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
       }
 
       if (selectedDepartureCity) {
-        selectedDepartureCity.value = selectedOffer.departureCity || "";
+        selectedDepartureCity.value = makeEmailSafeText(
+          selectedOffer.departureCity || ""
+        );
       }
 
       if (selectedOffer.terms.length === 1) {
@@ -286,6 +367,15 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
       updateHiddenFields(selectedOffer);
     }
 
+    function showMessage(message, type = "success") {
+      if (!successBox) return;
+
+      successBox.textContent = message;
+      successBox.classList.toggle("is-error", type === "error");
+      successBox.style.display = "block";
+      successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
     campSelect.addEventListener("change", (event) => {
       renderTerms(event.target.value);
     });
@@ -295,13 +385,69 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
       updateHiddenFields(selectedOffer);
     });
 
-    form?.addEventListener("submit", () => {
+    childBirthDateInput?.addEventListener("change", () => {
+      updateBirthDateHiddenField();
+    });
+
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
       const selectedOffer = offersData.find((offer) => offer.slug === campSelect.value);
       updateHiddenFields(selectedOffer);
+      updateBirthDateHiddenField();
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton?.textContent || "";
+      const sendingButtonText =
+        submitButton?.getAttribute("data-sending") || "Wysylanie...";
 
       if (successBox) {
-        successBox.style.display = "block";
-        successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+        successBox.style.display = "none";
+        successBox.classList.remove("is-error");
+      }
+
+      if (submitButton) {
+        submitButton.textContent = sendingButtonText;
+        submitButton.disabled = true;
+      }
+
+      try {
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || "Formularz nie zostal wyslany.");
+        }
+
+        const successMessage =
+          successBox?.getAttribute("data-success") ||
+          "Dziekujemy, formularz zostal wyslany.";
+
+        showMessage(successMessage, "success");
+
+        form.reset();
+        resetTerms();
+        updateBirthDateHiddenField();
+      } catch (error) {
+        const errorMessage =
+          successBox?.getAttribute("data-error") ||
+          "Nie udalo sie wyslac formularza. Sprobuj ponownie.";
+
+        showMessage(errorMessage, "error");
+      } finally {
+        if (submitButton) {
+          submitButton.textContent = originalButtonText;
+          submitButton.disabled = false;
+        }
       }
     });
 
@@ -334,6 +480,12 @@ const t = lang === "pl" ? registrationData.pl : registrationData.en;
     font-weight: 800;
     line-height: 1.65;
     box-shadow: 0 12px 26px rgba(45, 126, 72, 0.08);
+  }
+
+  .form-success-box.is-error {
+    background: rgba(255, 230, 230, 0.92);
+    border-color: rgba(190, 60, 60, 0.25);
+    color: #8a1f1f;
   }
 
   .form-grid-better {
