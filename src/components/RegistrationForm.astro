@@ -21,7 +21,6 @@ const formatDate = (dateStr?: string) => {
 };
 
 const formOffers = offers
-  .filter((offer) => offer && offer.featured !== false)
   .map((offer) => ({
     slug: offer.slug,
     title: lang === "pl" ? offer.pl.title : offer.en.title,
@@ -210,7 +209,7 @@ const childBirthDateLabel =
         </div>
       </form>
 
-      <script type="application/json" id="mkRegistrationOffers" set:html={JSON.stringify(formOffers)} />
+      <script type="application/json" id="mkRegistrationOffers" set:html={JSON.stringify(formOffers).replace(/</g, "\\u003c")} />
     </div>
   </div>
 </section>
@@ -313,7 +312,7 @@ const childBirthDateLabel =
 
       if (selectedTermLabel) {
         selectedTermLabel.value = makeEmailSafeText(
-          selectedTermOption?.textContent?.trim() || ""
+          termSelect.value ? selectedTermOption?.textContent?.trim() || "" : ""
         );
       }
 
@@ -452,6 +451,14 @@ const childBirthDateLabel =
     });
 
     resetTerms();
+    const requestedCamp = new URLSearchParams(window.location.search).get("oboz");
+    const selectedSlug = ["PORONIN 2027", "poronin-zimowy"].includes(requestedCamp)
+      ? "poronin-2027-start"
+      : requestedCamp || campSelect.value;
+    if (offersData.some((offer) => offer.slug === selectedSlug)) {
+      campSelect.value = selectedSlug;
+      renderTerms(selectedSlug);
+    }
   })();
 </script>
 

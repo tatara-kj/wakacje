@@ -1,5 +1,5 @@
 ---
-import type { OfferItem } from "../data/offers";
+import { offerGalleryHref, type OfferItem } from "../data/offers";
 
 interface Props {
   offer: OfferItem;
@@ -10,8 +10,8 @@ const { offer, lang = "pl" } = Astro.props;
 const content = lang === "en" ? offer.en : offer.pl;
 
 const buttonLabel = lang === "pl" ? "Zobacz szczegóły" : "See details";
-const detailsHref = lang === "pl" ? `/oferta#${offer.slug}` : `/en/oferta#${offer.slug}`;
-const galleryHref = lang === "pl" ? `/galeria?oboz=${offer.slug}` : `/en/galeria?oboz=${offer.slug}`;
+const detailsHref = `${lang === "pl" ? "/oferta" : "/en/oferta"}#${encodeURIComponent(offer.slug)}`;
+const galleryHref = offerGalleryHref(offer, lang);
 const galleryLabel =
   lang === "pl"
     ? `Zobacz galerię: ${content.title}`

@@ -1,0 +1,21 @@
+<script is:inline>
+  (() => {
+    function followLegacyOfferLink() {
+      let currentHash;
+      try {
+        currentHash = decodeURIComponent(window.location.hash.slice(1));
+      } catch {
+        return;
+      }
+      if (document.getElementById(currentHash)) return;
+      if (!["PORONIN 2027", "poronin-zimowy"].includes(currentHash)) return;
+      const target = document.getElementById("poronin-2027-start");
+      if (!target) return;
+      history.replaceState(null, "", `${window.location.pathname}${window.location.search}#poronin-2027-start`);
+      target.scrollIntoView({ block: "start" });
+    }
+
+    followLegacyOfferLink();
+    window.addEventListener("hashchange", followLegacyOfferLink);
+  })();
+</script>

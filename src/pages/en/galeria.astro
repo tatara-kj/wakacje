@@ -5,6 +5,8 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PageHero from "../../components/PageHero.astro";
+import GallerySelection from "../../components/GallerySelection.astro";
+import { offers } from "../../data/offers";
 
 const root = process.cwd();
 
@@ -24,32 +26,48 @@ function readImages(folder: string) {
     .readdirSync(dir)
     .filter((name) => /\.(jpg|jpeg|jfif|png|webp)$/i.test(name))
     .sort((a, b) => priority(a) - priority(b) || a.localeCompare(b, "en"))
-    .map((name) => `/images/${folder}/${name}`);
+    .map((name) => `/images/${encodeURIComponent(folder)}/${encodeURIComponent(name)}`);
 }
 
-const sections = [
+const gallerySections = [
   {
+    folder: "jaroslawiec",
     title: "Jaroslawiec",
     subtitle: "Seaside atmosphere, activity and summer energy",
     description:
       "A seaside trip combines movement, shared fun, integration and relaxation. The gallery should show the real feeling of the camp, not just a few cropped shots.",
-    images: readImages("jaroslawiec"),
   },
   {
+    folder: "ostrow-pieckowskie",
     title: "Ostrow Pieckowskie",
     subtitle: "Masuria, nature and active rest",
     description:
       "This destination has a calmer visual atmosphere, closer to nature, but still active and full of energy.",
-    images: readImages("ostrow-pieckowskie"),
   },
   {
+    folder: "poronin-zimowy",
     title: "Poronin",
     subtitle: "Winter trip with a mountain character",
     description:
       "Here the gallery should feel more dynamic and seasonal, with real winter moments and shared activities.",
-    images: readImages("poronin-zimowy"),
   },
 ];
+
+for (const offer of offers) {
+  if (offer.galleryFolder && !gallerySections.some((section) => section.folder === offer.galleryFolder)) {
+    gallerySections.push({
+      folder: offer.galleryFolder,
+      title: offer.en.title,
+      subtitle: offer.en.place,
+      description: offer.en.short,
+    });
+  }
+}
+
+const sections = gallerySections.map((section) => ({
+  ...section,
+  images: readImages(section.folder),
+})).filter((section) => section.images.length > 0);
 ---
 
 <MainLayout title="Gallery" description="MK SPORT gallery" lang="en">
@@ -62,7 +80,7 @@ const sections = [
   />
 
   {sections.map((section) => (
-    <section class="section">
+    <section class="section" id={`galeria-${section.folder}`} style="scroll-margin-top:120px;">
       <div class="container">
         <div class="gallery-band">
           <div class="gallery-band__intro card card-padding-lg">
@@ -83,5 +101,6 @@ const sections = [
     </section>
   ))}
 
+  <GallerySelection />
   <Footer lang="en" />
 </MainLayout>

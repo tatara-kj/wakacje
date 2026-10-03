@@ -3,7 +3,8 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PageHero from "../../components/PageHero.astro";
-import { offers } from "../../data/offers";
+import { offers, offerGalleryHref, offerRegistrationHref } from "../../data/offers";
+import OfferLegacyLinks from "../../components/OfferLegacyLinks.astro";
 ---
 
 <MainLayout title="Offers" description="MK SPORT camps offer" lang="en">
@@ -23,7 +24,9 @@ import { offers } from "../../data/offers";
         return (
           <article class={`offer-detail card ${index % 2 === 1 ? "offer-detail--reverse" : ""}`} id={offer.slug}>
             <div class="offer-detail__image">
-              <img src={offer.image} alt={content.title} class="image-cover" />
+              <a href={offerGalleryHref(offer, "en")} aria-label={`See gallery: ${content.title}`}>
+                <img src={offer.image} alt={content.title} class="image-cover" loading="lazy" />
+              </a>
             </div>
 
             <div class="offer-detail__content">
@@ -84,7 +87,7 @@ import { offers } from "../../data/offers";
               </div>
 
               <div class="offer-detail__actions">
-                <a href="/en/zapisy" class="btn btn-primary">Go to registration</a>
+                <a href={offerRegistrationHref(offer, "en")} class="btn btn-primary">Go to registration</a>
                 <a href="/en/kontakt" class="btn btn-secondary">Ask a question</a>
               </div>
             </div>
@@ -94,5 +97,6 @@ import { offers } from "../../data/offers";
     </div>
   </section>
 
+  <OfferLegacyLinks />
   <Footer lang="en" />
 </MainLayout>

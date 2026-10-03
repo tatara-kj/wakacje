@@ -1,51 +1,12 @@
-import jaroslawiec from "../../content/offers/jaroslawiec.json";
-import ostrowPieckowskie from "../../content/offers/ostrow-pieckowskie.json";
-import poroninZimowy from "../../content/offers/poronin-zimowy.json";
+import { buildOffers } from "./offer-utils";
 
-export type OfferTerm = {
-  label: string;
-  start: string; // YYYY-MM-DD
-  end: string; // YYYY-MM-DD
-};
+export type { OfferContent, OfferItem, OfferTerm } from "./offer-utils";
+export { offerGalleryHref, offerRegistrationHref } from "./offer-utils";
 
-export type OfferItem = {
-  slug: string;
-  image: string;
-  featured: boolean;
-  departureCity: string;
-  terms: OfferTerm[];
-  pl: {
-    title: string;
-    place: string;
-    season: string;
-    age: string;
-    date: string;
-    price: string;
-    short: string;
-    accommodation: string;
-    food: string;
-    transport: string;
-    included: string[];
-    highlights: string[];
-  };
-  en: {
-    title: string;
-    place: string;
-    season: string;
-    age: string;
-    date: string;
-    price: string;
-    short: string;
-    accommodation: string;
-    food: string;
-    transport: string;
-    included: string[];
-    highlights: string[];
-  };
-};
+const documents = import.meta.glob("../../content/offers/**/*.json", {
+  eager: true,
+  import: "default",
+});
 
-export const offers: OfferItem[] = [
-  jaroslawiec,
-  ostrowPieckowskie,
-  poroninZimowy,
-] as OfferItem[];
+// One published list feeds the home page, offer details, countdown and registration.
+export const offers = buildOffers(documents);

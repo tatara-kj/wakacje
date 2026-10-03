@@ -1,0 +1,25 @@
+---
+import { offers } from "../data/offers";
+
+const galleryFolders = Object.fromEntries([
+  ["PORONIN 2027", "poronin-zimowy"],
+  ...offers.filter((offer) => offer.galleryFolder).map((offer) => [offer.slug, offer.galleryFolder]),
+]);
+---
+
+<script type="application/json" id="mkOfferGalleryFolders" set:html={JSON.stringify(galleryFolders).replace(/</g, "\\u003c")} />
+<script is:inline>
+  (() => {
+    const selectedCamp = new URLSearchParams(window.location.search).get("oboz");
+    if (!selectedCamp) return;
+    const folderData = document.getElementById("mkOfferGalleryFolders");
+    const folders = JSON.parse(folderData?.textContent || "{}");
+    const selectedFolder = folders[selectedCamp] || selectedCamp;
+    const section = document.getElementById(`galeria-${selectedFolder}`);
+    if (!section) return;
+    const details = Array.from(document.querySelectorAll("[data-gallery-details]"))
+      .find((element) => element.getAttribute("data-gallery-details") === selectedFolder);
+    if (details) details.open = true;
+    setTimeout(() => section.scrollIntoView({ behavior: "smooth", block: "start" }), 250);
+  })();
+</script>

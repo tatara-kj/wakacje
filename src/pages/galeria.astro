@@ -5,6 +5,8 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PageHero from "../components/PageHero.astro";
+import GallerySelection from "../components/GallerySelection.astro";
+import { offers } from "../data/offers";
 
 const root = process.cwd();
 
@@ -32,6 +34,17 @@ const gallerySections = [
   },
 ];
 
+for (const offer of offers) {
+  if (offer.galleryFolder && !gallerySections.some((section) => section.folder === offer.galleryFolder)) {
+    gallerySections.push({
+      folder: offer.galleryFolder,
+      title: offer.pl.title,
+      subtitle: offer.pl.place,
+      description: offer.pl.short,
+    });
+  }
+}
+
 function readImages(folder: string) {
   const dir = path.join(root, "public", "images", folder);
 
@@ -52,7 +65,7 @@ function readImages(folder: string) {
     .readdirSync(dir)
     .filter((name) => /\.(jpg|jpeg|jfif|png|webp)$/i.test(name))
     .sort((a, b) => priority(a) - priority(b) || a.localeCompare(b, "pl"))
-    .map((name) => `/images/${folder}/${name}`);
+    .map((name) => `/images/${encodeURIComponent(folder)}/${encodeURIComponent(name)}`);
 }
 
 const sections = gallerySections
@@ -193,32 +206,9 @@ const sections = gallerySections
       }
     });
 
-    const params = new URLSearchParams(window.location.search);
-    const selectedCamp = params.get("oboz");
-
-    if (selectedCamp) {
-      const selectedSection = document.querySelector(
-        `[data-gallery-section="${selectedCamp}"]`
-      );
-      const selectedDetails = document.querySelector(
-        `[data-gallery-details="${selectedCamp}"]`
-      );
-
-      if (selectedDetails) {
-        selectedDetails.setAttribute("open", "true");
-      }
-
-      if (selectedSection) {
-        setTimeout(() => {
-          selectedSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }, 250);
-      }
-    }
   </script>
 
+  <GallerySelection />
   <Footer lang="pl" />
 
   <style>

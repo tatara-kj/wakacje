@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
-    "ignoreDeprecations": "6.0"
-  }
+    "baseUrl": "."
+  },
+  "exclude": ["node_modules", "dist", "public/admin", "tina/__generated__"]
 }
