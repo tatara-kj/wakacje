@@ -9,7 +9,7 @@
 "scripts": {
   "dev": "tinacms dev -c \"astro dev\"",
   "build": "astro build",
-"build:tina": "tinacms build --skip-cloud-checks && astro build",
+"build:tina": "tinacms build && astro build",
   "test": "node --experimental-strip-types --test tests/*.test.mjs",
   "preview": "astro preview",
   "astro": "astro"
